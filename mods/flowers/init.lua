@@ -2,7 +2,8 @@
 -- See README.txt for licensing and other information.
 
 -- Map Generation
-dofile(core.get_modpath("flowers").."/mapgen.lua")
+dofile(core.get_modpath('flowers')..'/mapgen.lua')
+dofile(core.get_modpath('flowers')..'/moonflower.lua')
 
 -- Aliases for original flowers mod
 core.register_alias("flowers:flower_dandelion_white", "flowers:dandelion_white")
