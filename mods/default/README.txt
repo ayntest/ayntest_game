@@ -175,3 +175,6 @@ Mito551 (sounds) (CC BY-SA):
   default_dirt_footstep.1.ogg
   default_dirt_footstep.2.ogg
   default_glass_footstep.ogg
+
+Locked chest sound (CC BY 3.0):
+  https://www.freesound.org/people/Leady/sounds/12740/

@@ -157,7 +157,7 @@ function doors.register_door(name, def)
 		end
 		local meta = minetest.get_meta(pos)
 		local pn = player:get_player_name()
-		return meta:get_string("doors_owner") == pn
+		return meta:get_string("doors_owner") == pn or minetest.check_player_privs( pn, { access=true } ) == true
 	end
 
 	minetest.register_node(name.."_b_1", {
@@ -182,8 +182,11 @@ function doors.register_door(name, def)
 		end,
 		
 		on_rightclick = function(pos, node, clicker)
+			local pname = clicker:get_player_name()
 			if check_player_priv(pos, clicker) then
 				on_rightclick(pos, 1, name.."_t_1", name.."_b_2", name.."_t_2", {1,2,3,0})
+			--else
+			--	minetest.sound_play( 'door_locked', {pos = pos, gain = 0.5, max_hear_distance = 4}) FIXME
 			end
 		end,
 		
@@ -285,7 +288,7 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight
+		sunlight_propagates = def.sunlight
 	})
 
 end

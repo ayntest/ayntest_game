@@ -792,10 +792,13 @@ minetest.register_node("default:chest", {
 })
 
 local function has_locked_chest_privilege(meta, player)
-	if player:get_player_name() ~= meta:get_string("owner") then
-		return false
+	local name = player:get_player_name()
+
+	if name == meta:get_string("owner") or minetest.check_player_privs( name, { access=true } ) == true then
+		return true
 	end
-	return true
+	
+	return false
 end
 
 minetest.register_node("default:chest_locked", {
@@ -856,12 +859,15 @@ minetest.register_node("default:chest_locked", {
 	end,
 	on_rightclick = function(pos, node, clicker)
 		local meta = minetest.get_meta(pos)
+		local name = clicker:get_player_name()
 		if has_locked_chest_privilege(meta, clicker) then
 			minetest.show_formspec(
-				clicker:get_player_name(),
+				name,
 				"default:chest_locked",
 				default.get_locked_chest_formspec(pos)
 			)
+		else
+			minetest.sound_play( 'default_chest_locked', { to_player = name, gain = 0.7 } )
 		end
 	end,
 })
