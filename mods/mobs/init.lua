@@ -740,7 +740,6 @@ mobs:register_mob('mobs:chicken', {
 	follow = "farming:wheat",
 	view_range = 5,
 	on_rightclick = function(self, clicker)
-		-- Check for bucket to get milk
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "farming:wheat" then
 			if not self.tamed then
