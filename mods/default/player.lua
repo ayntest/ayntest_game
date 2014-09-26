@@ -91,7 +91,7 @@ function default.player_set_animation(player, anim_name, speed)
 end
 
 -- Update appearance when the player joins
-minetest.register_on_joinplayer(function(player)
+core.register_on_joinplayer(function(player)
 	default.player_attached[player:get_player_name()] = false
 	default.player_set_model(player, "character.x")
 	player:set_local_animation({x=0, y=79}, {x=168, y=187}, {x=189, y=198}, {x=200, y=219}, 30)
@@ -104,7 +104,7 @@ minetest.register_on_joinplayer(function(player)
 	player:hud_set_hotbar_selected_image("gui_hotbar_selected.png")
 end)
 
-minetest.register_on_leaveplayer(function(player)
+core.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()
 	player_model[name] = nil
 	player_anim[name] = nil
@@ -116,7 +116,7 @@ local player_set_animation = default.player_set_animation
 local player_attached = default.player_attached
 
 -- Check each player and apply animations
-minetest.register_globalstep(function(dtime)
+core.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
 		local model_name = player_model[name]
@@ -152,8 +152,35 @@ minetest.register_globalstep(function(dtime)
 			elseif controls.LMB then
 				player_set_animation(player, "mine")
 			else
-				player_set_animation(player, "stand", animation_speed_mod)
+				if player_anim[name] ~= "lay" and player_anim[name] ~= "sit" then
+					player_set_animation(player, "stand", animation_speed_mod)
+				end
 			end
 		end
 	end
 end)
+
+-- chat commands for changing animation to sitting and laying
+core.register_chatcommand("sit",{
+	func = function( name, param )
+		local player = core.get_player_by_name(name)
+		default.player_set_animation(player, "sit")
+		player:set_eye_offset({x=0,y=-5,z=0},{x=0,y=0,z=0})
+	end,
+})
+
+core.register_chatcommand("sleep",{
+	func = function( name, param )
+		local player = core.get_player_by_name(name)
+		default.player_set_animation(player, "lay")
+		player:set_eye_offset({x=0,y=-10,z=0},{x=0,y=0,z=0})
+	end,
+})
+
+core.register_chatcommand("stand",{
+	func = function( name, param )
+		local player = core.get_player_by_name(name)
+		default.player_set_animation(player, "stand")
+		player:set_eye_offset({x=0,y=0,z=0},{x=0,y=0,z=0})
+	end,
+})
