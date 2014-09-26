@@ -56,6 +56,30 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 				if pointed_thing.type ~= "node" then
 					return
 				end
+
+				-- Prevent potential griefing
+				if ( pointed_thing.above.y > -5 and source == 'default:lava_source' ) then
+					if landrush then
+						local chunk = landrush.get_chunk(pointed_thing.above)
+						if ( landrush.claims[chunk] == nil ) then
+							local pname = user:get_player_name()
+							minetest.log("action", pname.." tried to place "..source
+								.. " at position above the limit "
+								.. minetest.pos_to_string(pointed_thing.under)
+								.. " with a bucket")
+							minetest.chat_send_player(pname, 'You can not place lava on unowned areas above the sea level.')
+							return
+						end
+					end
+				elseif ( pointed_thing.above.y > 119 ) then
+					local pname = user:get_player_name()
+					minetest.log("action", pname.." tried to place "..source
+						.. " at position above the limit "
+						.. minetest.pos_to_string(pointed_thing.under)
+						.. " with a bucket")
+					minetest.chat_send_player(pname, 'Placing '..source..' so high above is too risky.')
+					return
+				end
 				
 				local node = minetest.get_node_or_nil(pointed_thing.under)
 				local ndef
