@@ -488,7 +488,7 @@ function mobs:register_mob(name, def)
 				local v = self.object:getvelocity()
 				self.direction = {x=v.x, y=v.y, z=v.z}
 				self.punch_timer = 0
-				self.object:setvelocity({x=dir.x*1.9,y=5,z=dir.z*1.9})
+				self.object:setvelocity({x=dir.x*2.1,y=5,z=dir.z*2.1})
 				-- add wear to sword/tool
 				mobs.add_wear( hitter, tool_capabilities )
 				
