@@ -143,14 +143,6 @@ minetest.register_craft({
 	recipe = 'farming_plus:dough'
 })
 
--- WOOL
-
-minetest.register_craft({
-	type = 'shapeless',
-	output = 'wool:white',
-	recipe = {'farming:cotton', 'farming:cotton', 'farming:cotton', 'farming:cotton'}
-})
-
 -- ========= FUEL =========
 minetest.register_craft({
 	type = "fuel",

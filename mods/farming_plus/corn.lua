@@ -6,7 +6,7 @@ minetest.register_craftitem('farming_plus:corn_seed', {
 	description = S('Corn Seeds'),
 	inventory_image = 'cornseed.png',
 	on_place = function(itemstack, placer, pointed_thing)
-		return farming:place_seed(itemstack, placer, pointed_thing, 'farming_plus:corn_1')
+		return farming.place_seed(itemstack, placer, pointed_thing, 'farming_plus:corn_1')
 	end
 })
 
@@ -131,7 +131,7 @@ minetest.register_craftitem('farming_plus:corn_item', {
 	inventory_image = 'corn.png',
 })
 
-farming:add_plant('farming_plus:corn',
+farming.add_plant('farming_plus:corn',
 { 'farming_plus:corn_1', 'farming_plus:corn_2', 'farming_plus:corn_3', 'farming_plus:corn_4', 'farming_plus:corn_5', 'farming_plus:corn_6'},
 50,
 20)
