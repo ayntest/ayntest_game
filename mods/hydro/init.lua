@@ -140,7 +140,7 @@ for _,plant in pairs(PLANTS) do
 	})
 	minetest.register_node("hydro:seeds_"..plant.name, {
 		description = plant.description.." Seeds",
-		drawtype = "signlike",
+		drawtype = 'signlike',
 		tile_images = {"hydro_seeds.png"},
 		inventory_image = "hydro_seeds.png",
 		wield_image = "hydro_seeds.png",
@@ -151,15 +151,13 @@ for _,plant in pairs(PLANTS) do
 		climbable = false,
 		selection_box = {
 			type = "wallmounted",
-			--wall_top = = <default>
-			--wall_bottom = = <default>
-			--wall_side = = <default>
 		},
 		groups = {
-			snappy=2,
-			choppy=2,
-			oddly_breakable_by_hand=3,
-			not_in_creative_inventory=1
+				attached_node=1,
+				choppy=2,
+				not_in_creative_inventory=1,
+				oddly_breakable_by_hand=3,
+				snappy=2
 			},
 		legacy_wallmounted = true,
 		sounds = default.node_sound_wood_defaults(),
