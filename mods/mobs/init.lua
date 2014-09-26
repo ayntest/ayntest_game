@@ -14,7 +14,7 @@ mobs:register_mob("mobs:dirt_monster", {
 	walk_velocity = 1.1,
 	run_velocity = 2.6,
 	on_rightclick = nil,
-	damage = 4,
+	damage = 3,
 	drops = {
 		{
 		name = "default:dirt",
@@ -76,7 +76,7 @@ mobs:register_mob("mobs:stone_monster", {
 	view_range = 16,
 	walk_velocity = 0.4,
 	run_velocity = 1.8,
-	damage = 6,
+	damage = 5,
 	drops = {
 		{
 		name = "default:stone",
@@ -414,7 +414,7 @@ mobs:register_mob("mobs:tree_monster", {
 	view_range = 32,
 	walk_velocity = 0,
 	run_velocity = 1.6,
-	damage = 6,
+	damage = 4,
 	drops = {
 		{
 		name = "default:sapling",
@@ -713,13 +713,13 @@ if not minetest.setting_getbool("creative_mode") then
 	if minetest.setting_getbool("spawn_hostile_mobs") ~= false then
 		local mn = {"default:stone" }
 		local dn = { 'default:dirt_with_grass', 'default:dirt' }
-		local sn = { 'default:desert_stone', 'default:desert_sand' }
+		local sn = { 'default:desert_stone', 'default:desert_sand', 'default:sand' }
 		local tn = { 'default:jungletree', 'default:tree', 'default:leaves' }
-		mobs:register_spawn('mobs:dirt_monster', 'Dirt monster',		dn, 1, -1, 40000, 6, 80, true)
-		mobs:register_spawn('mobs:stone_monster', 'Stone monster',		mn, 1, -1, 40000, 4, -100, true)
-		mobs:register_spawn('mobs:sand_monster', 'Sand monster',		sn, 1, -1, 40000, 4, 80, true)
+		mobs:register_spawn('mobs:dirt_monster', 'Dirt monster',		dn, 1, -1, 45000, 6, 80, true)
+		mobs:register_spawn('mobs:stone_monster', 'Stone monster',		mn, 1, -1, 45000, 4, -100, true)
+		mobs:register_spawn('mobs:sand_monster', 'Sand monster',		sn, 1, -1, 12000, 4, 80, true)
 		mobs:register_spawn('mobs:oerkki', 'Oerkki',					mn, 1, -1, 20000, 4, -1500, true)
-		mobs:register_spawn('mobs:tree_monster', 'Tree monster',		tn, 1, -1, 15000, 2, 80, true)
+		mobs:register_spawn('mobs:tree_monster', 'Tree monster',		tn, 1, -1, 25000, 2, 80, true)
 		mobs:register_spawn('mobs:dungeon_master', 'Dungeon master',	mn, 1, -1, 35000, 2, -2500, true)
 		--mobs:register_spawn("mobs:rhino", "Rhino",					mn, 1, -1, 25000, 2, 0, true)
 	end
