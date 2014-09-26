@@ -701,6 +701,58 @@ mobs:register_arrow("mobs:bullet", {
 	end
 })
 
+mobs:register_mob('mobs:chicken', {
+	type = "animal",
+	hp_max = 5,
+	animaltype = "clucky",
+	collisionbox = {-0.3, -0.75, -0.3, 0.3, 0.1, 0.3},
+	textures = {
+			'mobs_chicken.png'
+		},
+	visual = 'mesh',
+	mesh = 'mobs_chicken.x',
+	makes_footstep_sound = true,
+	walk_velocity = 1,
+	armor = 200,
+	drops = {
+		{
+			name = "mobs:meat_raw",
+			chance = 1,
+			min = 1,
+			max = 2
+		},
+	},
+	drawtype = "front",
+	water_damage = 1,
+	lava_damage = 5,
+	light_damage = 0,
+	jump = false,
+	sounds = {
+	--	random = "",
+	},
+	animation = {
+		speed_normal = 15,
+		stand_start = 0,
+		stand_end = 20,
+		walk_start = 20,
+		walk_end = 40,
+	},
+	follow = "farming:wheat",
+	view_range = 5,
+	on_rightclick = function(self, clicker)
+		-- Check for bucket to get milk
+		local item = clicker:get_wielded_item()
+		if item:get_name() == "farming:wheat" then
+			if not self.tamed then
+				item:take_item()
+				clicker:set_wielded_item(item)
+				self.tamed = true
+			return
+			end
+		end
+	end
+})
+
 -- mobs:register_spawn(name, description, nodes, max_light, min_light, chance, active_object_count, max_height, is_hostile)
 
 if not minetest.setting_getbool("creative_mode") then
