@@ -2,7 +2,7 @@
 local S
 S = farming.S
 
--- CORN
+-- ========= CORN =========
 
 minetest.register_craftitem('farming_plus:corn_grilled', {
 	description = S('Grilled Corn'),
@@ -41,7 +41,34 @@ minetest.register_craft({
 	recipe = {'farming_plus:corn_item'},
 })
 
--- TOMATO
+-- ========= PUMPKIN =========
+minetest.register_craftitem(":farming:pumpkin_bread", {
+	description = S("Pumpkin Bread"),
+	inventory_image = "farming_bread_pumpkin.png",
+	stack_max = 1,
+	on_use = minetest.item_eat(8)
+})
+
+minetest.register_craftitem(":farming:pumpkin_flour", {
+	description = "Pumpkin Flour",
+	inventory_image = "farming_cake_mix_pumpkin.png",
+})
+minetest.register_alias("farming:pumpkin_cake_mix", "farming:pumpkin_flour")
+
+minetest.register_craft({
+	output = "farming:pumpkin_flour",
+	type = "shapeless",
+	recipe = {"farming:flour", "farming:pumpkin"}
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "farming:pumpkin_bread",
+	recipe = "farming:pumpkin_flour",
+	cooktime = 10
+})
+
+-- ========= TOMATO =========
 
 minetest.register_craftitem('farming_plus:tomato_sauce', {
 	description = S('Ketchup'),
@@ -122,4 +149,47 @@ minetest.register_craft({
 	type = 'shapeless',
 	output = 'wool:white',
 	recipe = {'farming:cotton', 'farming:cotton', 'farming:cotton', 'farming:cotton'}
+})
+
+-- ========= FUEL =========
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:pumpkin_seed",
+	burntime = 1
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:pumpkin",
+	burntime = 5
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:pumpkin_face",
+	burntime = 5
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:pumpkin_face_light",
+	burntime = 7
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:big_pumpkin",
+	burntime = 10
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:scarecrow",
+	burntime = 5
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:scarecrow_light",
+	burntime = 5
 })

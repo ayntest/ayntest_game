@@ -8,7 +8,7 @@ else
 	farming.S = function ( s ) return s end
 end
 
-function farming:add_plant(full_grown, names, interval, chance)
+function farming.add_plant(full_grown, names, interval, chance)
 	minetest.register_abm({
 		nodenames = names,
 		interval = interval,
@@ -51,7 +51,7 @@ function farming:add_plant(full_grown, names, interval, chance)
 	})
 end
 
-function farming:generate_tree(pos, trunk, leaves, underground, replacements)
+function farming.generate_tree(pos, trunk, leaves, underground, replacements)
 	pos.y = pos.y-1
 	local nodename = minetest.get_node(pos).name
 	local ret = true
@@ -211,7 +211,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
         end
 end)
 
-function farming:place_seed(itemstack, placer, pointed_thing, plantname)
+function farming.place_seed(itemstack, placer, pointed_thing, plantname)
 
 	-- Call on_rightclick if the pointed node defines it
 	if pointed_thing.type == "node" and placer and
@@ -255,30 +255,16 @@ function farming:place_seed(itemstack, placer, pointed_thing, plantname)
 	end
 
 	-- check if pointing at soil
-	if minetest.get_item_group(under.name, "soil") <= 1 then
+	if core.get_item_group(under.name, "soil") <= 2 then
 		return
 	end
 
 	-- add the node and remove 1 item from the itemstack
-	minetest.add_node(pt.above, {name=plantname})
+	minetest.add_node(pt.above, {name=plantname, param2 = 1})
 	if not minetest.setting_getbool("creative_mode") then
 		itemstack:take_item()
 	end
 	return itemstack
-end
-
--- ========= ALIASES FOR FARMING MOD BY SAPIER =========
--- potatoe -> potatoe
-minetest.register_alias("farming:potatoe_node", "farming_plus:potatoe")
---minetest.register_alias("farming:potatoe", "farming:potatoe_item") cant do this
-minetest.register_alias("farming:potatoe_straw", "farming_plus:potatoe")
-minetest.register_alias("farming:seed_potatoe", "farming_plus:potatoe_seed")
-for lvl = 1, 6, 1 do
-	minetest.register_entity(":farming:potatoe_lvl"..lvl, {
-		on_activate = function(self, staticdata)
-			minetest.set_node(self.object:getpos(), {name="farming_plus:potatoe_1"})
-		end
-	})
 end
 
 --[[
@@ -307,7 +293,7 @@ dofile(minetest.get_modpath("farming_plus").."/cocoa.lua")
 dofile(minetest.get_modpath("farming_plus").."/corn.lua")
 
 -- ========= COTTON =========
-dofile(minetest.get_modpath("farming_plus").."/cotton.lua")
+--dofile(minetest.get_modpath("farming_plus").."/cotton.lua")
 
 -- ========= STRAWBERRIES =========
 dofile(minetest.get_modpath("farming_plus").."/strawberries.lua")
@@ -331,7 +317,7 @@ dofile(minetest.get_modpath("farming_plus").."/pumpkin.lua")
 dofile(minetest.get_modpath("farming_plus").."/weed.lua")
 
 -- ========= WHEAT =========
-dofile(minetest.get_modpath("farming_plus").."/wheat.lua")
+--dofile(minetest.get_modpath("farming_plus").."/wheat.lua")
 
 -- ========= CRAFT =========
 dofile(minetest.get_modpath("farming_plus").."/craft.lua")

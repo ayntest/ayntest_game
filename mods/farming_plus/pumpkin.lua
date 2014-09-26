@@ -6,7 +6,7 @@ minetest.register_craftitem(":farming:pumpkin_seed", {
 	description = S("Pumpkin Seed"),
 	inventory_image = "farming_pumpkin_seed.png",
 	on_place = function(itemstack, placer, pointed_thing)
-		return farming:place_seed(itemstack, placer, pointed_thing, "farming:pumpkin_1")
+		return farming.place_seed(itemstack, placer, pointed_thing, "farming:pumpkin_1")
 	end
 })
 
@@ -74,7 +74,7 @@ minetest.register_node(":farming:pumpkin", {
 	end
 })
 
-farming:add_plant("farming:pumpkin", {"farming:pumpkin_1", "farming:pumpkin_2"}, 80, 20)
+farming.add_plant("farming:pumpkin", {"farming:pumpkin_1", "farming:pumpkin_2"}, 80, 20)
 
 minetest.register_node(":farming:pumpkin_face", {
 	description = S("Pumpkin Face"),
@@ -110,7 +110,12 @@ minetest.register_node(":farming:big_pumpkin", {
 			{-1, -0.5, -1, 1, 1.5, 1}
 		}
 	},
-	groups = {choppy=1, oddly_breakable_by_hand=1, flammable=2},
+	groups = {
+			choppy=1,
+			flammable=2,
+			not_in_creative_inventory=1,
+			oddly_breakable_by_hand=1
+		},
 	sounds = default.node_sound_wood_defaults(),
 	
 	after_place_node = function(pos, placer)
@@ -406,75 +411,4 @@ minetest.register_craft({
 		{"default:stick", "default:stick", "default:stick",},
 		{"", "default:stick", "",}
 	}
-})
-
---===============
-minetest.register_craftitem(":farming:pumpkin_bread", {
-	description = S("Pumpkin Bread"),
-	inventory_image = "farming_bread_pumpkin.png",
-	stack_max = 1,
-	on_use = minetest.item_eat(8)
-})
-
-minetest.register_craftitem(":farming:pumpkin_flour", {
-	description = "Pumpkin Flour",
-	inventory_image = "farming_cake_mix_pumpkin.png",
-})
-minetest.register_alias("farming:pumpkin_cake_mix", "farming:pumpkin_flour")
-
-minetest.register_craft({
-	output = "farming:pumpkin_flour",
-	type = "shapeless",
-	recipe = {"farming:flour", "farming:pumpkin"}
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "farming:pumpkin_bread",
-	recipe = "farming:pumpkin_flour",
-	cooktime = 10
-})
-
-
--- ========= FUEL =========
-minetest.register_craft({
-	type = "fuel",
-	recipe = "farming:pumpkin_seed",
-	burntime = 1
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "farming:pumpkin",
-	burntime = 5
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "farming:pumpkin_face",
-	burntime = 5
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "farming:pumpkin_face_light",
-	burntime = 7
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "farming:big_pumpkin",
-	burntime = 10
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "farming:scarecrow",
-	burntime = 5
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "farming:scarecrow_light",
-	burntime = 5
 })

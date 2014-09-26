@@ -6,7 +6,7 @@ minetest.register_craftitem("farming_plus:potato_seed", {
 	description = ("Potato Seeds"),
 	inventory_image = "farming_potato_seed.png",
 	on_place = function(itemstack, placer, pointed_thing)
-		return farming:place_seed(itemstack, placer, pointed_thing, "farming_plus:potato_1")
+		return farming.place_seed(itemstack, placer, pointed_thing, "farming_plus:potato_1")
 	end
 })
 
@@ -67,11 +67,4 @@ minetest.register_craftitem("farming_plus:potato_item", {
 	inventory_image = "potato.png",
 })
 
-farming:add_plant("farming_plus:potato", {"farming_plus:potato_1", "farming_plus:potato_2"}, 50, 20)
-
-minetest.register_alias("farming_plus:potatoe_item", "farming_plus:potato_item")
-minetest.register_alias("farming_plus:potatoe_seed", "farming_plus:potato_seed")
-minetest.register_alias("farming_plus:potatoe", "farming_plus:potato")
-minetest.register_alias("farming_plus:potatoe_1", "farming_plus:potato_1")
-minetest.register_alias("farming_plus:potatoe_2", "farming_plus:potato_2")
-
+farming.add_plant("farming_plus:potato", {"farming_plus:potato_1", "farming_plus:potato_2"}, 50, 20)
