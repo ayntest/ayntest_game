@@ -10,6 +10,10 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing, uses)
 		return
 	end
 	
+	if minetest.is_protected( pt.under, user:get_player_name() ) then
+		return
+	end
+	
 	local under = minetest.get_node(pt.under)
 	local p = {x=pt.under.x, y=pt.under.y+1, z=pt.under.z}
 	local above = minetest.get_node(p)
