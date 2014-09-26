@@ -219,13 +219,33 @@ local function boom(pos)
 	add_effects(pos, radius)
 end
 
+local tnt_max_height = -500
 minetest.register_node("tnt:tnt", {
 	description = "TNT",
 	tiles = {"tnt_top.png", "tnt_bottom.png", "tnt_side.png"},
-	groups = {dig_immediate=2, mesecon=2},
+	groups = {
+		dig_immediate=2,
+		mesecon=2,
+		not_in_creative_inventory=1
+		},
 	sounds = default.node_sound_wood_defaults(),
+
+	on_place = function(itemstack, placer, pointed_thing)
+		if ( pointed_thing.above.y > tnt_max_height ) then
+			core.chat_send_player( placer:get_player_name(), 'Cannot place TNT above ' .. tnt_max_height )
+			return itemstack
+		end
+
+		core.add_node(
+				pointed_thing.above,
+				{ name='tnt:tnt' }
+			)
+		itemstack:take_item()
+		return itemstack
+	end,
+
 	on_punch = function(pos, node, puncher)
-		if puncher:get_wielded_item():get_name() == "default:torch" then
+		if false and puncher:get_wielded_item():get_name() == "default:torch" then
 			minetest.sound_play("tnt_ignite", {pos=pos})
 			minetest.set_node(pos, {name="tnt:tnt_burning"})
 			minetest.get_node_timer(pos):start(4)
