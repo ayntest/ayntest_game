@@ -535,9 +535,9 @@ function mobs:register_spawn(name, description, nodes, max_light, min_light, cha
 			-- if players == 0 then return end
 			if active_object_count_wider > active_object_count then return end
 			
-			if is_hostile and landrush then -- don't spawn hostile mobs on owned areas
+			if is_hostile then -- don't spawn hostile mobs on owned areas
 				local chunk = landrush.get_chunk( pos )
-				if landrush.claims[chunk] == nil then
+				if landrush.claims[chunk] ~= nil then
 					return
 				end
 			end
