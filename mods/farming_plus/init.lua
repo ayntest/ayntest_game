@@ -293,7 +293,7 @@ dofile(minetest.get_modpath("farming_plus").."/cocoa.lua")
 dofile(minetest.get_modpath("farming_plus").."/corn.lua")
 
 -- ========= COTTON =========
---dofile(minetest.get_modpath("farming_plus").."/cotton.lua")
+dofile(minetest.get_modpath("farming_plus").."/cotton.lua")
 
 -- ========= STRAWBERRIES =========
 dofile(minetest.get_modpath("farming_plus").."/strawberries.lua")
@@ -317,7 +317,7 @@ dofile(minetest.get_modpath("farming_plus").."/pumpkin.lua")
 dofile(minetest.get_modpath("farming_plus").."/weed.lua")
 
 -- ========= WHEAT =========
---dofile(minetest.get_modpath("farming_plus").."/wheat.lua")
+dofile(minetest.get_modpath("farming_plus").."/wheat.lua")
 
 -- ========= CRAFT =========
 dofile(minetest.get_modpath("farming_plus").."/craft.lua")
