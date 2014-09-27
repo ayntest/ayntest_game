@@ -14,7 +14,7 @@ mobs:register_mob("mobs:dirt_monster", {
 	walk_velocity = 1.1,
 	run_velocity = 2.6,
 	on_rightclick = nil,
-	damage = 3,
+	damage = 1,
 	drops = {
 		{
 		name = "default:dirt",
@@ -76,7 +76,7 @@ mobs:register_mob("mobs:stone_monster", {
 	view_range = 16,
 	walk_velocity = 0.4,
 	run_velocity = 1.8,
-	damage = 5,
+	damage = 1,
 	drops = {
 		{
 		name = "default:stone",
@@ -137,7 +137,7 @@ mobs:register_mob("mobs:sand_monster", {
 	view_range = 20,
 	walk_velocity = 1.8,
 	run_velocity = 3.6,
-	damage = 2,
+	damage = 1,
 	drops = {
 		{
 		name = "default:sand",
@@ -351,7 +351,7 @@ mobs:register_mob("mobs:oerkki", {
 	view_range = 16,
 	walk_velocity = 0.5,
 	run_velocity = 3,
-	damage = 5,
+	damage = 2,
 	drops = {
 		{
 		name = "default:obsidian",
@@ -369,7 +369,7 @@ mobs:register_mob("mobs:oerkki", {
 	armor = 100,
 	drawtype = "front",
 	lava_damage = 8,
-	light_damage = 1,
+	light_damage = 2,
 	attack_type = "dogfight",
 	animation = {
 		stand_start = 0,
@@ -403,7 +403,7 @@ minetest.register_craftitem("mobs:oerkki", {
 
 mobs:register_mob("mobs:tree_monster", {
 	type = "monster",
-	hp_max = 30,
+	hp_max = 20,
 	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.9, 0.4},
 	visual = "mesh",
 	mesh = "mobs_tree_monster.x",
@@ -413,7 +413,7 @@ mobs:register_mob("mobs:tree_monster", {
 	view_range = 32,
 	walk_velocity = 0,
 	run_velocity = 1.6,
-	damage = 4,
+	damage = 2,
 	drops = {
 		{
 		name = "default:sapling",
@@ -472,7 +472,7 @@ minetest.register_craftitem("mobs:tree_monster", {
 
 mobs:register_mob("mobs:dungeon_master", {
 	type = "monster",
-	hp_max = 40,
+	hp_max = 25,
 	collisionbox = {-0.7, -0.01, -0.7, 0.7, 2.6, 0.7},
 	visual = "mesh",
 	mesh = "mobs_dungeon_master.x",
@@ -482,7 +482,7 @@ mobs:register_mob("mobs:dungeon_master", {
 	view_range = 12,
 	walk_velocity = 0.4,
 	run_velocity = 2,
-	damage = 10,
+	damage = 3,
 	drops = {
 		{
 		name = "default:mese_crystal",
@@ -494,7 +494,7 @@ mobs:register_mob("mobs:dungeon_master", {
 		name = 'bitchange:minecoin',
 		chance = 1,
 		min = 1,
-		max = 5,
+		max = 4,
 		},
 	},
 	armor = 60,
@@ -547,7 +547,7 @@ mobs:register_arrow("mobs:fireball", {
 		local vec = {x = s.x - p.x, y = s.y - p.y, z = s.z - p.z}
 		player:punch(self.object, 1.0,  {
 			full_punch_interval = 1.0,
-			damage_groups = {fleshy = 10},
+			damage_groups = {fleshy = 5},
 		}, vec)
 		local pos = self.object:getpos()
 		for dx = -1, 1 do
@@ -557,9 +557,11 @@ mobs:register_arrow("mobs:fireball", {
 					local n = minetest.get_node(pos).name
 					if n ~= "bedrock:bedrock"
 						and n ~= "default:chest_locked"
-						and n ~= "bones:bones"
+						and n ~= 'default:obsidian'
 						and n ~= "default:chest"
-						and n ~= "default:furnace" then
+						and n ~= "default:furnace"
+						and n ~= 'travelnet:travelnet'
+						and n ~= 'travelnet:elevator' then
 						minetest.dig_node(p)
 					end
 					minetest.sound_play( 'mobs_fireball_explode',
@@ -577,13 +579,20 @@ mobs:register_arrow("mobs:fireball", {
 			for dy = -2, 1 do
 				for dz = -1, 1 do
 					local p = {x = pos.x + dx, y = pos.y + dy, z = pos.z + dz}
-					local n = minetest.get_node(pos).name
+					local n = core.get_node(pos).name
 					if n ~= "bedrock:bedrock"
 						and n ~= "default:chest_locked"
-						and n ~= "bones:bones"
+						and n ~= 'default:obsidian'
 						and n ~= "default:chest"
-						and n ~= "default:furnace" then
-						minetest.dig_node(p)
+						and n ~= "default:furnace"
+						and n ~= 'travelnet:travelnet'
+						and n ~= 'travelnet:elevator' then
+						
+						if false and core.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
+							core.set_node(p, {name="fire:basic_flame"})
+						else
+							core.remove_node(p)
+						end
 					end
 					minetest.sound_play("mobs_fireball_explode",
 						{
@@ -765,12 +774,12 @@ if not minetest.setting_getbool("creative_mode") then
 		local dn = { 'default:dirt_with_grass' }
 		local sn = { 'default:desert_stone', 'default:desert_sand', 'default:sand' }
 		local tn = { 'default:jungletree', 'default:tree', 'default:leaves' }
-		mobs:register_spawn('mobs:dirt_monster', 'Dirt monster',		dn, 1, -1, 50000, 6, 80, true)
-		mobs:register_spawn('mobs:stone_monster', 'Stone monster',		mn, 1, -1, 45000, 4, -100, true)
-		mobs:register_spawn('mobs:sand_monster', 'Sand monster',		sn, 1, -1, 12000, 4, 80, true)
-		mobs:register_spawn('mobs:oerkki', 'Oerkki',					mn, 1, -1, 20000, 4, -1500, true)
-		mobs:register_spawn('mobs:tree_monster', 'Tree monster',		tn, 1, -1, 25000, 2, 80, true)
-		mobs:register_spawn('mobs:dungeon_master', 'Dungeon master',	mn, 1, -1, 35000, 2, -2500, true)
+		mobs:register_spawn('mobs:dirt_monster', 'Dirt monster',		dn, 1, -1, 50000, 1, 80, true)
+		mobs:register_spawn('mobs:stone_monster', 'Stone monster',		mn, 1, -1, 45000, 1, -100, true)
+		mobs:register_spawn('mobs:sand_monster', 'Sand monster',		sn, 1, -1, 12000, 1, 80, true)
+		mobs:register_spawn('mobs:oerkki', 'Oerkki',					mn, 1, -1, 20000, 1, -1500, true)
+		mobs:register_spawn('mobs:tree_monster', 'Tree monster',		tn, 1, -1, 25000, 1, 80, true)
+		mobs:register_spawn('mobs:dungeon_master', 'Dungeon master',	mn, 1, -1, 45000, 1, -2500, true)
 		--mobs:register_spawn("mobs:rhino", "Rhino",					mn, 1, -1, 25000, 2, 0, true)
 	end
 end
