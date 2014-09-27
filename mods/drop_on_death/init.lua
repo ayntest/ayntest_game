@@ -2,17 +2,17 @@
 
 -- make sure items are not floating in the mid-air
 local function find_ground( pos )
-	for i=-1,14,1 do
+	for i=-1,12,1 do
 		local n = core.get_node_or_nil( { x = pos.x, y = pos.y - i, z = pos.z } )
 		if n and n.name then
 			local def = core.registered_nodes[n.name]
 			if def and def.walkable then
-				pos.y =  math.floor( pos.y - i + 1.5 )
+				pos.y = pos.y - i + 1.5
 				return pos
 			end
 		end
 	end
-	pos.y =  math.floor( pos.y + 0.5 )
+	pos.y = pos.y + 0.5
 	return pos
 end
 
