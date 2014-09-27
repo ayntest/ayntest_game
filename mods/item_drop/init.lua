@@ -1,3 +1,10 @@
+local function is_good( object )
+	return not object:is_player() 
+		and object:get_luaentity()
+		and object:get_luaentity().name == "__builtin:item"
+		and object:get_luaentity().age > 3
+end
+
 local timer = 0
 core.register_globalstep(function(dtime)
 	timer = timer + dtime;
@@ -5,20 +12,17 @@ core.register_globalstep(function(dtime)
 		for _,player in ipairs(minetest.get_connected_players()) do
 			if player:get_hp() > 0 then
 				local pos = player:getpos()
-				pos.y = pos.y+0.5
+				pos.y = pos.y - 0.1
 				local inv = player:get_inventory()
 				
 				for _,object in ipairs(minetest.env:get_objects_inside_radius(pos, 0.7)) do
-					if not object:is_player()
-						and object:get_luaentity()
-						and object:get_luaentity().name == "__builtin:item"
-						and (object:get_luaentity().dropped_by ~= player:get_player_name() or object:get_luaentity().age > 3) then
+					if is_good( object ) then
 						if inv and inv:room_for_item("main", ItemStack(object:get_luaentity().itemstring)) then
 							inv:add_item("main", ItemStack(object:get_luaentity().itemstring))
 							if object:get_luaentity().itemstring ~= "" then
 								minetest.sound_play("item_drop_pickup", {
 									to_player = player:get_player_name(),
-									gain = 0.5,
+									gain = 0.4,
 								})
 							end
 							object:get_luaentity().itemstring = ''
