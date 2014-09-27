@@ -3,7 +3,7 @@ dofile(minetest.get_modpath('mobs') .. '/crafts.lua')
 
 mobs:register_mob("mobs:dirt_monster", {
 	type = "monster",
-	hp_max = 20,
+	hp_max = 15,
 	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.9, 0.4},
 	visual = "mesh",
 	mesh = "mobs_stone_monster.x",
@@ -66,7 +66,7 @@ minetest.register_craftitem("mobs:dirt_monster", {
 
 mobs:register_mob("mobs:stone_monster", {
 	type = "monster",
-	hp_max = 25,
+	hp_max = 20,
 	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.9, 0.4},
 	visual = "mesh",
 	mesh = "mobs_stone_monster.x",
@@ -341,7 +341,7 @@ minetest.register_craftitem("mobs:rat", {
 
 mobs:register_mob("mobs:oerkki", {
 	type = "monster",
-	hp_max = 25,
+	hp_max = 20,
 	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.9, 0.4},
 	visual = "mesh",
 	mesh = "mobs_oerkki.x",
@@ -403,7 +403,7 @@ minetest.register_craftitem("mobs:oerkki", {
 
 mobs:register_mob("mobs:tree_monster", {
 	type = "monster",
-	hp_max = 40,
+	hp_max = 30,
 	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1.9, 0.4},
 	visual = "mesh",
 	mesh = "mobs_tree_monster.x",
@@ -472,7 +472,7 @@ minetest.register_craftitem("mobs:tree_monster", {
 
 mobs:register_mob("mobs:dungeon_master", {
 	type = "monster",
-	hp_max = 50,
+	hp_max = 40,
 	collisionbox = {-0.7, -0.01, -0.7, 0.7, 2.6, 0.7},
 	visual = "mesh",
 	mesh = "mobs_dungeon_master.x",
@@ -706,7 +706,7 @@ mobs:register_mob('mobs:chicken', {
 	animaltype = "clucky",
 	collisionbox = {-0.3, -0.75, -0.3, 0.3, 0.1, 0.3},
 	textures = {
-			'mobs_chicken.png'
+			'mobs_chicken.png' -- missing texture
 		},
 	visual = 'mesh',
 	mesh = 'mobs_chicken.x',
@@ -758,14 +758,14 @@ if not minetest.setting_getbool("creative_mode") then
 		local rn = { 'default:jungleleaves', "default:cactus"}
 		local sn = { 'default:grass_4' }
 		mobs:register_spawn("mobs:rat", "Rat",							rn, 16,-1, 75000, 6, 50, false)
-		mobs:register_spawn("mobs:sheep", "Sheep",						sn, 16, 8, 20000, 2, 100, false)
+		mobs:register_spawn("mobs:sheep", "Sheep",						sn, 16, 8, 15000, 2, 100, false)
 	end
 	if minetest.setting_getbool("spawn_hostile_mobs") ~= false then
 		local mn = {"default:stone" }
-		local dn = { 'default:dirt_with_grass', 'default:dirt' }
+		local dn = { 'default:dirt_with_grass' }
 		local sn = { 'default:desert_stone', 'default:desert_sand', 'default:sand' }
 		local tn = { 'default:jungletree', 'default:tree', 'default:leaves' }
-		mobs:register_spawn('mobs:dirt_monster', 'Dirt monster',		dn, 1, -1, 45000, 6, 80, true)
+		mobs:register_spawn('mobs:dirt_monster', 'Dirt monster',		dn, 1, -1, 50000, 6, 80, true)
 		mobs:register_spawn('mobs:stone_monster', 'Stone monster',		mn, 1, -1, 45000, 4, -100, true)
 		mobs:register_spawn('mobs:sand_monster', 'Sand monster',		sn, 1, -1, 12000, 4, 80, true)
 		mobs:register_spawn('mobs:oerkki', 'Oerkki',					mn, 1, -1, 20000, 4, -1500, true)
