@@ -51,8 +51,10 @@ core.register_on_dieplayer( function(player)
 	player_inv:set_list("main", {})
 	player_inv:set_list("craft", {})
 	
-	core.chat_send_player( player_name, 'You have perished at ' .. core.pos_to_string( pos ) )
-	core.chat_send_player( player_name, 'Hurry up! You have ' .. tonumber( core.setting_get( 'item_entity_ttl' ) ) .. ' seconds to pick up your stuff.' )
+	local ttl = tonumber( core.setting_get( 'item_entity_ttl' ) ) or '???'
+	local pos_str = core.pos_to_string( pos ) or '???'
+	core.chat_send_player( player_name, 'You have perished at ' .. pos_str )
+	core.chat_send_player( player_name, 'Hurry up! You have ' .. ttl .. ' seconds to pick up your stuff.' )
 	return
 end)
 
