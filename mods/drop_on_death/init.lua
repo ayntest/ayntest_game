@@ -12,10 +12,13 @@ local function find_ground( pos )
 			end
 		end
 	end
+	pos.y =  math.floor( pos.y + 0.5 )
+	return pos
 end
 
-core.register_on_dieplayer(function(player)
-	if core.setting_getbool("creative_mode") then
+core.register_on_dieplayer( function(player)
+	local player_name = player:get_player_name()
+	if minetest.check_player_privs( player_name, { server=true } ) == true then
 		return
 	end
 	
@@ -31,7 +34,6 @@ core.register_on_dieplayer(function(player)
 	pos.z = math.floor( pos.z + 0.6 )
 	pos.x = math.floor( pos.x + 0.6 )
 
-	local player_name = player:get_player_name()
 	local player_inv = player:get_inventory()
 
 	-- drop items
