@@ -140,6 +140,9 @@ core.register_globalstep(function(dtime)
 			if player:get_hp() == 0 then
 				player_set_animation(player, "lay")
 			elseif walking then
+				if player_anim[name] == "lay" or player_anim[name] == "sit" then
+					player:set_eye_offset({x=0,y=0,z=0},{x=0,y=0,z=0})
+				end
 				if player_sneak[name] ~= controls.sneak then
 					player_anim[name] = nil
 					player_sneak[name] = controls.sneak
