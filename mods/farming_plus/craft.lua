@@ -133,7 +133,7 @@ minetest.register_alias('farming:bread', 'farming_plus:bread')
 minetest.register_craft({
 	type = 'shapeless',
 	output = 'farming_plus:flour',
-	recipe = {'farming_plus:wheat', 'farming_plus:wheat', 'farming_plus:wheat', 'farming_plus:wheat'}
+	recipe = {'farming:wheat', 'farming:wheat', 'farming:wheat', 'farming:wheat'}
 })
 
 minetest.register_craft({
