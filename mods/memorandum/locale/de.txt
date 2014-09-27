@@ -1,0 +1,14 @@
+# Translation by Xanthin
+
+On this piece of paper is written: " = Auf diesem Stueck Papier steht: "
+" Signed by: = " Unterschrieben von:
+%s %s" Unsigned = %s %s" ohne Unterschrift
+Paper = Papier
+Letter = Brief
+Eraser = Radiergummi
+Message in a Bottle = Flaschenpost
+Write a Letter = Schreibe einen Brief
+Done = Fertig
+Sign Letter (optional) = Unterschreibe den Brief (optional)
+Edit Text = Bearbeite den Text
+Edit Signature = Bearbeite die Unterschrift

@@ -1,0 +1,14 @@
+# Template
+
+On this piece of paper is written: " = 
+" Signed by: = 
+%s %s" Unsigned = 
+Paper = 
+Letter = 
+Eraser = 
+Message in a Bottle = 
+Write a Letter = 
+Done = 
+Sign Letter (optional) = 
+Edit Text = 
+Edit Signature = 
