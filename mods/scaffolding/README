@@ -1,0 +1,31 @@
+Scaffolding v.2
+This mod creates empty nodeboxes that are climbable 
+and instantly removable without tool wear. The intent is to make
+it easier to build large complex projects without fly privledges.
+
+Besides making the boxes climbable this version also allows for the
+creation of colored boxes for the purpose of marking off distances.
+The textures for the colored scaffolding comes from VanessaE's 
+coloredwood mod. Although the coloredwood mod is recommended it is 
+not required because the applicable textures are included in this mod.
+If you do install coloredwood then you're encouraged to delete the 
+textures in this mod.
+
+Crafting:
+
+Crafting: s = stick, 0 = empty
+
+s | 0 | s
+0 | s | 0
+s | 0 | s
+
+
+For colored scaffolding just place one or more scaffolds with one or
+more dyes in the crafting grid. Supported dyes are:
+white, red, yellow, blue, orange, violet, grey, darkgrey, black, cyan,
+green, and magenta.
+
+If you have coloredwoods installed then colored sticks in the above
+colors may be used to create scaffolding of the same color.
+
+-DanteLives
