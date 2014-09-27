@@ -2,7 +2,7 @@
 
 minetest.register_node("fire:basic_flame", {
 	description = "Fire",
-	drawtype = "firelike",
+	drawtype = 'firelike',
 	tiles = {{
 		name="fire_basic_flame_animated.png",
 		animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=1},
@@ -96,6 +96,10 @@ end
 
 function fire.flame_should_extinguish(pos)
 	if minetest.setting_getbool("disable_fire") then return true end
+	-- no forest fires
+	if pos.y > 0 then
+		return
+	end
 	--return minetest.find_node_near(pos, 1, {"group:puts_out_fire"})
 	local p0 = {x=pos.x-2, y=pos.y, z=pos.z-2}
 	local p1 = {x=pos.x+2, y=pos.y, z=pos.z+2}
