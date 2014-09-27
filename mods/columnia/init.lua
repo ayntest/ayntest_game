@@ -623,7 +623,7 @@ columnia.register_column_ia("sandstonebrick", "default:sandstonebrick",
 		"Sandstone Brick Column Linkdown",
 		default.node_sound_stone_defaults())
 		
-columnia.register_column_ia("wood", "default:wood",
+columnia.register_column_ia("wood", 'group:wood',
 		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3},
 		{"default_wood.png"},
 		"Wooden Column",
