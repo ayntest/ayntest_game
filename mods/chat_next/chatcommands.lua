@@ -1,9 +1,7 @@
 -- alias for msg
-minetest.register_chatcommand('@', minetest.chatcommands['msg'])
--- unregister mods command
-minetest.register_chatcommand('mods', { func = function () return false; end})
+core.register_chatcommand('@', minetest.chatcommands['msg'])
 
-minetest.register_chatcommand('speed', {
+core.register_chatcommand('speed', {
 	params = "<number>",
 	privs = {fly=true},
 	description = "Sets player speed",
@@ -15,7 +13,7 @@ minetest.register_chatcommand('speed', {
 	end,
 })
 
-minetest.register_chatcommand('whois', {
+core.register_chatcommand( 'whois', {
 	params = "[name]",
 	description = "Lists online players IP's",
 	privs = {ban=true},
@@ -46,7 +44,7 @@ minetest.register_chatcommand('whois', {
 })
 
 -- lists online players
-minetest.register_chatcommand('who', {
+core.register_chatcommand( 'who', {
 	params = '',
 	description = "Lists online players (better run in console (press F10))",
 	func = function(name, param)
@@ -64,7 +62,7 @@ minetest.register_chatcommand('who', {
 })
 
 -- from whereis mod
-minetest.register_chatcommand('whereis', {
+core.register_chatcommand( 'whereis', {
 	params = "<name>",
 	description = "Shows current position of player",
 	privs = {ban=true},
@@ -102,7 +100,7 @@ minetest.register_chatcommand('whereis', {
 })
 
 -- toggle messages
-minetest.register_chatcommand('setopt', {
+core.register_chatcommand('setopt', {
 	params = '<option> <value>',
 	description = 'Set or read player settings',
 	privs = { interact=true },
@@ -165,8 +163,9 @@ core.register_chatcommand( 'die', {
 core.register_chatcommand( 'mypos', {
 	description = 'Show my position',
 	privs = { interact=true },
-	func = function(name, param)
-		local player = core.get_player_by_name(name)
+	func = function( name, param )
+		local player = core.get_player_by_name( name )
+		
 		local pos = player:getpos()
 		local mfloor = math.floor
 		pos.x = mfloor( pos.x )
