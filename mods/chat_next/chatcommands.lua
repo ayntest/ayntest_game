@@ -154,35 +154,35 @@ minetest.register_chatcommand('obj', {
 })
 
 -- tpr
-minetest.register_chatcommand("tpr", {
-	params = "<name>",
-	description = "Request teleport to another player",
+core.register_chatcommand( 'tpr', {
+	params = '<name>',
+	description = 'Request teleport to another player',
 	privs = {interact=true},
 	func = chatnext.tpr_send
 
 })
 
-minetest.register_chatcommand("tphr", {
-	params = "<name>",
-	description = "Request teleport to another player",
+core.register_chatcommand( 'tphr', {
+	params = '<name>',
+	description = 'Request to teleport another player to you',
 	privs = {interact=true},
 	func = chatnext.tphr_send
 
 })
 
-minetest.register_chatcommand("tpy", {
-	description = "Accept teleport requests from another player",
+core.register_chatcommand( 'tpy', {
+	description = 'Accept teleport requests from another player',
 	func = chatnext.tpr_accept
 })
 
-minetest.register_chatcommand("tpn", {
+core.register_chatcommand("tpn", {
 	description = "Deny teleport requests from another player",
 	func = chatnext.tpr_deny
 })
 
 core.register_chatcommand( 'die', {
 	description = 'Die',
-	privs = {shout=true, interact=true},
+	privs = { server=true },
 	func = function(name, param)
 		local player = core.get_player_by_name( name )
 		player:set_hp( 0 )
