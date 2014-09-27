@@ -126,33 +126,6 @@ minetest.register_chatcommand('setopt', {
 	end
 })
 
--- list objects
-minetest.register_chatcommand('obj', {
-	params = '[pos]',
-	description = 'Lists objects',
-	privs = { server=true },
-	
-	func = function(name, param)
-		local x, y, z = string.match(param, "([^ ]+) ([^ ]+) ([^ ]+)")
-		--if not (x or z or z) then
-			local player = minetest.get_player_by_name(name)
-			local pos = player:getpos()
-			pos.y = pos.y+0.5
-		--end
-		for _,object in ipairs( minetest.env:get_objects_inside_radius(pos, 0.5) ) do
-			if object:get_luaentity() then
-				minetest.chat_send_player( name, object:get_luaentity().name )
-				print( object:get_luaentity().name )
-			end
-		end
-		--[[
-		for obj in map.block(x, y, z).static_objects do
-			print(obj.name)
-		end
-		]]--
-	end
-})
-
 -- tpr
 core.register_chatcommand( 'tpr', {
 	params = '<name>',
@@ -187,4 +160,18 @@ core.register_chatcommand( 'die', {
 		local player = core.get_player_by_name( name )
 		player:set_hp( 0 )
 	end,
+})
+
+core.register_chatcommand( 'mypos', {
+	description = 'Show my position',
+	privs = { interact=true },
+	func = function(name, param)
+		local player = core.get_player_by_name(name)
+		local pos = player:getpos()
+		local mfloor = math.floor
+		pos.x = mfloor( pos.x )
+		pos.y = mfloor( pos.y )
+		pos.z = mfloor( pos.z )
+		core.chat_send_player( name, 'Your position: ' .. core.pos_to_string( pos ) )
+	end
 })
