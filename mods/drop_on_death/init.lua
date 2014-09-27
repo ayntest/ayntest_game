@@ -2,7 +2,7 @@
 
 -- make sure items are not floating in the mid-air
 local function find_ground( pos )
-	for i=0,15,1 do
+	for i=-1,14,1 do
 		local n = core.get_node_or_nil( { x = pos.x, y = pos.y - i, z = pos.z } )
 		if n and n.name then
 			local def = core.registered_nodes[n.name]
@@ -31,8 +31,6 @@ core.register_on_dieplayer(function(player)
 	pos.z = math.floor( pos.z + 0.6 )
 	pos.x = math.floor( pos.x + 0.6 )
 
-	print ( 'final pos: '..core.pos_to_string( pos ) )
-	
 	local player_name = player:get_player_name()
 	local player_inv = player:get_inventory()
 
