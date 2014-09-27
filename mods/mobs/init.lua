@@ -255,7 +255,6 @@ mobs:register_mob("mobs:sheep", {
 			self.naked = true
 			if minetest.registered_items["wool:white"] then
 				clicker:get_inventory():add_item("main", ItemStack("wool:white 2"))
-				clicker:get_inventory():add_item("main", ItemStack("maptools:copper_coin"))
 				minetest.sound_play("default_snow_footstep", {object = self.object, gain = 0.5,})
 			end
 			self.object:set_properties({
