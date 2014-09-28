@@ -17,6 +17,7 @@ while fetched_skip < 40 do
 		u_skins.meta[name].author = data[2]
 		u_skins.meta[name].license = data[3]
 		u_skins.meta[name].description = "" --what's that??
+		u_skins.meta[name].gender = data[6] -- 1 means female (unused)
 		
 		if ( data[5] == 'true' or data[3] ~= '?' ) then -- if it's not hidden
 			fetched_skip = 0
