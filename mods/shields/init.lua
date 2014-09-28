@@ -52,11 +52,8 @@ local craft_ingreds = {
 	bronze = "default:bronze_ingot",
 	diamond = "default:diamond",
 	gold = "default:gold_ingot",
-}	
-
-if has_moreores then
-	craft_ingreds.mithril = "moreores:mithril_ingot"
-end
+	mithril = "moreores:mithril_ingot"
+}
 
 for k, v in pairs(craft_ingreds) do
 	minetest.register_craft({
