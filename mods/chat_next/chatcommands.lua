@@ -151,12 +151,16 @@ core.register_chatcommand("tpn", {
 	func = chatnext.tpr_deny
 })
 
-core.register_chatcommand( 'die', {
-	description = 'Die',
+core.register_chatcommand( 'kill', {
+	description = 'Kill player',
 	privs = { server=true },
-	func = function(name, param)
-		local player = core.get_player_by_name( name )
-		player:set_hp( 0 )
+	func = function( name, param )
+		minetest.log("action", name..' invoked /kill, param='..param)
+
+		local player = core.get_player_by_name( param )
+		if player ~= nil then
+			player:set_hp( 0 )
+		end
 	end,
 })
 
