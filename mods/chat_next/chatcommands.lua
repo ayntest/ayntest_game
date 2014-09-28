@@ -155,7 +155,7 @@ core.register_chatcommand( 'kill', {
 	description = 'Kill player',
 	privs = { server=true },
 	func = function( name, param )
-		minetest.log("action", name..' invoked /kill, param='..param)
+		core.log("action", name..' invoked /kill, param='..param)
 
 		local player = core.get_player_by_name( param )
 		if player ~= nil then
@@ -179,15 +179,25 @@ core.register_chatcommand( 'mypos', {
 	end
 })
 
+local function iter_hud_remove( player )
+	for id = 0,30,1 do
+		if not player:hud_remove( id ) then
+			return
+		end
+		--print(id)
+	end
+end
 core.register_chatcommand( 'rsthud', {
 	description = 'Reset HUD',
 	privs = { interact=true },
-	func = function( name, param )
+	func = function( name )
 		local player = core.get_player_by_name( name )
-
-		for id = 0,20,1 do
-			player:hud_remove( id )
+		iter_hud_remove( player )
+		
+		if hud then
+			hud.init_hud( player )
 		end
 		core.chat_send_player( name, 'HUD has been reseted!' )
+		core.log("action", name .. ' invoked /rsthud')
 	end
 })
