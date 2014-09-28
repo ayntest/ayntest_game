@@ -39,11 +39,14 @@ u_skins.update_player_skin = function( player )
 		u_skins.u_skins[name] = u_skins.default
 	elseif name:find('[Gg][1i]rl') then
 		local gchars = { 57, 88, 162, 231, 279, 357, 226 }
-		u_skins.u_skins[name] = 'character_'..gchars[ math.random( #gchars ) ] 
+		u_skins.u_skins[name] = 'character_'..gchars[ math.random( #gchars ) ]
 	end
+
 	if not armor then
 		player:set_properties({
-			textures = {u_skins.u_skins[name]..".png"},
+			visual = 'mesh',
+			mesh = 'character.x',
+			textures = {u_skins.u_skins[name] .. '.png'},
 		})
 	end
 	u_skins.file_save = true
@@ -53,16 +56,16 @@ end
 unified_inventory.register_page("u_skins", {
 	get_formspec = function(player)
 		local name = player:get_player_name()
-		
+
 		if not u_skins.is_skin(u_skins.u_skins[name]) then
 			u_skins.u_skins[name] = u_skins.default
 		end
-		
+
 		local formspec = ("background[0.06,0.99;7.92,7.52;ui_misc_form.png]"
 			.."image[0,.75;1,2;"..u_skins.u_skins[name].."_preview.png]"
 			.."label[6,.5;Raw texture:]"
 			.."image[6,1;2,1;"..u_skins.u_skins[name]..".png]")
-				
+
 		local meta = u_skins.meta[u_skins.u_skins[name]]
 		if meta then
 			if meta.name ~= "" then
@@ -130,7 +133,7 @@ u_skins.generate_pages = function(texture)
 			.."button[0,3.8;1,.5;u_skins_page$"..page_prev..";<<]"
 			.."button[.75,3.8;6.5,.5;u_skins_null;Page "..page.."/"..total_pages.."]"
 			.."button[7,3.8;1,.5;u_skins_page$"..page_next..";>>]")
-		
+
 		unified_inventory.register_page("u_skins_page$"..(page - 1), {
 			get_formspec = function(player)
 				return {formspec=formspec}
@@ -147,7 +150,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		unified_inventory.set_inventory_formspec(player, "craft")
 		return
 	end
-	
+
 	if fields.u_skins then
 		unified_inventory.set_inventory_formspec(player, "craft")
 		return
@@ -158,10 +161,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			u_skins.u_skins[player:get_player_name()] = u_skins.list[tonumber(current[2])]
 			u_skins.update_player_skin(player)
 			unified_inventory.set_inventory_formspec(player, "u_skins")
-			-- notify player if armor mod is enabled
-			if armor then
-				core.chat_send_player( name, 'Server: please, logout and login again to apply new skin' )
-			end
 		elseif current[1] == "u_skins_page" then
 			u_skins.pages[player:get_player_name()] = current[2]
 			unified_inventory.set_inventory_formspec(player, "u_skins_page$"..current[2])
@@ -195,7 +194,7 @@ minetest.register_chatcommand('setskin', {
 
 		local player = minetest.get_player_by_name( name )
 		local pskin = string.match(u_skins.u_skins[name], "([0-9]+)$") or ''
-		
+
 		u_skins.u_skins[name] = 'character_' .. skin_id
 		u_skins.update_player_skin(player)
 
