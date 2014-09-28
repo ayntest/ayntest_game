@@ -178,3 +178,16 @@ core.register_chatcommand( 'mypos', {
 		core.chat_send_player( name, 'Your position: ' .. core.pos_to_string( pos ) )
 	end
 })
+
+core.register_chatcommand( 'rsthud', {
+	description = 'Reset HUD',
+	privs = { interact=true },
+	func = function( name, param )
+		local player = core.get_player_by_name( name )
+
+		for id = 0,20,1 do
+			player:hud_remove( id )
+		end
+		core.chat_send_player( name, 'HUD has been reseted!' )
+	end
+})
