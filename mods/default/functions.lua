@@ -249,13 +249,13 @@ default.leafdecay_enable_cache = true
 -- Spread the load of finding trunks
 default.leafdecay_trunk_find_allow_accumulator = 0
 
-minetest.register_globalstep(function(dtime)
+core.register_globalstep(function(dtime)
 	local finds_per_second = 5000
 	default.leafdecay_trunk_find_allow_accumulator =
 			math.floor(dtime * finds_per_second)
 end)
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = {"group:leafdecay"},
 	neighbors = {"air", "group:liquid"},
 	-- A low interval and a high inverse chance spreads the load
@@ -328,3 +328,11 @@ minetest.register_abm({
 	end
 })
 
+-- returns floored position string
+function default.floor_pos( pos )
+	local mfloor = math.floor
+	pos.x = mfloor( pos.x )
+	pos.y = mfloor( pos.y )
+	pos.z = mfloor( pos.z )
+	return core.pos_to_string( pos )
+end
