@@ -1,23 +1,21 @@
--- main `S` code in init.lua
-local S
-S = farming.S
-
-minetest.register_craftitem("farming_plus:rhubarb_seed", {
-	description = S("Rhubarb Seeds"),
-	inventory_image = "rhubarb_seed.png",
+minetest.register_craftitem('farming_plus:rhubarb_seed', {
+	description = 'Rhubarb Seeds',
+	inventory_image = 'rhubarb_seed.png',
+	groups = { not_in_creative_inventory=1 },
 	on_place = function(itemstack, placer, pointed_thing)
-		return farming.place_seed(itemstack, placer, pointed_thing, "farming_plus:rhubarb_1")
+		return farming.place_seed(itemstack, placer, pointed_thing, 'farming_plus:rhubarb_1')
 	end
 })
 
-minetest.register_node("farming_plus:rhubarb_1", {
-	paramtype = "light",
+minetest.register_node('farming_plus:rhubarb_1', {
+	paramtype = 'light',
 	walkable = false,
-	drawtype = "plantlike",
-	drop = "",
-	tiles = {"farming_rhubarb_1.png"},
+	drawtype = 'plantlike',
+	waving = 1,
+	drop = '',
+	tiles = {'farming_rhubarb_1.png'},
 	selection_box = {
-		type = "fixed",
+		type = 'fixed',
 		fixed = {
 			{-0.5, -0.5, -0.5, 0.5, -0.5+5/16, 0.5}
 		},
@@ -26,14 +24,15 @@ minetest.register_node("farming_plus:rhubarb_1", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("farming_plus:rhubarb_2", {
-	paramtype = "light",
+minetest.register_node('farming_plus:rhubarb_2', {
+	paramtype = 'light',
 	walkable = false,
-	drawtype = "plantlike",
-	drop = "",
-	tiles = {"farming_rhubarb_2.png"},
+	drawtype = 'plantlike',
+	waving = 1,
+	drop = '',
+	tiles = {'farming_rhubarb_2.png'},
 	selection_box = {
-		type = "fixed",
+		type = 'fixed',
 		fixed = {
 			{-0.5, -0.5, -0.5, 0.5, -0.5+11/16, 0.5}
 		},
@@ -42,11 +41,12 @@ minetest.register_node("farming_plus:rhubarb_2", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("farming_plus:rhubarb", {
-	paramtype = "light",
+minetest.register_node('farming_plus:rhubarb', {
+	paramtype = 'light',
 	walkable = false,
-	drawtype = "plantlike",
-	tiles = {"farming_rhubarb_3.png"},
+	drawtype = 'plantlike',
+	waving = 1,
+	tiles = {'farming_rhubarb_3.png'},
 	drop = {
 		max_items = 6,
 		items = {
@@ -62,9 +62,9 @@ minetest.register_node("farming_plus:rhubarb", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_craftitem("farming_plus:rhubarb_item", {
-	description = S("Rhubarb"),
-	inventory_image = "rhubarb.png",
+minetest.register_craftitem('farming_plus:rhubarb_item', {
+	description = 'Rhubarb',
+	inventory_image = 'rhubarb.png',
 })
 
-farming.add_plant("farming_plus:rhubarb", {"farming_plus:rhubarb_1", "farming_plus:rhubarb_2"}, 50, 20)
+farming.add_plant('farming_plus:rhubarb', {'farming_plus:rhubarb_1', 'farming_plus:rhubarb_2'}, 50, 20)

@@ -1,10 +1,7 @@
--- main `S` code in init.lua
-local S
-S = farming.S
-
 minetest.register_craftitem("farming_plus:carrot_seed", {
-	description = S("Carrot Seeds"),
+	description = 'Carrot Seeds',
 	inventory_image = "farming_carrot_seed.png",
+	groups = { not_in_creative_inventory=1 },
 	on_place = function(itemstack, placer, pointed_thing)
 		return farming.place_seed(itemstack, placer, pointed_thing, "farming_plus:carrot_1")
 	end
@@ -14,6 +11,7 @@ minetest.register_node("farming_plus:carrot_1", {
 	paramtype = "light",
 	walkable = false,
 	drawtype = "plantlike",
+	waving = 1,
 	drop = "",
 	tiles = {"farming_carrot_1.png"},
 	selection_box = {
@@ -30,6 +28,7 @@ minetest.register_node("farming_plus:carrot_2", {
 	paramtype = "light",
 	walkable = false,
 	drawtype = "plantlike",
+	waving = 1,
 	drop = "",
 	tiles = {"farming_carrot_2.png"},
 	selection_box = {
@@ -46,6 +45,7 @@ minetest.register_node("farming_plus:carrot_3", {
 	paramtype = "light",
 	walkable = false,
 	drawtype = "plantlike",
+	waving = 1,
 	drop = "",
 	tiles = {"farming_carrot_3.png"},
 	selection_box = {
@@ -62,6 +62,7 @@ minetest.register_node("farming_plus:carrot", {
 	paramtype = "light",
 	walkable = false,
 	drawtype = "plantlike",
+	waving = 1,
 	tiles = {"farming_carrot_4.png"},
 	drop = {
 		max_items = 6,
@@ -79,7 +80,7 @@ minetest.register_node("farming_plus:carrot", {
 })
 
 minetest.register_craftitem("farming_plus:carrot_item", {
-	description = S("Carrot"),
+	description = "Carrot",
 	inventory_image = "farming_carrot.png",
 	on_use = minetest.item_eat(3),
 })
