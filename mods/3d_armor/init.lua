@@ -40,6 +40,13 @@ minetest.register_tool("3d_armor:helmet_gold", {
 })
 
 if use_moreores then
+	minetest.register_tool( '3d_armor:helmet_tin', {
+		description = 'Tin Helmet',
+		inventory_image = '3d_armor_inv_helmet_tin.png',
+		groups = {armor_head=6, armor_heal=0, armor_use=1000},
+		wear = 0,
+	})
+	
 	minetest.register_tool("3d_armor:helmet_mithril", {
 		description = "Mithril Helmet",
 		inventory_image = "3d_armor_inv_helmet_mithril.png",
@@ -86,9 +93,16 @@ minetest.register_tool("3d_armor:chestplate_gold", {
 })
 
 if use_moreores then
-	minetest.register_tool("3d_armor:chestplate_mithril", {
-		description = "Mithril Chestplate",
-		inventory_image = "3d_armor_inv_chestplate_mithril.png",
+	minetest.register_tool( '3d_armor:chestplate_tin', {
+		description = 'Tin Chestplate',
+		inventory_image = '3d_armor_inv_chestplate_tin.png',
+		groups = {armor_torso=11, armor_heal=0, armor_use=1000},
+		wear = 0,
+	})
+	
+	minetest.register_tool( '3d_armor:chestplate_mithril', {
+		description = 'Mithril Chestplate',
+		inventory_image = '3d_armor_inv_chestplate_mithril.png',
 		groups = {armor_torso=20, armor_heal=12, armor_use=50},
 		wear = 0,
 	})
@@ -132,9 +146,16 @@ minetest.register_tool("3d_armor:leggings_gold", {
 })
 
 if use_moreores then
-	minetest.register_tool("3d_armor:leggings_mithril", {
-		description = "Mithril Leggings",
-		inventory_image = "3d_armor_inv_leggings_mithril.png",
+	minetest.register_tool('3d_armor:leggings_tin', {
+		description = 'Tin Leggings',
+		inventory_image = '3d_armor_inv_leggings_tin.png',
+		groups = {armor_legs=6, armor_heal=0, armor_use=1000},
+		wear = 0,
+	})
+	
+	minetest.register_tool('3d_armor:leggings_mithril', {
+		description = 'Mithril Leggings',
+		inventory_image = '3d_armor_inv_leggings_mithril.png',
 		groups = {armor_legs=20, armor_heal=12, armor_use=50},
 		wear = 0,
 	})
@@ -178,9 +199,16 @@ minetest.register_tool("3d_armor:boots_gold", {
 })
 
 if use_moreores then
-	minetest.register_tool("3d_armor:boots_mithril", {
-		description = "Mithril Boots",
-		inventory_image = "3d_armor_inv_boots_mithril.png",
+	minetest.register_tool('3d_armor:boots_tin', {
+		description = 'Tin Boots',
+		inventory_image = '3d_armor_inv_boots_tin.png',
+		groups = {armor_feet=6, armor_heal=0, armor_use=1000},
+		wear = 0,
+	})
+	
+	minetest.register_tool('3d_armor:boots_mithril', {
+		description = 'Mithril Boots',
+		inventory_image = '3d_armor_inv_boots_mithril.png',
 		groups = {armor_feet=15, armor_heal=12, armor_use=50},
 		wear = 0,
 	})
@@ -197,6 +225,7 @@ local craft_ingreds = {
 }
 
 if use_moreores then
+	craft_ingreds.tin = "moreores:tin_ingot"
 	craft_ingreds.mithril = "moreores:mithril_ingot"
 end
 
