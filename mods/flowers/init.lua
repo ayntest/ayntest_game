@@ -2,19 +2,20 @@
 -- See README.txt for licensing and other information.
 
 -- Map Generation
-dofile(minetest.get_modpath("flowers").."/mapgen.lua")
+dofile(core.get_modpath("flowers").."/mapgen.lua")
 
 -- Aliases for original flowers mod
-minetest.register_alias("flowers:flower_dandelion_white", "flowers:dandelion_white")
-minetest.register_alias("flowers:flower_dandelion_yellow", "flowers:dandelion_yellow")
-minetest.register_alias("flowers:flower_geranium", "flowers:geranium")
-minetest.register_alias("flowers:flower_rose", "flowers:rose")
-minetest.register_alias("flowers:flower_tulip", "flowers:tulip")
-minetest.register_alias("flowers:flower_viola", "flowers:viola")
+core.register_alias("flowers:flower_dandelion_white", "flowers:dandelion_white")
+core.register_alias("flowers:flower_dandelion_yellow", "flowers:dandelion_yellow")
+core.register_alias("flowers:flower_geranium", "flowers:geranium")
+core.register_alias("flowers:flower_rose", "flowers:rose")
+core.register_alias("flowers:flower_tulip", "flowers:tulip")
+core.register_alias("flowers:flower_viola", "flowers:viola")
 
-minetest.register_node("flowers:dandelion_white", {
+core.register_node("flowers:dandelion_white", {
 	description = "White Dandelion",
 	drawtype = "plantlike",
+	waving = 1,
 	tiles = { "flowers_dandelion_white.png" },
 	inventory_image = "flowers_dandelion_white.png",
 	wield_image = "flowers_dandelion_white.png",
@@ -30,9 +31,10 @@ minetest.register_node("flowers:dandelion_white", {
 	},
 })
 
-minetest.register_node("flowers:dandelion_yellow", {
+core.register_node("flowers:dandelion_yellow", {
 	description = "Yellow Dandelion",
 	drawtype = "plantlike",
+	waving = 1,
 	tiles = { "flowers_dandelion_yellow.png" },
 	inventory_image = "flowers_dandelion_yellow.png",
 	wield_image = "flowers_dandelion_yellow.png",
@@ -48,9 +50,10 @@ minetest.register_node("flowers:dandelion_yellow", {
 	},
 })
 
-minetest.register_node("flowers:geranium", {
+core.register_node("flowers:geranium", {
 	description = "Blue Geranium",
 	drawtype = "plantlike",
+	waving = 1,
 	tiles = { "flowers_geranium.png" },
 	inventory_image = "flowers_geranium.png",
 	wield_image = "flowers_geranium.png",
@@ -66,9 +69,10 @@ minetest.register_node("flowers:geranium", {
 	},
 })
 
-minetest.register_node("flowers:rose", {
+core.register_node("flowers:rose", {
 	description = "Rose",
 	drawtype = "plantlike",
+	waving = 1,
 	tiles = { "flowers_rose.png" },
 	inventory_image = "flowers_rose.png",
 	wield_image = "flowers_rose.png",
@@ -84,9 +88,10 @@ minetest.register_node("flowers:rose", {
 	},
 })
 
-minetest.register_node("flowers:tulip", {
+core.register_node("flowers:tulip", {
 	description = "Tulip",
 	drawtype = "plantlike",
+	waving = 1,
 	tiles = { "flowers_tulip.png" },
 	inventory_image = "flowers_tulip.png",
 	wield_image = "flowers_tulip.png",
@@ -102,9 +107,10 @@ minetest.register_node("flowers:tulip", {
 	},
 })
 
-minetest.register_node("flowers:viola", {
+core.register_node("flowers:viola", {
 	description = "Viola",
 	drawtype = "plantlike",
+	waving = 1,
 	tiles = { "flowers_viola.png" },
 	inventory_image = "flowers_viola.png",
 	wield_image = "flowers_viola.png",
@@ -120,47 +126,47 @@ minetest.register_node("flowers:viola", {
 	},
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = {"group:flora"},
 	neighbors = {"default:dirt_with_grass", "default:desert_sand"},
 	interval = 50,
 	chance = 25,
 	action = function(pos, node)
 		pos.y = pos.y - 1
-		local under = minetest.get_node(pos)
+		local under = core.get_node(pos)
 		pos.y = pos.y + 1
 		if under.name == "default:desert_sand" then
-			minetest.set_node(pos, {name="default:dry_shrub"})
+			core.set_node(pos, {name="default:dry_shrub"})
 		elseif under.name ~= "default:dirt_with_grass" then
 			return
 		end
 		
-		local light = minetest.get_node_light(pos)
+		local light = core.get_node_light(pos)
 		if not light or light < 13 then
 			return
 		end
 		
 		local pos0 = {x=pos.x-4,y=pos.y-4,z=pos.z-4}
 		local pos1 = {x=pos.x+4,y=pos.y+4,z=pos.z+4}
-		if #minetest.find_nodes_in_area(pos0, pos1, "group:flora_block") > 0 then
+		if #core.find_nodes_in_area(pos0, pos1, "group:flora_block") > 0 then
 			return
 		end
 		
-		local flowers = minetest.find_nodes_in_area(pos0, pos1, "group:flora")
+		local flowers = core.find_nodes_in_area(pos0, pos1, "group:flora")
 		if #flowers > 3 then
 			return
 		end
 		
-		local seedling = minetest.find_nodes_in_area(pos0, pos1, "default:dirt_with_grass")
+		local seedling = core.find_nodes_in_area(pos0, pos1, "default:dirt_with_grass")
 		if #seedling > 0 then
 			seedling = seedling[math.random(#seedling)]
 			seedling.y = seedling.y + 1
-			light = minetest.get_node_light(seedling)
+			light = core.get_node_light(seedling)
 			if not light or light < 13 then
 				return
 			end
-			if minetest.get_node(seedling).name == "air" then
-				minetest.set_node(seedling, {name=node.name})
+			if core.get_node(seedling).name == "air" then
+				core.set_node(seedling, {name=node.name})
 			end
 		end
 	end,
