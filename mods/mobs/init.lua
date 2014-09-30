@@ -33,6 +33,7 @@ mobs:register_mob("mobs:dirt_monster", {
 	drawtype = "front",
 	lava_damage = 8,
 	light_damage = 1,
+	water_damage = 3,
 	attack_type = "dogfight",
 	animation = {
 		speed_normal = 15,
@@ -94,6 +95,7 @@ mobs:register_mob("mobs:stone_monster", {
 	armor = 80,
 	drawtype = "front",
 	light_damage = 1,
+	water_damage = 3,
 	attack_type = "dogfight",
 	animation = {
 		speed_normal = 8,
@@ -137,7 +139,7 @@ mobs:register_mob("mobs:sand_monster", {
 	view_range = 20,
 	walk_velocity = 1.8,
 	run_velocity = 3.6,
-	damage = 1,
+	damage = 2,
 	drops = {
 		{
 		name = "default:sand",
@@ -156,6 +158,7 @@ mobs:register_mob("mobs:sand_monster", {
 	drawtype = "front",
 	lava_damage = 8,
 	light_damage = 1,
+	water_damage = 3,
 	attack_type = "dogfight",
 	animation = {
 		speed_normal = 35,
@@ -370,6 +373,7 @@ mobs:register_mob("mobs:oerkki", {
 	drawtype = "front",
 	lava_damage = 8,
 	light_damage = 2,
+	water_damage = 3,
 	attack_type = "dogfight",
 	animation = {
 		stand_start = 0,
@@ -438,6 +442,7 @@ mobs:register_mob("mobs:tree_monster", {
 	drawtype = "front",
 	lava_damage = 8,
 	light_damage = 1,
+	water_damage = 3,
 	disable_fall_damage = true,
 	attack_type = "dogfight",
 	animation = {
@@ -500,6 +505,7 @@ mobs:register_mob("mobs:dungeon_master", {
 	armor = 60,
 	drawtype = "front",
 	lava_damage = 8,
+	water_damage = 3,
 	light_damage = 200,
 	on_rightclick = nil,
 	attack_type = "shoot",
@@ -774,12 +780,12 @@ if not minetest.setting_getbool("creative_mode") then
 		local dn = { 'default:dirt_with_grass' }
 		local sn = { 'default:desert_stone', 'default:desert_sand', 'default:sand' }
 		local tn = { 'default:jungletree', 'default:tree', 'default:leaves' }
-		mobs:register_spawn('mobs:dirt_monster', 'Dirt monster',		dn, 1, -1, 50000, 1, 80, true)
-		mobs:register_spawn('mobs:stone_monster', 'Stone monster',		mn, 1, -1, 45000, 1, -100, true)
-		mobs:register_spawn('mobs:sand_monster', 'Sand monster',		sn, 1, -1, 12000, 1, 80, true)
-		mobs:register_spawn('mobs:oerkki', 'Oerkki',					mn, 1, -1, 35000, 1, -1500, true)
-		mobs:register_spawn('mobs:tree_monster', 'Tree monster',		tn, 1, -1, 25000, 1, 80, true)
-		mobs:register_spawn('mobs:dungeon_master', 'Dungeon master',	mn, 1, -1, 45000, 1, -3000, true)
+		mobs:register_spawn('mobs:dirt_monster', 'Dirt monster',		dn, 1, -1, 100000, 1, 80, true)
+		mobs:register_spawn('mobs:stone_monster', 'Stone monster',		mn, 1, -1, 75000, 1, -100, true)
+		mobs:register_spawn('mobs:sand_monster', 'Sand monster',		sn, 1, -1, 75000, 1, 80, true)
+		mobs:register_spawn('mobs:oerkki', 'Oerkki',					mn, 1, -1, 75000, 1, -1500, true)
+		mobs:register_spawn('mobs:tree_monster', 'Tree monster',		tn, 1, -1, 75000, 1, 80, true)
+		mobs:register_spawn('mobs:dungeon_master', 'Dungeon master',	mn, 1, -1, 75000, 1, -3000, true)
 		--mobs:register_spawn("mobs:rhino", "Rhino",					mn, 1, -1, 25000, 2, 0, true)
 	end
 end
