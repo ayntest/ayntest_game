@@ -14,7 +14,7 @@ mobs:register_mob("mobs:dirt_monster", {
 	walk_velocity = 1.1,
 	run_velocity = 2.6,
 	on_rightclick = nil,
-	damage = 1,
+	damage = 2,
 	drops = {
 		{
 		name = "default:dirt",
@@ -554,7 +554,7 @@ mobs:register_arrow("mobs:fireball", {
 			for dy = -1, 1 do
 				for dz = -1, 1 do
 					local p = {x = pos.x + dx, y = pos.y + dy, z = pos.z + dz}
-					local n = minetest.get_node(pos).name
+					local n = core.get_node(pos).name
 					if n ~= "bedrock:bedrock"
 						and n ~= "default:chest_locked"
 						and n ~= 'default:obsidian'
@@ -566,9 +566,9 @@ mobs:register_arrow("mobs:fireball", {
 					end
 					minetest.sound_play( 'mobs_fireball_explode',
 						{
-							pos = s,
+							pos = pos,
 							gain = 0.1,
-							max_hear_distance = 15
+							max_hear_distance = 14
 						} )
 				end
 			end
@@ -596,9 +596,9 @@ mobs:register_arrow("mobs:fireball", {
 					end
 					minetest.sound_play("mobs_fireball_explode",
 						{
-							pos = s,
+							pos = pos,
 							gain = 0.1,
-							max_hear_distance = 15
+							max_hear_distance = 14
 						} )
 				end
 			end
@@ -766,8 +766,8 @@ if not minetest.setting_getbool("creative_mode") then
 	if minetest.setting_getbool("spawn_friendly_mobs") ~= false then
 		local rn = { 'default:jungleleaves', "default:cactus"}
 		local sn = { 'default:grass_4' }
-		mobs:register_spawn("mobs:rat", "Rat",							rn, 16,-1, 75000, 6, 50, false)
-		mobs:register_spawn("mobs:sheep", "Sheep",						sn, 16, 8, 15000, 2, 100, false)
+		mobs:register_spawn("mobs:rat", "Rat",							rn, 16,-1, 75000, 3, 50, false)
+		mobs:register_spawn("mobs:sheep", "Sheep",						sn, 16, 8, 15000, 1, 100, false)
 	end
 	if minetest.setting_getbool("spawn_hostile_mobs") ~= false then
 		local mn = {"default:stone" }
@@ -777,9 +777,9 @@ if not minetest.setting_getbool("creative_mode") then
 		mobs:register_spawn('mobs:dirt_monster', 'Dirt monster',		dn, 1, -1, 50000, 1, 80, true)
 		mobs:register_spawn('mobs:stone_monster', 'Stone monster',		mn, 1, -1, 45000, 1, -100, true)
 		mobs:register_spawn('mobs:sand_monster', 'Sand monster',		sn, 1, -1, 12000, 1, 80, true)
-		mobs:register_spawn('mobs:oerkki', 'Oerkki',					mn, 1, -1, 20000, 1, -1500, true)
+		mobs:register_spawn('mobs:oerkki', 'Oerkki',					mn, 1, -1, 35000, 1, -1500, true)
 		mobs:register_spawn('mobs:tree_monster', 'Tree monster',		tn, 1, -1, 25000, 1, 80, true)
-		mobs:register_spawn('mobs:dungeon_master', 'Dungeon master',	mn, 1, -1, 45000, 1, -2500, true)
+		mobs:register_spawn('mobs:dungeon_master', 'Dungeon master',	mn, 1, -1, 45000, 1, -3000, true)
 		--mobs:register_spawn("mobs:rhino", "Rhino",					mn, 1, -1, 25000, 2, 0, true)
 	end
 end

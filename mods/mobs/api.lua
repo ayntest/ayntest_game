@@ -523,19 +523,21 @@ function mobs:register_mob(name, def)
 end
 
 mobs.spawning_mobs = {}
-function mobs:register_spawn(name, description, nodes, max_light, min_light, chance, active_object_count, max_height, is_hostile, spawn_func)
+function mobs:register_spawn( name, description, nodes, max_light, min_light, chance, active_object_count, max_height, is_hostile, spawn_func )
 	mobs.spawning_mobs[name] = true
-	minetest.register_abm({
+	core.register_abm({
 		nodenames = nodes,
 		neighbors = { 'air' },
-		interval = 5,
+		interval = 600,
 		chance = chance,
 		action = function(pos, node, _, active_object_count_wider)
-			-- local players = #minetest.get_connected_players()
-			-- if players == 0 then return end
-			if active_object_count_wider > active_object_count then return end
+			--print( 'mobs abm executed (' .. name .. '): ' .. os.time() )
+			--print( active_object_count_wider .. ' > ' .. active_object_count )
+			-- TODO: if core.get_max_lag > 1 then return end
+			if active_object_count_wider >= active_object_count then return end
 			
-			if is_hostile then -- don't spawn hostile mobs on owned areas
+			if is_hostile then
+				-- don't spawn hostile mobs on owned areas
 				local chunk = landrush.get_chunk( pos )
 				if landrush.claims[chunk] ~= nil then
 					return
@@ -543,18 +545,18 @@ function mobs:register_spawn(name, description, nodes, max_light, min_light, cha
 			end
 			if not mobs.spawning_mobs[name] then return end
 			pos.y = pos.y + 1
-			if minetest.get_node(pos).name ~= "air" then return end
 			if pos.y > max_height then return end
-			if not minetest.get_node_light(pos) then return end
-			if minetest.get_node_light(pos) > max_light then return end
-			if minetest.get_node_light(pos) < min_light then return end
+			if core.get_node(pos).name ~= "air" then return end
+			if not core.get_node_light(pos) then return end
+			if core.get_node_light(pos) > max_light then return end
+			if core.get_node_light(pos) < min_light then return end
 			
 			if spawn_func and not spawn_func(pos, node) then return end
-			minetest.log("action", "Spawned " .. description .. " at " .. minetest.pos_to_string(pos) .. ".")
-			minetest.add_entity(pos, name)
+			core.log( 'action', 'Spawned ' .. description .. ' at ' .. core.pos_to_string(pos) )
+			core.add_entity(pos, name)
 			
 			if name == "mobs:rat" then -- Rats spawn in pairs
-				minetest.add_entity(pos, "mobs:rat")
+				core.add_entity(pos, "mobs:rat")
 			end
 		end
 	})
