@@ -719,6 +719,7 @@ default.chest_formspec =
 	default.gui_bg..
 	default.gui_bg_img..
 	default.gui_slots..
+	'button_exit[-0.3,-0.5;1,1;exit;X]'..
 	"list[current_name;main;0,0.3;8,4;]"..
 	"list[current_player;main;0,4.85;8,1;]"..
 	"list[current_player;main;0,6.08;8,3;8]"..
@@ -731,6 +732,7 @@ function default.get_locked_chest_formspec(pos)
 		default.gui_bg..
 		default.gui_bg_img..
 		default.gui_slots..
+		'button_exit[-0.3,-0.5;1,1;exit;X]'..
 		"list[nodemeta:".. spos .. ";main;0,0.3;8,4;]"..
 		"list[current_player;main;0,4.85;8,1;]"..
 		"list[current_player;main;0,6.08;8,3;8]"..
@@ -861,6 +863,7 @@ function default.furnace_active(pos, percent, item_percent)
 	default.gui_bg..
 	default.gui_bg_img..
 	default.gui_slots..
+	'button_exit[-0.3,-0.5;1,1;exit;X]'..
 	"list[current_name;src;2.75,0.5;1,1;]"..
 	"list[current_name;fuel;2.75,2.5;1,1;]"..
 	"image[2.75,1.5;1,1;default_furnace_fire_bg.png^[lowpart:"..
@@ -895,6 +898,7 @@ default.furnace_inactive_formspec =
 	default.gui_bg..
 	default.gui_bg_img..
 	default.gui_slots..
+	'button_exit[-0.3,-0.5;1,1;exit;X]'..
 	"list[current_name;src;2.75,0.5;1,1;]"..
 	"list[current_name;fuel;2.75,2.5;1,1;]"..
 	"image[2.75,1.5;1,1;default_furnace_fire_bg.png]"..
