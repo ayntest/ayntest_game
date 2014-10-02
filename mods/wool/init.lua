@@ -47,3 +47,10 @@ for _, row in ipairs(wool.dyes) do
 	end
 end
 
+if core.get_modpath( 'moreblocks' ) ~= nil then
+	local dyes = {}
+	for _, row in ipairs(wool.dyes) do
+		table.insert( dyes, row[1] )
+	end
+	stairsplus.register_nodes ( 'wool', dyes )
+end
