@@ -1,0 +1,25 @@
+-- General configuration - BitChange
+-- Created by Krock
+
+bitchange_initial_give			=	0
+-- Enable/Disable whole nodes
+bitchange_enable_exchangeshop	=	true
+bitchange_enable_moneychanger	=	false
+bitchange_enable_warehouse		=	true
+bitchange_enable_toolrepair		=	true
+bitchange_enable_donationbox	=	false
+
+-- Converting other ores to MineCoins
+-- Tin		moreores
+-- Zinc		technic_worldgen
+-- Quartz	quartz
+bitchange_use_moreores_tin		=	false
+bitchange_use_technic_zinc		=	false
+bitchange_use_quartz			=	false
+
+-- Pipeworks support
+bitchange_exchangeshop_pipeworks	=	false
+bitchange_warehouse_pipeworks		=	false
+
+-- Advanced generation settings
+-- Change in 'minecoins.lua', starting at line 101
