@@ -661,7 +661,6 @@ if core.get_modpath( 'moretrees' ) then
 		{ name='fir',			description='Douglas Fir' }
 	}
 	for _,t in pairs( morewood ) do
-		print('register: '.. t.name)
 		columnia.register_column_ia( t.name, 'moretrees:' .. t.name ..'_planks',
 			{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3},
 			{ 'moretrees_' .. t.name .. '_wood.png' },
