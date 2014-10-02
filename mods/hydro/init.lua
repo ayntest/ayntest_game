@@ -127,9 +127,10 @@ for _,plant in pairs(PLANTS) do
 		paramtype = "light",
 		walkable = false,
 		groups = {
-				snappy = 3,
+				attached_node=1,
 				flammable=3,
-				not_in_creative_inventory=1
+				not_in_creative_inventory=1,
+				snappy = 3
 			},
 		sounds = default.node_sound_leaves_defaults(),
 		drop = 'hydro:seeds_'..plant.name..' 4',
@@ -355,7 +356,7 @@ end
 
 minetest.register_abm({
 	nodenames = { "default:dirt_with_grass" },
-	interval = 600,
+	interval = 1200,
 	chance = 80,
 	action = function(p, node)
 		local pr = get_random(p, 17)
