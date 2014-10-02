@@ -623,7 +623,7 @@ columnia.register_column_ia("sandstonebrick", "default:sandstonebrick",
 		"Sandstone Brick Column Linkdown",
 		default.node_sound_stone_defaults())
 		
-columnia.register_column_ia("wood", 'group:wood',
+columnia.register_column_ia("wood", 'default:wood',
 		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3},
 		{"default_wood.png"},
 		"Wooden Column",
@@ -645,3 +645,32 @@ columnia.register_column_ia("junglewood", "default:junglewood",
 		"Junglewood Column Linkdown",
 		default.node_sound_wood_defaults())
 
+if core.get_modpath( 'moretrees' ) then
+	local morewood = {
+		{ name='beech',			description='Beech Tree' },
+		{ name='apple_tree',	description='Apple Tree' },
+		{ name='oak',			description='Oak Tree' },
+		{ name='sequoia',		description='Giant Sequoia' },
+		{ name='birch',			description='Birch Tree' },
+		{ name='palm',			description='Palm Tree', },
+		{ name='spruce',		description='Spruce Tree' },
+		{ name='pine',			description='Pine Tree' },
+		{ name='willow',		description='Willow Tree' },
+		{ name='acacia',		description='Acacia Tree' },
+		{ name='rubber_tree',	description='Rubber Tree' },
+		{ name='fir',			description='Douglas Fir' }
+	}
+	for _,t in pairs( morewood ) do
+		print('register: '.. t.name)
+		columnia.register_column_ia( t.name, 'moretrees:' .. t.name ..'_planks',
+			{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+			{ 'moretrees_' .. t.name .. '_wood.png' },
+			t.description .. ' Column',
+			t.description .. ' Column Top',
+			t.description .. ' Column Bottom',
+			t.description .. ' Column Crosslink',
+			t.description .. ' Column Link',
+			t.description .. ' Column Linkdown',
+			default.node_sound_wood_defaults())
+	end
+end
