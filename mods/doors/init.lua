@@ -313,7 +313,7 @@ minetest.register_craft({
 })
 
 doors.register_door("doors:door_steel", {
-	description = "Steel Door",
+	description = 'Steel Door (locked)',
 	inventory_image = "door_steel.png",
 	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
 	tiles_bottom = {"door_steel_b.png", "door_grey.png"},
