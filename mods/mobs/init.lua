@@ -778,14 +778,14 @@ if not minetest.setting_getbool("creative_mode") then
 	if minetest.setting_getbool("spawn_hostile_mobs") ~= false then
 		local mn = {"default:stone" }
 		local dn = { 'default:dirt_with_grass' }
-		local sn = { 'default:desert_stone', 'default:desert_sand', 'default:sand' }
+		local sn = { 'default:desert_sand' }
 		local tn = { 'default:jungletree', 'default:tree', 'default:leaves' }
 		mobs:register_spawn('mobs:dirt_monster', 'Dirt monster',		dn, 1, -1, 100000, 1, 80, true)
-		mobs:register_spawn('mobs:stone_monster', 'Stone monster',		mn, 1, -1, 75000, 1, -100, true)
+		mobs:register_spawn('mobs:stone_monster', 'Stone monster',		mn, 1, -1, 75000, 1, -200, true)
 		mobs:register_spawn('mobs:sand_monster', 'Sand monster',		sn, 1, -1, 75000, 1, 80, true)
 		mobs:register_spawn('mobs:oerkki', 'Oerkki',					mn, 1, -1, 75000, 1, -1500, true)
 		mobs:register_spawn('mobs:tree_monster', 'Tree monster',		tn, 1, -1, 75000, 1, 80, true)
-		mobs:register_spawn('mobs:dungeon_master', 'Dungeon master',	mn, 1, -1, 75000, 1, -3000, true)
+		mobs:register_spawn('mobs:dungeon_master', 'Dungeon master',	mn, 1, -1, 85000, 1, -3000, true)
 		--mobs:register_spawn("mobs:rhino", "Rhino",					mn, 1, -1, 25000, 2, 0, true)
 	end
 end
