@@ -329,18 +329,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "moreblocks:trap_glow_glass",
-	type = "shapeless",
-	recipe = {"default:mese_crystal_fragment", "default:glass", "default:torch"},
-})
-
-minetest.register_craft({
-	output = "moreblocks:trap_glow_glass",
-	type = "shapeless",
-	recipe = {"default:mese_crystal_fragment", "moreblocks:glow_glass"},
-})
-
-minetest.register_craft({
 	output = "moreblocks:super_glow_glass",
 	type = "shapeless",
 	recipe = {"default:torch", "default:torch", "default:glass"},
@@ -350,19 +338,6 @@ minetest.register_craft({
 	output = "moreblocks:super_glow_glass",
 	type = "shapeless",
 	recipe = {"default:torch", "moreblocks:glow_glass"},
-})
-
-
-minetest.register_craft({
-	output = "moreblocks:trap_super_glow_glass",
-	type = "shapeless",
-	recipe = {"default:mese_crystal_fragment", "default:glass", "default:torch", "default:torch"},
-})
-
-minetest.register_craft({
-	output = "moreblocks:trap_super_glow_glass",
-	type = "shapeless",
-	recipe = {"default:mese_crystal_fragment", "moreblocks:super_glow_glass"},
 })
 
 minetest.register_craft({
@@ -387,18 +362,6 @@ minetest.register_craft({
 	output = "default:stone",
 	type = "shapeless",
 	recipe = {"default:coal_lump", "moreblocks:iron_stone"},
-})
-
-minetest.register_craft({
-	output = "moreblocks:trap_stone",
-	type = "shapeless",
-	recipe = {"default:mese_crystal_fragment", "default:stone"},
-})
-
-minetest.register_craft({
-	output = "moreblocks:trap_glass",
-	type = "shapeless",
-	recipe = {"default:mese_crystal_fragment", "default:glass"},
 })
 
 minetest.register_craft({
