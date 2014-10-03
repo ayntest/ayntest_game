@@ -432,9 +432,11 @@ minetest.register_craft({
 	}
 })
 
+--[[
 minetest.register_craft({
 	type = "cooking", output = "moreblocks:tar", recipe = "default:gravel",
 })
+]]--
 
 minetest.register_craft({
 	output = "moreblocks:circular_saw", 
