@@ -111,11 +111,11 @@ local nodes = {
 		groups = {cracky = 3},
 		sounds = sound_stone,
 	},
-	["tar"] = {
+	--[[["tar"] = {
 		description = S("Tar"),
 		groups = {cracky = 2},
 		sounds = sound_stone,
-	},
+	},]]
 	["plankstone"] = {
 		description = S("Plankstone"),
 		groups = {cracky = 3},
