@@ -27,7 +27,7 @@ core.register_node(":farming:weed", {
 core.register_abm({
 	nodenames = { 'farming:weed' },
 	interval = 50,
-	chance = 20,
+	chance = 200,
 	action = function( pos )
 		core.remove_node( pos )
 	end
