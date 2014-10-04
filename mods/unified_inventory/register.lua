@@ -81,7 +81,7 @@ unified_inventory.register_button("misc_set_day", {
 		if minetest.check_player_privs(player_name, {settime=true}) then
 			minetest.sound_play("birds",
 					{to_player=player_name, gain = 1.0})
-			minetest.set_timeofday((6000 % 24000) / 24000)
+			minetest.set_timeofday((4700 % 24000) / 24000)
 			minetest.chat_send_player(player_name,
 				S("Time of day set to 6am"))
 		else
