@@ -110,15 +110,26 @@ minetest.register_on_joinplayer(function(player)
 end)
 
 minetest.register_chatcommand('bag', {
-	params = '<bag_number>',
-	description = 'Shows bag',
+	params = '<number>',
+	description = 'Open a bag',
 	privs = {
-		ban = true
+		interact = true
 	},
 	func = function(name, param)
 		local player = minetest.get_player_by_name( name )
-		--unified_inventory.set_inventory_formspec(player, 'craftguide')
-		unified_inventory.set_inventory_formspec(player, 'bags')
+		local formspec = ''
+		
+		unified_inventory.set_inventory_formspec( player, 'bags' )
+		if param ~= '' then
+			for i=1,4 do
+				if tonumber(param) == i then
+					formspec = unified_inventory.get_formspec( player, 'bag' .. i )
+				end
+			end
+		else
+			formspec = unified_inventory.get_formspec( player, 'bag1' )
+		end
+		core.show_formspec( name, '', formspec )
 	end
 })
 
