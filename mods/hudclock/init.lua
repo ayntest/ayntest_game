@@ -2,12 +2,14 @@ local player_hud = { };
 
 local timer = 0;
 
+local mfloor = math.floor
+
 local function floormod ( x, y )
-	return (math.floor(x) % y);
+	return mfloor(x) % y;
 end
 
 local function get_time ()
-	local secs = (60 * 60 * 24 * core.get_timeofday());
+	local secs = ( 86400 * core.get_timeofday() );
 	local s = floormod(secs, 60);
 	local m = floormod(secs/60, 60);
 	local h = floormod(secs/3600, 60);
@@ -16,7 +18,7 @@ end
 
 core.register_globalstep(function ( dtime )
 	timer = timer + dtime;
-	if timer > 2 then
+	if timer > 1 then
 		for _,p in ipairs( core.get_connected_players() ) do
 				local name = p:get_player_name();
 				if player_hud[name] then
