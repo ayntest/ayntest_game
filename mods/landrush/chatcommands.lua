@@ -1,5 +1,20 @@
+core.register_chatcommand( 'ownerhud', {
+	params = 'on|off',
+	description = 'hides or shows owner hud',
+	privs = { interact=true },
+	func = function( name, param )
+		local player = core.get_player_by_name(name)
+		if param == 'on' or param == '1' then
+			landrush.hud_init( player )
+			return true, 'Owner HUD shown'
+		else
+			landrush.hud_destroy( player )
+			return true, 'Owner HUD hidden'
+		end
+	end,
+})
 
-minetest.register_chatcommand("landowner", {
+core.register_chatcommand( 'landowner', {
 	params = "",
 	description = "tells the owner of the current map chunk",
 	privs = {interact=true},
