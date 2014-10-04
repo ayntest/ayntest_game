@@ -208,11 +208,15 @@ local function iter_hud_remove( player )
 end
 core.register_chatcommand( 'rsthud', {
 	description = 'Reset HUD',
-	privs = { interact=true },
+	privs = { server=true },
 	func = function( name )
 		local player = core.get_player_by_name( name )
 		iter_hud_remove( player )
 		
+		if landrush then
+			landrush.hud_destroy( player )
+			landrush.hud_init( player )
+		end
 		if hud then
 			hud.init_hud( player )
 		end
