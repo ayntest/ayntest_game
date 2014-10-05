@@ -45,6 +45,9 @@ end
 
 function landrush.hud_destroy( player )
 	local name = player:get_player_name()
+	if landrush.playerHudItems[name] == nil then
+		return false
+	end
 	player:hud_remove( landrush.playerHudItems[name].hud )
 	player:hud_remove( landrush.playerHudItems[name].hud_shared )
 	player:hud_remove( landrush.playerHudItems[name].hud_bg )
