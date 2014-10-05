@@ -1,15 +1,14 @@
 core.register_chatcommand( 'ownerhud', {
-	params = 'on|off',
+	params = '',
 	description = 'hides or shows owner hud',
 	privs = { interact=true },
 	func = function( name, param )
 		local player = core.get_player_by_name(name)
-		if param == 'on' or param == '1' then
+		if landrush.hud_destroy( player ) then
+			return true, 'Owner HUD hidden'
+		else
 			landrush.hud_init( player )
 			return true, 'Owner HUD shown'
-		else
-			landrush.hud_destroy( player )
-			return true, 'Owner HUD hidden'
 		end
 	end,
 })
