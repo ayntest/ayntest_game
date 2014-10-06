@@ -232,7 +232,10 @@ minetest.register_node("default:tree", {
 	is_ground_content = false,
 	groups = {tree=1,choppy=2,oddly_breakable_by_hand=1,flammable=2},
 	sounds = default.node_sound_wood_defaults(),
-	on_place = minetest.rotate_node
+	on_place = minetest.rotate_node,
+	after_dig_node = function( pos, node )
+		default.drop_up( pos, node )
+	end,
 })
 
 minetest.register_node("default:jungletree", {
@@ -351,8 +354,8 @@ minetest.register_node("default:cactus", {
 	groups = {snappy=1,choppy=3,flammable=2},
 	sounds = default.node_sound_wood_defaults(),
 	on_place = minetest.rotate_node,
-	after_dig_node = function(pos, node, metadata, digger)
-		default.dig_up(pos, node, digger)
+	after_dig_node = function( pos, node )
+		default.drop_up( pos, node )
 	end,
 })
 
