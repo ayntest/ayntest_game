@@ -230,6 +230,24 @@ function default.dig_up(pos, node, digger)
 end
 
 --
+-- drop same nodes above
+--
+
+function default.drop_up( pos, node )
+	local np, nn
+	for i=1,25 do
+		local np = {x = pos.x, y = pos.y + i, z = pos.z}
+		local nn = core.get_node(np)
+		if nn.name == node.name then
+			core.remove_node(np)
+			core.add_item( np, node.name )
+		else
+			return false
+		end
+	end
+end
+
+--
 -- Leafdecay
 --
 
