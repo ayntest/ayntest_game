@@ -2,8 +2,19 @@
 -- See README.txt for licensing and other information.
 
 fences = {}
-function fences.register_fence(name, texture, desc, craftitem, craftoutput, groups, sounds)
+function fences.register_fence(name, texture, desc, craftitem, craftoutput, groups, sounds, use_wood)
 	local fence_texture = texture .. "^fences_overlay.png^[makealpha:255,126,126"
+	local recipe = {
+			{craftitem, craftitem, craftitem},
+			{craftitem, craftitem, craftitem},
+		}
+
+	if use_wood then
+		recipe = {
+			{craftitem, craftitem, craftitem}
+		}
+	end
+	
 	minetest.register_node(":fences:" .. name, {
 		description = desc,
 		drawtype = "fencelike",
@@ -19,12 +30,10 @@ function fences.register_fence(name, texture, desc, craftitem, craftoutput, grou
 		groups = groups,
 		sounds = sounds,
 	})
+
 	minetest.register_craft({
 		output = 'fences:' .. name .. ' ' .. craftoutput,
-		recipe = {
-			{craftitem, craftitem, craftitem},
-			{craftitem, craftitem, craftitem},
-		}
+		recipe = recipe
 	})
 end
 
@@ -51,5 +60,30 @@ minetest.register_craft({
 	burntime = 15,
 })
 
-minetest.register_alias("default:fence_wood", "fences:wood")
+if core.get_modpath( 'moretrees' ) then
+	local morewood = {
+		{ name='beech',			description='Beech Tree' },
+		{ name='apple_tree',	description='Apple Tree' },
+		{ name='oak',			description='Oak Tree' },
+		{ name='sequoia',		description='Giant Sequoia' },
+		{ name='birch',			description='Birch Tree' },
+		{ name='palm',			description='Palm Tree', },
+		{ name='spruce',		description='Spruce Tree' },
+		{ name='pine',			description='Pine Tree' },
+		{ name='willow',		description='Willow Tree' },
+		{ name='acacia',		description='Acacia Tree' },
+		{ name='rubber_tree',	description='Rubber Tree' },
+		{ name='fir',			description='Douglas Fir' }
+	}
+	for _,t in pairs( morewood ) do
+		fences.register_fence( t.name,
+			'moretrees_' .. t.name .. '_wood.png',
+			t.description .. ' Fence',
+			'moretrees:' .. t.name ..'_planks', 8,
+			{choppy=2, oddly_breakable_by_hand=2, flammable=2},
+			default.node_sound_wood_defaults(),
+			true )
+	end
+end
 
+minetest.register_alias("default:fence_wood", "fences:wood")
