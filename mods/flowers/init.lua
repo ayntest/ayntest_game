@@ -34,7 +34,6 @@ core.register_node("flowers:dandelion_white", {
 core.register_node("flowers:dandelion_yellow", {
 	description = "Yellow Dandelion",
 	drawtype = "plantlike",
-	waving = 1,
 	tiles = { "flowers_dandelion_yellow.png" },
 	inventory_image = "flowers_dandelion_yellow.png",
 	wield_image = "flowers_dandelion_yellow.png",
@@ -53,7 +52,6 @@ core.register_node("flowers:dandelion_yellow", {
 core.register_node("flowers:geranium", {
 	description = "Blue Geranium",
 	drawtype = "plantlike",
-	waving = 1,
 	tiles = { "flowers_geranium.png" },
 	inventory_image = "flowers_geranium.png",
 	wield_image = "flowers_geranium.png",
@@ -72,7 +70,6 @@ core.register_node("flowers:geranium", {
 core.register_node("flowers:rose", {
 	description = "Rose",
 	drawtype = "plantlike",
-	waving = 1,
 	tiles = { "flowers_rose.png" },
 	inventory_image = "flowers_rose.png",
 	wield_image = "flowers_rose.png",
@@ -91,7 +88,6 @@ core.register_node("flowers:rose", {
 core.register_node("flowers:tulip", {
 	description = "Tulip",
 	drawtype = "plantlike",
-	waving = 1,
 	tiles = { "flowers_tulip.png" },
 	inventory_image = "flowers_tulip.png",
 	wield_image = "flowers_tulip.png",
