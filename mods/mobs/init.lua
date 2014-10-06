@@ -773,7 +773,7 @@ if not minetest.setting_getbool("creative_mode") then
 		local rn = { 'default:jungleleaves', "default:cactus"}
 		local sn = { 'default:grass_4' }
 		mobs:register_spawn("mobs:rat", "Rat",							rn, 16,-1, 65000, 3, 50, false)
-		mobs:register_spawn("mobs:sheep", "Sheep",						sn, 16, 8, 55000, 1, 100, false)
+		mobs:register_spawn("mobs:sheep", "Sheep",						sn, 16, 8, 45000, 1, 500, false)
 	end
 	if minetest.setting_getbool("spawn_hostile_mobs") ~= false then
 		local mn = {"default:stone" }
