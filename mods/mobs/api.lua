@@ -293,7 +293,7 @@ function mobs:register_mob(name, def)
 							else
 								if self.get_velocity(self) <= 0.38 and self.object:getvelocity().y == 0 then
 									local v = self.object:getvelocity()
-									v.y = 8
+									v.y = 6.6
 									self.object:setvelocity(v)
 								end
 								self.set_velocity(self, self.walk_velocity)
@@ -326,7 +326,7 @@ function mobs:register_mob(name, def)
 				end
 				if self.get_velocity(self) <= 0.38 and self.object:getvelocity().y == 0 then
 					local v = self.object:getvelocity()
-					v.y = 8
+					v.y = 6.4
 					self.object:setvelocity(v)
 				end
 				self:set_animation("walk")
@@ -461,7 +461,7 @@ function mobs:register_mob(name, def)
 					self.tamed = tmp.tamed
 				end
 			end
-			if ( self.lifetimer <= 0 or core.get_max_lag() > 2 ) and not self.tamed then
+			if ( self.lifetimer <= 0 or ( self.type == 'monster' and core.get_max_lag() > 3 ) ) and not self.tamed then
 				local pos = self.object:getpos()
 				local hp = self.object:get_hp()
 				minetest.log( 'action', 'mob with ' .. tostring(hp) .. ' HP despawned at ' .. minetest.pos_to_string(pos) )
@@ -532,18 +532,20 @@ function mobs:register_spawn( name, description, nodes, max_light, min_light, ch
 		chance = chance,
 		action = function(pos, node, _, active_object_count_wider)
 			--print( 'mobs abm executed (' .. name .. '): ' .. os.time() )
-			--print( active_object_count_wider .. ' > ' .. active_object_count )
-			if core.get_max_lag() > 0.5 then return end -- don't spawn when there is lag
 			if active_object_count_wider >= active_object_count then return end
 			
 			if is_hostile then
-				-- don't spawn hostile mobs on owned areas
+				-- don't spawn when there is too much lag
+				if core.get_max_lag() > 0.4 then return end
+				
+				-- or it's an owned areas
 				local chunk = landrush.get_chunk( pos )
 				if landrush.claims[chunk] ~= nil then
 					return
 				end
 			end
 			if not mobs.spawning_mobs[name] then return end
+			
 			pos.y = pos.y + 1
 			if pos.y > max_height then return end
 			if core.get_node(pos).name ~= "air" then return end
