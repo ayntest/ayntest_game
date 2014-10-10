@@ -9,7 +9,7 @@ core.register_craftitem('farming_plus:cotton_seed', {
 	end
 })
 
-core.register_craftitem('farming_plus:cotton', {
+core.register_craftitem('farming_plus:string', {
 	description = 'Cotton (deprecated)',
 	inventory_image = 'farming_cotton.png',
 	groups = { not_in_creative_inventory=1 },
@@ -18,7 +18,7 @@ core.register_craftitem('farming_plus:cotton', {
 core.register_craft({
 	output = "farming:cotton",
 	type = "shapeless",
-	recipe = { 'farming_plus:cotton' }
+	recipe = { 'farming_plus:string' }
 })
 
 core.register_alias( 'farming_plus:cotton_1', 'farming:cotton_3' )
