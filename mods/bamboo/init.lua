@@ -29,7 +29,7 @@ minetest.register_craftitem("bamboo:item_dry", {
 })
 
 core.register_node("bamboo:bamboo_top", {
-	tile_images = {"bamboo_top.png"},
+	tiles = {"bamboo_top.png"},
 	inventory_image = "bamboo_top.png",
 	description = "bamboo",
 	drawtype = "plantlike",
@@ -78,7 +78,7 @@ core.register_node("bamboo:bamboo_top", {
 })
 
 core.register_node("bamboo:bamboo", {
-	tile_images = {"bamboo.png"},
+	tiles = {"bamboo.png"},
 	inventory_image = "bamboo.png",
 	description = "Bamboo",
 	drawtype = "nodebox",
@@ -123,7 +123,7 @@ core.register_node("bamboo:bamboo", {
 })
 
 core.register_node("bamboo:bamboo_dry", {
-	tile_images = {"bamboo_dry.png"},
+	tiles = {"bamboo_dry.png"},
 	inventory_image = "bamboo_dry.png",
 	description = "Bamboo",
 	drawtype = "nodebox",
@@ -168,7 +168,7 @@ core.register_node("bamboo:bamboo_dry", {
 })
 
 core.register_node("bamboo:sapling", {
-		tile_images = {"bamboo_top.png"},
+		tiles = {"bamboo_top.png"},
 		inventory_image = "bamboo_top.png",
 		description = "Bamboo Cutting",
 		drawtype = "plantlike",
