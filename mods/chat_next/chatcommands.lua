@@ -22,6 +22,8 @@ core.register_chatcommand("msg", {
 
 -- alias for msg
 core.register_chatcommand('@', minetest.chatcommands['msg'])
+-- alias for teleport
+core.register_chatcommand('tp', minetest.chatcommands['teleport'])
 
 core.register_chatcommand('speed', {
 	params = "<number>",
