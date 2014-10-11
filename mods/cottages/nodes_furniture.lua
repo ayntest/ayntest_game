@@ -90,15 +90,8 @@ core.register_node("cottages:table", {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{ -0.1, -0.5, -0.1,  0.1, 0.3,  0.1},
+			{ -0.1, -0.5, -0.1,  0.1, 0.4,  0.1},
 			{ -0.5,  0.4, -0.5,  0.5, 0.5,  0.5},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {
-			{ -0.1, -0.5, -0.1,  0.1, 0.3,  0.1},
-			{ -0.5, 0.4, -0.5,  0.5, 0.5,  0.5},
 		},
 	},
 	is_ground_content = false,
