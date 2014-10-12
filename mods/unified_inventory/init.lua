@@ -45,7 +45,7 @@ dofile(modpath.."/callbacks.lua")
 dofile(modpath.."/register.lua")
 dofile(modpath.."/bags.lua")
 dofile(modpath.."/item_names.lua")
-if minetest.get_modpath("datastorage") then
-	dofile(modpath.."/waypoints.lua")
-end
+--if minetest.get_modpath("datastorage") then
+--	dofile(modpath.."/waypoints.lua")
+--end
 
