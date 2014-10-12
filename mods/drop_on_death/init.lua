@@ -1,4 +1,6 @@
--- Minetest 0.4.10 mod: item_drop
+local load_time_start = os.clock()
+
+core.register_alias( 'bones:bones', 'default:gravel')
 
 -- make sure items are not floating in the mid-air
 local function find_ground( pos )
@@ -18,10 +20,10 @@ end
 
 core.register_on_dieplayer( function(player)
 	local player_name = player:get_player_name()
-	if minetest.check_player_privs( player_name, { server=true } ) == true then
+	if core.check_player_privs( player_name, { server=true } ) == true then
 		return
 	end
-	
+
 	local player_inv = player:get_inventory()
 	if player_inv:is_empty("main") and
 		player_inv:is_empty("craft") then
@@ -36,20 +38,24 @@ core.register_on_dieplayer( function(player)
 
 	local player_inv = player:get_inventory()
 
-	-- drop items
-	for i=1,player_inv:get_size("main") do
+	-- drop inventory
+	local size = 8 -- or maybe player_inv:get_size("main")
+	for i=1, size do
 		core.add_item(
 				pos, --{ x=pos.x + math.random( 0.1, 1.5 ), y=pos.y, z=pos.z + math.random( 0.1, 1.5 ) },
 				player_inv:get_stack( 'main', i )
 			)
+		player_inv:set_stack( 'main', i, nil )
 	end
-	for i=1,player_inv:get_size("craft") do
-		core.add_item(pos, player_inv:get_stack("craft", i))
+
+	-- drop crafting grid
+	for i=1,player_inv:get_size( 'craft' ) do
+		core.add_item(
+			pos,
+			player_inv:get_stack( 'craft', i )
+		)
+		player_inv:set_stack( 'craft', i, nil )
 	end
-	
-	-- empty lists main and craft
-	player_inv:set_list("main", {})
-	player_inv:set_list("craft", {})
 	
 	local ttl = tonumber( core.setting_get( 'item_entity_ttl' ) ) or '???'
 	local pos_str = core.pos_to_string( pos ) or '???'
@@ -58,4 +64,4 @@ core.register_on_dieplayer( function(player)
 	return
 end)
 
-core.register_alias( 'bones:bones', 'default:gravel')
+print( string.format('[drop_on_death] loaded after ca. %.3fs', os.clock() - load_time_start) )
