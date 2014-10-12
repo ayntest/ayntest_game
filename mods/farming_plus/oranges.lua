@@ -1,10 +1,6 @@
 -- original Farming_plus oranges.lua by PilzAdam modified by MTDad.
 -- converted from plant to dwarf tree, solution inspired by DocFarming Corn, new textures by MTDad.
 
--- main `S` code in init.lua
-local S
-S = farming.S
-
 minetest.register_craftitem("farming_plus:orange_seed", {
 	description = "Orange Seeds",
 	inventory_image = "farming_orange_seed.png",
@@ -84,17 +80,8 @@ minetest.register_craftitem("farming_plus:orange_item", {
 	on_use = minetest.item_eat(4),
 })
 
--- orange seed craft added here
-minetest.register_craft({
-	output = "farming_plus:orange_seed",
-	recipe = {
-		{"farming_plus:orange_item"},
-	}
-})
-
 farming.add_plant("farming_plus:orange", {"farming_plus:orange_1", "farming_plus:orange_2", "farming_plus:orange_3"}, 250, 2)
 
--- second tier growth section, borrowed from DocFarming's "Corn"
 minetest.register_node("farming_plus:orange_leaves", {
 	paramtype = "light",
 	walkable = true,
@@ -104,6 +91,7 @@ minetest.register_node("farming_plus:orange_leaves", {
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1},
 	sounds = default.node_sound_leaves_defaults(),
 })
+
 minetest.register_node("farming_plus:orange_blossoms", {
 	paramtype = "light",
 	walkable = true,
@@ -115,6 +103,7 @@ minetest.register_node("farming_plus:orange_blossoms", {
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1},
 	sounds = default.node_sound_leaves_defaults(),
 })
+
 minetest.register_node("farming_plus:orange_fruited", {
 	paramtype = "light",
 	walkable = true,
@@ -123,76 +112,86 @@ minetest.register_node("farming_plus:orange_fruited", {
 			'farming_orange_fruited.png'
 		},
 	after_dig_node = function(pos)
-		minetest.env:add_node(pos, {name="farming_plus:orange_leaves"})
+		core.add_node(pos, {name="farming_plus:orange_leaves"})
 	end,
 	drop = {
 		max_items = 4,
 		items = {
-			{ items = {"farming_plus:orange_item"} },
-			{ items = {"farming_plus:orange_item"}, rarity = 2},
-			{ items = {"farming_plus:orange_item"}, rarity = 3},
-			{ items = {"farming_plus:orange_item"}, rarity = 4},
+			{ items = {'farming_plus:orange_item'} },
+			{ items = {'farming_plus:orange_item'}, rarity = 2},
+			{ items = {'farming_plus:orange_item'}, rarity = 3},
+			{ items = {'farming_plus:orange_item'}, rarity = 4},
 		}
 	},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1},
 	sounds = default.node_sound_leaves_defaults(),
 })
+
 minetest.register_abm({
 	nodenames = "farming_plus:orange",
-	interval = 30,
+	interval = 300,
 	chance = 1,
 	action = function(pos, node)
-		if not minetest.env:get_node_light(pos) then
+		if not core.get_node_light(pos) then
 			return
 		end
-		if minetest.env:get_node_light(pos) < 8 then
+		if core.get_node_light(pos) < 8 then
 			return
 		end
 		pos.y=pos.y+1
-		if minetest.env:get_node(pos).name ~= "air" then
+		if core.get_node(pos).name ~= "air" then
 			return
 		end
-		minetest.env:set_node(pos, {name="farming_plus:orange_leaves"})
+		core.set_node(pos, {name="farming_plus:orange_leaves"})
 
 	end
 })
+
 minetest.register_abm({
 	nodenames = "farming_plus:orange_leaves",
 	interval = 250,
 	chance = 2,
 	action = function(pos, node)
---		pos.y = pos.y-2
---		if minetest.env:get_node(pos).name ~= "farming:soil_wet" then
---			return
---		end
---		pos.y = pos.y+2
-		if not minetest.env:get_node_light(pos) then
+		if core.get_node( { x=pos.x, y=pos.y-2, z=pos.z } ).name ~= "farming:soil_wet" then
 			return
 		end
-		if minetest.env:get_node_light(pos) < 8 then
+		
+		if not core.get_node_light(pos) then
 			return
 		end
-		minetest.env:set_node(pos, {name="farming_plus:orange_blossoms"})
-
+		
+		if core.get_node_light(pos) < 8 then
+			return
+		end
+		
+		core.set_node(pos, {name="farming_plus:orange_blossoms"})
 	end
 })
+
 minetest.register_abm({
 	nodenames = "farming_plus:orange_blossoms",
 	interval = 400,
 	chance = 2,
 	action = function(pos, node)
---		pos.y = pos.y-2
---		if minetest.env:get_node(pos).name ~= "farming:soil_wet" then
---			return
---		end
---		pos.y = pos.y+2
-		if not minetest.env:get_node_light(pos) then
+		if core.get_node( { x=pos.x, y=pos.y-2, z=pos.z } ).name ~= "farming:soil_wet" then
 			return
 		end
-		if minetest.env:get_node_light(pos) < 8 then
+		
+		if not core.get_node_light(pos) then
 			return
 		end
-		minetest.env:set_node(pos, {name="farming_plus:orange_fruited"})
-
+		
+		if core.get_node_light(pos) < 8 then
+			return
+		end
+		
+		core.set_node(pos, {name="farming_plus:orange_fruited"})
 	end
+})
+
+-- orange seed craft added here
+minetest.register_craft({
+	type = 'shapeless',
+	output = 'farming_plus:orange_seed 2',
+	recipe = { 'farming_plus:orange_item' }
 })
