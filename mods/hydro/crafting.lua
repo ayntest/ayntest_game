@@ -1,7 +1,7 @@
 core.register_craft({
 	output = 'hydro:growlamp',
 	recipe = {
-		{'default:glass', 'default:torch','default:glass'},
+		{'', 'default:torch',''},
 		{'default:glass', 'default:torch','default:glass'},
 		{'default:glass', 'default:torch','default:glass'},
 	}
@@ -19,7 +19,7 @@ core.register_craft({
 core.register_craft({
 	output = 'hydro:wine',
 	recipe = {
-		{'default:glass', 'hydro:grapes','default:glass'},
+		{'', 'hydro:grapes', ''},
 		{'default:glass', 'hydro:grapes','default:glass'},
 		{'default:glass', 'hydro:grapes','default:glass'},
 	}

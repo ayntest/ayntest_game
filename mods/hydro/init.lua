@@ -74,7 +74,12 @@ core.register_node("hydro:growlamp", {
 	light_propagates = true,
 	sunlight_propagates = true,
 	light_source = 15,
-	groups = {snappy=2,cracky=3,oddly_breakable_by_hand=3},
+	groups = {
+		snappy=2,
+		cracky=3,
+		oddly_breakable_by_hand=3,
+		attached_node=1
+	},
 	sounds = default.node_sound_glass_defaults(),
 	node_placement_prediction = "hydro:coffeecup",
 })
@@ -503,5 +508,6 @@ core.register_abm({
 		end
 	end
 })
+dofile( core.get_modpath('hydro') .. '/crafting.lua' )
 
 print(string.format('[hydro] loaded after ca. %.3fs', os.clock() - load_time_start))
