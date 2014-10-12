@@ -3,15 +3,6 @@
 --This code was written by Kilarin (Donald Hines) and his son Jesse Hines
 --License:CC0, you can do whatever you wish with it.
 
-
----
----Function
----
-
---This function is for use when an explorertool is right clicked
---it finds the inventory item immediatly to the right of the explorertool
---and then places THAT item (if possible)
---
 function explorertools_place(item, player, pointed)
   --find index of item to right of wielded tool
   --(could have gotten this directly from item I suppose, but this works fine)
@@ -31,7 +22,6 @@ end --function explorertools_place
 ---
 ---Explorer Tools register recipes
 ---
-
 
 --we put the recipies inside an if checking for default so that
 --in the unlikely case someone is running this without default,
@@ -78,7 +68,7 @@ minetest.register_tool("explorertools:pick_explorer", {
 	full_punch_interval = 0.9,
 	max_drop_level=3,
 	groupcaps={
-		cracky={times={[1]=3.0, [2]=2.0, [3]=0.5}, uses=33, maxlevel=3}
+		cracky={times={[1]=3.0, [2]=2.0, [3]=0.5}, uses=43, maxlevel=3}
 	},
 		damage_groups = {fleshy=5},
 	},
@@ -93,7 +83,7 @@ minetest.register_tool("explorertools:axe_explorer", {
 		full_punch_interval = 0.9,
 		max_drop_level=1,
 		groupcaps={
-			choppy={times={[1]=2.10, [2]=0.90, [3]=0.50}, uses=33, maxlevel=2},
+			choppy={times={[1]=2.10, [2]=0.90, [3]=0.50}, uses=43, maxlevel=2},
 		},
 		damage_groups = {fleshy=7},
 	},
@@ -109,7 +99,7 @@ minetest.register_tool("explorertools:shovel_explorer", {
 		full_punch_interval = 1.0,
 		max_drop_level=1,
 		groupcaps={
-			crumbly = {times={[1]=1.30, [2]=0.60, [3]=0.40}, uses=33, maxlevel=3},
+			crumbly = {times={[1]=1.30, [2]=0.60, [3]=0.40}, uses=43, maxlevel=3},
 		},
 		damage_groups = {fleshy=4},
 	},
