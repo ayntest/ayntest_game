@@ -185,7 +185,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		if fields["rename_waypoint"..i] then
 			hit = true
 			waypoints[i] = waypoints[i] or {}
-			temp[i].edit = true
+			temp[i].edit = true -- attempt to index a nil value?
 			update_formspec = true
 		end
 

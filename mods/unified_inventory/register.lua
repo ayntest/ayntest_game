@@ -80,10 +80,10 @@ unified_inventory.register_button("misc_set_day", {
 		local player_name = player:get_player_name()
 		if minetest.check_player_privs(player_name, {settime=true}) then
 			minetest.sound_play("birds",
-					{to_player=player_name, gain = 1.0})
-			minetest.set_timeofday((4700 % 24000) / 24000)
+					{to_player=player_name, gain = 0.8})
+			minetest.set_timeofday((4800 % 24000) / 24000)
 			minetest.chat_send_player(player_name,
-				S("Time of day set to 6am"))
+				S("Time of day set to 5am"))
 		else
 			minetest.chat_send_player(player_name,
 				S("You don't have the settime priviledge!"))
@@ -99,7 +99,7 @@ unified_inventory.register_button("misc_set_night", {
 		local player_name = player:get_player_name()
 		if minetest.check_player_privs(player_name, {settime=true}) then
 			minetest.sound_play("owl",
-					{to_player=player_name, gain = 1.0})
+					{to_player=player_name, gain = 0.8})
 			minetest.set_timeofday((21000 % 24000) / 24000)
 			minetest.chat_send_player(player_name,
 					S("Time of day set to 9pm"))
