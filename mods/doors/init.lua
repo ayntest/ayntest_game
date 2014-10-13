@@ -313,7 +313,7 @@ minetest.register_craft({
 })
 
 doors.register_door("doors:door_steel", {
-	description = 'Steel Door (locked)',
+	description = 'Steel Door (Locked)',
 	inventory_image = "door_steel.png",
 	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
 	tiles_bottom = {"door_steel_b.png", "door_grey.png"},
@@ -454,4 +454,38 @@ minetest.register_craft({
 		{'group:wood', 'group:wood', 'group:wood'},
 		{'', '', ''},
 	}
+})
+
+doors.register_door('doors:door_gold', {
+	description = 'Gold Door',
+	inventory_image = 'door_gold.png',
+	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
+	tiles_bottom = {'door_gold_b.png', 'door_golden.png'},
+	tiles_top = {'door_gold_a.png', 'door_golden.png'},
+	sunlight = false,
+})
+
+doors.register_door('doors:door_gold_lk', {
+	description = 'Gold Door (Locked)',
+	inventory_image = 'door_gold.png',
+	only_placer_can_open = true,
+	groups = {snappy=1,bendy=2,cracky=1,melty=2,level=2,door=1},
+	tiles_bottom = {'door_gold_b.png', 'door_golden.png'},
+	tiles_top = {'door_gold_a.png', 'door_golden.png'},
+	sunlight = false,
+})
+
+core.register_craft({
+	output = 'doors:door_gold',
+	recipe = {
+		{'default:gold_ingot', 'default:gold_ingot'},
+		{'default:gold_ingot', 'default:gold_ingot'},
+		{'default:gold_ingot', 'default:gold_ingot'}
+	}
+})
+
+core.register_craft({
+	type = 'shapeless',
+	output = 'doors:door_gold_lk',
+	recipe = { 'doors:door_gold' }
 })
