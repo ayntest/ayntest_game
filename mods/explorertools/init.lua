@@ -1,66 +1,34 @@
---Explorer Tools version 1.1
+--Explorer Tools All version 1.1
 
---This code was written by Kilarin (Donald Hines) and his son Jesse Hines
---License:CC0, you can do whatever you wish with it.
+--The original Explorer Tools code was written by Kilarin (Donald Hines) and
+--his son Jesse Hines. 4aiman then created a version that instead of creating
+--special explorer tools with their own recipie, gave this "place on rightclick"
+--ability to every pick, axe, and shovel in the game.  This version is a slight
+--modification of his version.
+--License:GPLv3 http://gplv3.fsf.org/
 
+---
+---Function
+---
+
+--This function is for use when an explorertool is right clicked
+--it finds the inventory item immediatly to the right of the explorertool
+--and then places THAT item (if possible)
+--
 function explorertools_place(item, player, pointed)
-  --find index of item to right of wielded tool
-  --(could have gotten this directly from item I suppose, but this works fine)
-  local idx = player:get_wield_index() + 1
-  local inv = player:get_inventory()
-  local stack = inv:get_stack("main", idx) --stack=stack to right of tool
-  if pointed ~= nil then
-    local success
-    --attempt to place stack where tool was pointed
-    stack, success = minetest.item_place(stack, player, pointed)
-    if success then  --if item was placed, put modified stack back in inv
-      inv:set_stack("main", idx, stack)
-    end --success
-  end --pointed ~= nil
-end --function explorertools_place
+	--find index of item to right of wielded tool
+	--(could have gotten this directly from item I suppose, but this works fine)
+	local idx = player:get_wield_index() + 1
+	local inv = player:get_inventory()
+	local stack = inv:get_stack("main", idx) --stack=stack to right of tool
+	if pointed ~= nil then
+		--attempt to place stack where tool was pointed
+		stack = minetest.item_place(stack, player, pointed)
+		inv:set_stack("main", idx, stack)
+	end
+end
 
----
----Explorer Tools register recipes
----
-
---we put the recipies inside an if checking for default so that
---in the unlikely case someone is running this without default,
---they still could.  they would just have to use /giveme or creative
---mode to get the tools
-if minetest.get_modpath("default") then
-	minetest.register_craft({
-		  output = 'explorertools:pick_explorer',
-	recipe = {
-	  {'default:diamond', 'default:diamond', 'default:diamond'},
-	  {'', 'default:mese_crystal_fragment', ''},
-	  {'', 'group:stick', ''},
-	}
-	})
-
-	minetest.register_craft({
-	output = 'explorertools:axe_explorer',
-	recipe = {
-		{'default:diamond', 'default:diamond'},
-		{'default:diamond', 'default:mese_crystal_fragment'},
-		{'', 'group:stick'},
-	}
-	})
-
-	minetest.register_craft({
-	output = 'explorertools:shovel_explorer',
-	recipe = {
-		{'default:diamond'},
-		{'default:mese_crystal_fragment'},
-		{'group:stick'},
-	}
-	})
-end --if default exists register recipes
-
-
----
----Explorer Tools Register Tools
----
-
+---Explorer Tools definitions (DEPRECATED)
 minetest.register_tool("explorertools:pick_explorer", {
 	description = "Explorer Pickaxe",
 	inventory_image = "explorerpick.png",
@@ -72,7 +40,7 @@ minetest.register_tool("explorertools:pick_explorer", {
 	},
 		damage_groups = {fleshy=5},
 	},
-	--on_place = explorertools_place
+	groups = { not_in_creative_inventory=1 }
 })
 
 
@@ -87,7 +55,7 @@ minetest.register_tool("explorertools:axe_explorer", {
 		},
 		damage_groups = {fleshy=7},
 	},
-	--on_place = explorertools_place
+	groups = { not_in_creative_inventory=1 }
 })
 
 
@@ -103,5 +71,18 @@ minetest.register_tool("explorertools:shovel_explorer", {
 		},
 		damage_groups = {fleshy=4},
 	},
-	--on_place = explorertools_place
+	groups = { not_in_creative_inventory=1 }
 })
+-- end of tool definitions
+
+--loop through all defined tools, and if it is a pick, axe, shovel, or spade,
+--change it's on_place function to be explorertools_place
+for cou,def in pairs(minetest.registered_tools) do
+	if def.name:find('pick')
+		or def.name:find('axe')
+		or def.name:find('shovel')
+		or def.name:find('spade')
+		then
+		core.override_item( def.name, {on_place = explorertools_place,} )
+	end
+end
