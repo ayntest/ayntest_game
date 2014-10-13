@@ -279,4 +279,34 @@ if core.get_modpath( 'moreblocks' ) ~= nil then
 	stairsplus.register_nodes ( 'bamboo', { 'block', 'block_dry' } )
 end
 
+if minetest.get_modpath("doors") then
+	doors.register_door("bamboo:door", {
+		description = "Bamboo Door",
+		inventory_image = "bamboo_door.png",
+		groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=2,door=1},
+		tiles_bottom = {"bamboo_door_b.png", "bamboo_door_top.png"},
+		tiles_top = {"bamboo_door_a.png", "bamboo_door_top.png"},
+		sounds = default.node_sound_wood_defaults(),
+		sunlight = false,
+	})
+
+	minetest.register_craft({
+		output = "bamboo:door",
+		recipe = {
+			{"bamboo:item", "bamboo:item"},
+			{"bamboo:item", "bamboo:item"},
+			{"bamboo:item", "bamboo:item"}
+		}
+	})
+
+	minetest.register_craft({
+		output = "bamboo:door",
+		recipe = {
+			{"bamboo:item_dry", "bamboo:item_dry"},
+			{"bamboo:item_dry", "bamboo:item_dry"},
+			{"bamboo:item_dry", "bamboo:item_dry"}
+		}
+	})
+end
+
 print("[Bamboo] Loaded!")
