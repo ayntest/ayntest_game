@@ -11,11 +11,25 @@ core.register_node(':farming:pumpkin_1', {
 	sunlight_propagates = true,
 	drawtype = 'nodebox',
 	drop = '',
-	tiles = {'farming_pumpkin_top.png', 'farming_pumpkin_top.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png'},
+	tiles = {
+		"farming_pumpkin_top.png",
+		"farming_pumpkin_bottom.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png"
+	},
 	node_box = {
 		type = 'fixed',
 		fixed = {
-			{-0.2, -0.5, -0.2, 0.2, -0.1, 0.2}
+			{-0.21, -0.5, -0.21, 0.21, -0.4375, 0.21}, -- NodeBox1
+			{-0.25, -0.4375, -0.25, 0.25, -0.375, 0.25}, -- NodeBox2
+			{-0.28, -0.375, -0.28, 0.28, -0.3125, 0.28}, -- NodeBox3
+			{-0.3125, -0.3125, -0.3125, 0.3125, 0, 0.3125}, -- NodeBox4
+			{-0.28, 0, -0.28, 0.28, 0.0625, 0.28}, -- NodeBox5
+			{-0.25, 0.0625, -0.25, 0.25, 0.125, 0.25}, -- NodeBox6
+			{-0.21, 0.125, -0.21, 0.21, 0.1875, 0.21}, -- NodeBox7
+			{-0.03, 0.1875, -0.03, 0.03, 0.25, 0.03}, -- NodeBox8
 		},
 	},
 	selection_box = {
@@ -33,18 +47,30 @@ core.register_node(':farming:pumpkin_2', {
 	sunlight_propagates = true,
 	drawtype = 'nodebox',
 	drop = '',
-	tiles = {'farming_pumpkin_top.png', 'farming_pumpkin_top.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png'},
+	tiles = {
+		"farming_pumpkin_top.png",
+		"farming_pumpkin_bottom.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png"
+	},
 	node_box = {
 		type = 'fixed',
 		fixed = {
-			{-0.35, -0.5, -0.35, 0.35, 0.2, 0.35}
+			{-0.21, -0.5, -0.21, 0.21, -0.4375, 0.21}, -- NodeBox1
+			{-0.25, -0.4375, -0.25, 0.25, -0.375, 0.25}, -- NodeBox2
+			{-0.28, -0.375, -0.28, 0.28, -0.3125, 0.28}, -- NodeBox3
+			{-0.3125, -0.3125, -0.3125, 0.3125, 0, 0.3125}, -- NodeBox4
+			{-0.28, 0, -0.28, 0.28, 0.0625, 0.28}, -- NodeBox5
+			{-0.25, 0.0625, -0.25, 0.25, 0.125, 0.25}, -- NodeBox6
+			{-0.21, 0.125, -0.21, 0.21, 0.1875, 0.21}, -- NodeBox7
+			{-0.03, 0.1875, -0.03, 0.03, 0.25, 0.03}, -- NodeBox8
 		},
 	},
 	selection_box = {
 		type = 'fixed',
-		fixed = {
-			{-0.35, -0.5, -0.35, 0.35, 0.2, 0.35}
-		},
+		fixed = { -0.3125, -0.5, -0.3125, 0.3125, 0.25, 0.3125 }
 	},
 	groups = {choppy=2, oddly_breakable_by_hand=2, flammable=2, not_in_creative_inventory=1, plant=1},
 	sounds = default.node_sound_wood_defaults(),
@@ -52,8 +78,31 @@ core.register_node(':farming:pumpkin_2', {
 
 core.register_node(':farming:pumpkin', {
 	description = 'Pumpkin',
+	drawtype = "nodebox",
+	paramtype = "light",
+	sunlight_propagates = true,
 	paramtype2 = 'facedir',
-	tiles = {'farming_pumpkin_top.png', 'farming_pumpkin_top.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png'},
+	tiles = {
+		"farming_pumpkin_top.png",
+		"farming_pumpkin_bottom.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png"
+	},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.21, -0.5, -0.21, 0.21, -0.4375, 0.21}, -- NodeBox1
+			{-0.25, -0.4375, -0.25, 0.25, -0.375, 0.25}, -- NodeBox2
+			{-0.28, -0.375, -0.28, 0.28, -0.3125, 0.28}, -- NodeBox3
+			{-0.3125, -0.3125, -0.3125, 0.3125, 0, 0.3125}, -- NodeBox4
+			{-0.28, 0, -0.28, 0.28, 0.0625, 0.28}, -- NodeBox5
+			{-0.25, 0.0625, -0.25, 0.25, 0.125, 0.25}, -- NodeBox6
+			{-0.21, 0.125, -0.21, 0.21, 0.1875, 0.21}, -- NodeBox7
+			{-0.03, 0.1875, -0.03, 0.03, 0.25, 0.03}, -- NodeBox8
+		}
+	},
 	groups = {choppy=2, oddly_breakable_by_hand=2, flammable=2, plant=1},
 	sounds = default.node_sound_wood_defaults(),
 	
@@ -70,19 +119,75 @@ farming.add_plant('farming:pumpkin', {'farming:pumpkin_1', 'farming:pumpkin_2'},
 
 core.register_node(':farming:pumpkin_face', {
 	description = 'Pumpkin Face',
-	paramtype2 = 'facedir',
-	tiles = {'farming_pumpkin_top.png', 'farming_pumpkin_top.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png', 'farming_pumpkin_face.png'},
+	paramtype = "light",
+	paramtype2 = "facedir",
+	drawtype = "nodebox",
+	sunlight_propagates = true,
+	tiles = {
+		"farming_pumpkin_top.png",
+		"farming_pumpkin_bottom.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_face.png"
+	},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.21, -0.5, -0.21, 0.21, -0.4375, 0.21}, -- NodeBox1
+			{-0.25, -0.4375, -0.25, 0.25, -0.375, 0.25}, -- NodeBox2
+			{-0.28, -0.375, -0.28, 0.28, -0.3125, 0.28}, -- NodeBox3
+			{-0.3125, -0.3125, -0.3125, 0.3125, 0, 0.3125}, -- NodeBox4
+			{-0.28, 0, -0.28, 0.28, 0.0625, 0.28}, -- NodeBox5
+			{-0.25, 0.0625, -0.25, 0.25, 0.125, 0.25}, -- NodeBox6
+			{-0.21, 0.125, -0.21, 0.21, 0.1875, 0.21}, -- NodeBox7
+			{-0.03, 0.1875, -0.03, 0.03, 0.25, 0.03}, -- NodeBox8
+		}
+	},
 	groups = {choppy=2, oddly_breakable_by_hand=2, flammable=2, plant=1},
 	sounds = default.node_sound_wood_defaults(),
+	on_punch = function(pos, node, puncher)
+		node.name = "farming:pumpkin_face_light"
+		core.set_node( pos, node )
+		nodeupdate( pos )
+	end,
 })
 
 core.register_node(':farming:pumpkin_face_light', {
 	description = 'Pumpkin Face With Light',
-	paramtype2 = 'facedir',
+	paramtype = "light",
+	paramtype2 = "facedir",
+	drawtype = "nodebox",
+	sunlight_propagates = true,
 	light_source = LIGHT_MAX-2,
-	tiles = {'farming_pumpkin_top.png', 'farming_pumpkin_top.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png', 'farming_pumpkin_side.png', 'farming_pumpkin_face_light.png'},
+	tiles = {
+		"farming_pumpkin_top.png",
+		"farming_pumpkin_bottom.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_sides.png",
+		"farming_pumpkin_face_light.png"
+	},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.21, -0.5, -0.21, 0.21, -0.4375, 0.21}, -- NodeBox1
+			{-0.25, -0.4375, -0.25, 0.25, -0.375, 0.25}, -- NodeBox2
+			{-0.28, -0.375, -0.28, 0.28, -0.3125, 0.28}, -- NodeBox3
+			{-0.3125, -0.3125, -0.3125, 0.3125, 0, 0.3125}, -- NodeBox4
+			{-0.28, 0, -0.28, 0.28, 0.0625, 0.28}, -- NodeBox5
+			{-0.25, 0.0625, -0.25, 0.25, 0.125, 0.25}, -- NodeBox6
+			{-0.21, 0.125, -0.21, 0.21, 0.1875, 0.21}, -- NodeBox7
+			{-0.03, 0.1875, -0.03, 0.03, 0.25, 0.03}, -- NodeBox8
+		}
+	},
 	groups = {choppy=2, oddly_breakable_by_hand=2, flammable=2},
 	sounds = default.node_sound_wood_defaults(),
+	on_punch = function(pos, node, puncher)
+		node.name = "farming:pumpkin_face"
+		core.set_node( pos, node )
+		nodeupdate( pos )
+	end,
 })
 
 core.register_craft({
