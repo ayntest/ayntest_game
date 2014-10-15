@@ -108,7 +108,6 @@ for _,plant in pairs(PLANTS) do
 			end
 			local under = core.get_node(pt.under)
 			local above = core.get_node(pt.above)
-			print('ok')
 			-- return if any of the nodes is not registered
 			if not core.registered_nodes[under.name] then
 				return
