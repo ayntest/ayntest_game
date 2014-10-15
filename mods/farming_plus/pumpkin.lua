@@ -515,3 +515,14 @@ core.register_craft({
 	output = 'farming:pumpkin_seed 3',
 	recipe = { 'farming:pumpkin' }
 })
+
+-- update generated pumkins
+minetest.register_abm({
+	nodenames = 'farming:pumpkin',
+	neighbors = { 'default:dirt' },
+	interval = 60,
+	chance = 1,
+	action = function(pos, node)
+		core.set_node(pos, { name='farming:pumpkin', paramtype='light' })
+	end
+})
