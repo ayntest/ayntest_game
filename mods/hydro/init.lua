@@ -74,19 +74,19 @@ for _,plant in pairs(PLANTS) do
 			fixed = {-1/3, -1/2, -1/3, 1/3, 1/6, 1/3},
 		},
 	})
-	core.register_node("hydro:seeds_"..plant.name, {
-		description = plant.description.." Seeds",
+	core.register_node('hydro:seeds_'..plant.name, {
+		description = plant.description..' Seeds',
 		drawtype = 'signlike',
-		tiles = {"hydro_seeds.png"},
-		inventory_image = "hydro_seeds.png",
-		wield_image = "hydro_seeds.png",
-		paramtype = "light",
-		paramtype2 = "wallmounted",
+		tiles = {'hydro_seeds.png'},
+		inventory_image = 'hydro_seeds.png',
+		wield_image = 'hydro_seeds.png',
+		paramtype = 'light',
+		paramtype2 = 'wallmounted',
 		is_ground_content = true,
 		walkable = false,
 		climbable = false,
 		selection_box = {
-			type = "wallmounted",
+			type = 'wallmounted',
 		},
 		groups = {
 				attached_node=1,
@@ -97,6 +97,46 @@ for _,plant in pairs(PLANTS) do
 			},
 		legacy_wallmounted = true,
 		sounds = default.node_sound_wood_defaults(),
+		on_place = function(itemstack, placer, pointed_thing)
+			local pt = pointed_thing
+			-- check if pointing at a node
+			if not pt then
+				return
+			end
+			if pt.type ~= 'node' then
+				return
+			end
+			local under = core.get_node(pt.under)
+			local above = core.get_node(pt.above)
+			print('ok')
+			-- return if any of the nodes is not registered
+			if not core.registered_nodes[under.name] then
+				return
+			end
+			if not core.registered_nodes[above.name] then
+				return
+			end
+			if pt.above.y ~= pt.under.y+1 then
+				return
+			end
+			if not core.registered_nodes[above.name].buildable_to then
+				return
+			end
+			-- no more freaking seeds everywhere
+			if core.get_item_group(under.name, 'soil') < 2 then
+				return
+			end
+			
+			core.add_node(
+				pt.above,
+				{
+					name = 'hydro:seeds_'..plant.name,
+					param2 = 1
+				}
+			)
+			itemstack:take_item()
+			return itemstack
+		end,
 	})
 	core.register_node('hydro:seedlings_'..plant.name, {
 		drawtype = 'plantlike',
