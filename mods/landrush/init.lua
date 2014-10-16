@@ -1,5 +1,4 @@
-minetest.log('action','Loading Land Rush Land Claim')
-
+local load_time_start = os.clock()
 landrush = {}
 
 local path = minetest.get_modpath("landrush")
@@ -108,13 +107,10 @@ if ( minetest.get_modpath("money2") ) then
 	dofile(path.."/landsale.lua")
 end
 
-minetest.after(0, function ()
-
 --dofile(path.."/default.lua")
 dofile(path.."/doors.lua")
 dofile(path.."/fire.lua")
 dofile(path.."/chatcommands.lua")
 --dofile(path.."/screwdriver.lua")
 dofile(path.."/snow.lua")
-
-end )
+print( string.format('[landrush] loaded after ca. %.2fs', os.clock() - load_time_start) )
