@@ -69,8 +69,8 @@ for _,tool in pairs(HAMMERS) do
 		output = 'cottages:' .. _,
 		recipe = {
 			{ tool.recipe,	tool.recipe,	tool.recipe },
-			{ tool.recipe,	'group:stick',	tool.recipe },
-			{ '',			'group:stick',	''			}
+			{ tool.recipe,	'group:stick',	'' },
+			{ '',			'group:stick',	'' }
 			}
 	})
 
