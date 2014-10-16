@@ -1,4 +1,3 @@
---[[
 minetest.register_node("castle:workbench",{
 	description = "Workbench",
 	tiles = {"castle_workbench_top.png", "default_wood.png", "castle_workbench_1.png", "castle_workbench_1.png", "castle_workbench_2.png", "castle_workbench_2.png"},
@@ -133,31 +132,6 @@ minetest.register_craft({
 		{"default:tree", "default:tree","default:steel_ingot"},
 	}
 })
-]]--
-
-minetest.register_node("castle:dungeon_stone", {
-	description = "Dungeon Stone",
-	drawtype = "normal",
-	tiles = {"castle_dungeon_stone.png"},
-	groups = {cracky=2},
-	paramtype = "light",
-})
-
-minetest.register_craft({
-	output = "castle:dungeon_stone",
-	recipe = {
-		{"default:stonebrick", "default:obsidian"},
-	}
-})
-
-minetest.register_craft({
-	output = "castle:dungeon_stone",
-	recipe = {
-		{"default:stonebrick"},
-		{"default:obsidian"},
-
-	}
-})
 
 --[[
 minetest.register_node("castle:crate", {
@@ -248,41 +222,3 @@ stairs.register_stair_and_slab("straw", "castle:straw",
 		"Castle Straw Slab",
 		default.node_sound_leaves_defaults())
 ]]--
-
-minetest.register_node("castle:pavement", {
-	description = "Paving Stone",
-	drawtype = "normal",
-	tiles = {"castle_pavement_brick.png"},
-	groups = {cracky=2},
-	paramtype = "light",
-})
-
-minetest.register_craft({
-	output = "castle:pavement 4",
-	recipe = {
-		{"default:stone", "default:cobble"},
-		{"default:cobble", "default:stone"},
-	}
-})
-
-
-minetest.register_node("castle:light",{
-	drawtype = "glasslike",
-	description = "Light Block",
-	sunlight_propagates = true,
-	light_source = 14,
-	tiles = {"castle_street_light.png"},
-	groups = {cracky=2},
-	paramtype = "light",
-})
-
-minetest.register_craft({
-	output = "castle:light",
-	recipe = {
-		{"default:stick", "default:glass", "default:stick"},
-		{"default:glass", "default:torch", "default:glass"},
-		{"default:stick", "default:glass", "default:stick"},
-	}
-})
-
-
