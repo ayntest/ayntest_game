@@ -1,7 +1,10 @@
-landrush.gstepCount = 0
+local HUD_TIMER = 0 -- init
+local HUD_INTERVAL = 1 -- seconds
+-- hud definitions
 landrush.playerHudItems = {}
-local hud_prefix = 'Land owner: '
-local shared_prefix = 'Shared: '
+local HUD_PREFIX = 'Land owner: '
+local SHARED_PREFIX = 'Shared: '
+local SHARED_HIDDEN = 'Shared: [unknown]'
 local owner = nil
 
 function landrush.hud_init( player )
@@ -28,7 +31,7 @@ function landrush.hud_init( player )
 			number = 0xFFFFFF,
 			name = 'LandOwner',
 			position = { x=0.1, y=0.983 },
-			text = hud_prefix,
+			text = HUD_PREFIX,
 			alignment = { x=1, y=1 },
 			offset = { x = 0, y = -4 },
 		}),
@@ -37,7 +40,7 @@ function landrush.hud_init( player )
 			number = 0xFFFFFF,
 			name = 'LRShared',
 			position = { x=0.65, y=0.983 },
-			text = shared_prefix,
+			text = SHARED_PREFIX,
 			alignment = { x=1, y=1 },
 			offset = { x = 0, y = -4 },
 		}), lastowner=''}
@@ -62,15 +65,36 @@ function landrush.hud_redraw( player )
 	
 	owner = landrush.get_owner( player:getpos() )
 	if owner == nil then
-		--and landrush.playerHudItems[name].lastowner ~= nil then
 		--print('landrush reset hud for ' .. name )
-		player:hud_change(landrush.playerHudItems[name].hud,
-			'text', '')
-		player:hud_change(landrush.playerHudItems[name].hud_shared,
-			'text', '')
+		player:hud_change(
+			landrush.playerHudItems[name].hud,
+			'text', ''
+		)
+		player:hud_change(
+			landrush.playerHudItems[name].hud_shared,
+			'text', ''
+		)
+		-- hide background
+		player:hud_change(
+			landrush.playerHudItems[name].hud_bg,
+			'text', ''
+		)
+		player:hud_change(
+			landrush.playerHudItems[name].hud_bg2,
+			'text', ''
+		)
 		landrush.playerHudItems[name].lastowner = ''
 	else
-		--elseif landrush.playerHudItems[name].lastowner ~= owner then -- owner has changed
+		-- bring back background
+		player:hud_change(
+			landrush.playerHudItems[name].hud_bg,
+			'text', 'landrush_gui_bg.png'
+		)
+		player:hud_change(
+			landrush.playerHudItems[name].hud_bg2,
+			'text', 'landrush_gui_bg.png'
+		)
+		
 		if owner == name then
 			--print('update shared list')
 			local chunk = landrush.get_chunk( player:getpos() )
@@ -82,25 +106,25 @@ function landrush.hud_redraw( player )
 				'text', 'Shared: ' .. shared )
 		else
 			player:hud_change( landrush.playerHudItems[name].hud_shared,
-			'text', 'Shared: (?)')
+			'text', SHARED_HIDDEN)
 		end
 		
 		player:hud_change( landrush.playerHudItems[name].hud,
-			'text', hud_prefix .. owner )
+			'text', HUD_PREFIX .. owner )
 		landrush.playerHudItems[name].lastowner = owner
 	end
 end
 
 core.register_globalstep(function(dtime)
-	landrush.gstepCount = landrush.gstepCount + dtime
-	if landrush.gstepCount > 1 then
+	HUD_TIMER = HUD_TIMER + dtime
+	if HUD_TIMER > HUD_INTERVAL then
 		local oplayers = core.get_connected_players()
 		--local x = os.clock()
 		for _,player in ipairs(oplayers) do
 			landrush.hud_redraw( player )
 		end
 		--print( string.format("time in loop: %.9f", os.clock() - x ) )
-		landrush.gstepCount=0
+		HUD_TIMER=0
 	end
 end)
 
