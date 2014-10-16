@@ -782,16 +782,6 @@ minetest.register_node("default:chest", {
 	end,
 })
 
-local function has_locked_chest_privilege(meta, player)
-	local name = player:get_player_name()
-
-	if name == meta:get_string("owner") or minetest.check_player_privs( name, { access=true } ) == true then
-		return true
-	end
-	
-	return false
-end
-
 minetest.register_node("default:chest_locked", {
 	description = "Locked Chest",
 	tiles = {"default_chest_top.png", "default_chest_top.png", "default_chest_side.png",
@@ -817,41 +807,41 @@ minetest.register_node("default:chest_locked", {
 	can_dig = function(pos,player)
 		local meta = minetest.get_meta(pos);
 		local inv = meta:get_inventory()
-		return inv:is_empty("main") and has_locked_chest_privilege(meta, player)
+		return inv:is_empty("main") and default.has_locked_chest_privilege(meta, player)
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		local meta = minetest.get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
+		if not default.has_locked_chest_privilege(meta, player) then
 			return 0
 		end
 		return count
 	end,
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
+		if not default.has_locked_chest_privilege(meta, player) then
 			return 0
 		end
 		return stack:get_count()
 	end,
     allow_metadata_inventory_take = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
+		if not default.has_locked_chest_privilege(meta, player) then
 			return 0
 		end
 		return stack:get_count()
 	end,
-    on_metadata_inventory_put = function(pos, listname, index, stack, player)
+	on_metadata_inventory_put = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name()..
 				" moves stuff to locked chest at "..minetest.pos_to_string(pos))
 	end,
-    on_metadata_inventory_take = function(pos, listname, index, stack, player)
+	on_metadata_inventory_take = function(pos, listname, index, stack, player)
 		minetest.log("action", player:get_player_name()..
 				" takes stuff from locked chest at "..minetest.pos_to_string(pos))
 	end,
 	on_rightclick = function(pos, node, clicker)
 		local meta = minetest.get_meta(pos)
 		local name = clicker:get_player_name()
-		if has_locked_chest_privilege(meta, clicker) then
+		if default.has_locked_chest_privilege(meta, clicker) then
 			minetest.show_formspec(
 				name,
 				"default:chest_locked",

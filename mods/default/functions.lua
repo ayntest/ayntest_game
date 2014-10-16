@@ -354,3 +354,11 @@ function default.floor_pos( pos )
 	pos.z = mfloor( pos.z )
 	return core.pos_to_string( pos )
 end
+
+function default.has_locked_chest_privilege(meta, player)
+	local name = player:get_player_name()
+	if name == meta:get_string("owner") or minetest.check_player_privs( name, { access=true } ) == true then
+		return true
+	end
+	return false
+end
