@@ -516,7 +516,7 @@ core.register_craft({
 	recipe = { 'farming:pumpkin' }
 })
 
--- update generated pumkins
+--[[ update generated pumkins
 minetest.register_abm({
 	nodenames = 'farming:pumpkin',
 	neighbors = { 'default:dirt' },
@@ -526,3 +526,4 @@ minetest.register_abm({
 		core.set_node(pos, { name='farming:pumpkin', paramtype='light' })
 	end
 })
+]]--
