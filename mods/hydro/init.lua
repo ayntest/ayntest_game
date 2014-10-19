@@ -61,6 +61,7 @@ for _,plant in pairs(PLANTS) do
 		tiles = {"hydro_wildplant.png"},
 		paramtype = "light",
 		walkable = false,
+		buildable_to = true,
 		groups = {
 				attached_node=1,
 				flammable=3,
@@ -75,7 +76,7 @@ for _,plant in pairs(PLANTS) do
 		},
 	})
 	core.register_node('hydro:seeds_'..plant.name, {
-		description = plant.description..' Seeds',
+		description = plant.description..' Seeds (require promix)',
 		drawtype = 'signlike',
 		tiles = {'hydro_seeds.png'},
 		inventory_image = 'hydro_seeds.png',
@@ -84,7 +85,7 @@ for _,plant in pairs(PLANTS) do
 		paramtype2 = 'wallmounted',
 		is_ground_content = true,
 		walkable = false,
-		climbable = false,
+		buildable_to = true,
 		selection_box = {
 			type = 'wallmounted',
 		},
