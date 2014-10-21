@@ -15,7 +15,7 @@ core.register_chatcommand("msg", {
 				.. ": " .. message)
 		core.chat_send_player(sendto, "PM from " .. name .. ": "
 				.. message)
-		core.sound_play( 'chat_next_pm', { to_player = sendto, gain = 0.8 } )
+		core.sound_play( 'chat_next_pm', { to_player = sendto, gain = 0.9 } )
 		return true, "Message sent."
 	end,
 })
@@ -100,7 +100,7 @@ core.register_chatcommand( 'whereis', {
 			return
 		end
 
-		minetest.log('action', name..' invoked /whereis, param='..param)
+		core.log('action', name..' invoked /whereis, param='..param)
 		local player = minetest.get_player_by_name(param)
 		
 		if ( player == nil ) then
@@ -114,7 +114,7 @@ core.register_chatcommand( 'whereis', {
 		playerPos.z = math.floor(playerPos.z)
 		
 		--distance stuff
-		local me = minetest.get_player_by_name(name)
+		local me = core.get_player_by_name(name)
 		local myPos = me:getpos()
 		
 		local distance = math.floor(math.sqrt( (myPos.x - playerPos.x)^2 + (myPos.y - playerPos.y)^2 + (myPos.z - playerPos.z)^2 ))
@@ -203,17 +203,59 @@ core.register_chatcommand( 'mypos', {
 	end
 })
 
-local function iter_hud_remove( player )
-	for id = 0,30,1 do
-		player:hud_remove( id )
-	end
-end
-core.register_chatcommand( 'rsthud', {
-	description = 'Reset HUD',
+-- by kaeza
+core.register_chatcommand( 'notice', {
+	params = '<player> <text>',
+	privs = { ban=true, },
+	description = 'Show a notice to a player.',
+	func = function(name, params)
+		local target, text = params:match("(%S+)%s+(.+)")
+		if not (target and text) then
+			core.chat_send_player(name, "Usage: /notice <player> <text>")
+			return
+		end
+		local player = core.get_player_by_name(target)
+		if not player then
+			core.chat_send_player(name, ("There's no player named '%s'."):format(target))
+			return
+		end
+		local fs = { }
+		local y = 0
+		for _, line in ipairs(text:split("|")) do
+			table.insert(fs, ("label[1,%f;%s]"):format(y+1, core.formspec_escape(line)))
+			y = y + 0.5
+		end
+		table.insert(fs, 1, ("size[8,%d]"):format(y+3))
+		table.insert(fs, ("button_exit[3,%f;2,0.5;ok;OK]"):format(y+2))
+		fs = table.concat(fs)
+		core.chat_send_player(name, "Notice sent.")
+		core.after(0.3, function()
+			core.show_formspec(target, "notice:notice", fs)
+		end)
+	end,
+})
+
+core.register_chatcommand( 'clearobj', {
+	description = 'clear objects in loaded areas',
 	privs = { server=true },
-	func = function( name )
+	func = function( name, param )
+		for _, obj in pairs( core.get_objects_inside_radius({x=0,y=0,z=0}, 1000000) ) do
+			if not obj:is_player() then
+				obj:remove()
+			end
+		end
+	end,
+})
+
+core.register_chatcommand( 'rsthud', {
+	params = '[player]',
+	description = 'Reset HUD of player',
+	privs = { server=true },
+	func = function( name, param )
 		local player = core.get_player_by_name( name )
-		iter_hud_remove( player )
+		for id = 0,30,1 do
+			player:hud_remove( id )
+		end
 		
 		if landrush then
 			landrush.hud_destroy( player )
