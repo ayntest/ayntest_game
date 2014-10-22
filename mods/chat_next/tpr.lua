@@ -10,7 +10,7 @@ function chatnext.tpr_send(name, param)
 	local receiver = param
 
 	if receiver == '' then
-		return, false 'Usage: /tpr <player name>'
+		return false, 'Usage: /tpr <player name>'
 	elseif receiver == sender then
 		return false, 'This does not make any sense!'
 	end
@@ -38,7 +38,7 @@ function chatnext.tphr_send(name, param)
 	local receiver = param
 
 	if receiver == '' then
-		return, false 'Usage: /tphr <player name>'
+		return false, 'Usage: /tphr <player name>'
 	elseif receiver == sender then
 		return false, 'This does not make any sense!'
 	end
