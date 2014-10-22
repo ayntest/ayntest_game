@@ -9,13 +9,14 @@ function chatnext.tpr_send(name, param)
 	local sender = name
 	local receiver = param
 
-	if receiver == "" then
-		core.chat_send_player(sender, "Usage: /tpr <player name>")
-		return
+	if receiver == '' then
+		return, false 'Usage: /tpr <player name>'
+	elseif receiver == sender then
+		return false, 'This does not make any sense!'
 	end
 
 	--If paremeter is valid, Send teleport message and set the table.
-	if ( core.get_player_by_name(receiver) and chatnext.getopt( receiver, 'tpr' ) ~= 0 ) then
+	if core.get_player_by_name(receiver) and chatnext.getopt( receiver, 'tpr' ) ~= 0 then
 		core.chat_send_player(receiver, sender ..' is requesting to teleport to you. /tpy to accept' )
 		core.sound_play( 'chat_next_pm', { to_player = receiver, gain = 0.9 } )
 		core.chat_send_player(sender, 'Teleport request sent! It will time out in '.. timeout_delay ..' seconds.')
@@ -36,13 +37,14 @@ function chatnext.tphr_send(name, param)
 	local sender = name
 	local receiver = param
 
-	if receiver == "" then
-		core.chat_send_player(sender, "Usage: /tphr <player name>")
-		return
+	if receiver == '' then
+		return, false 'Usage: /tphr <player name>'
+	elseif receiver == sender then
+		return false, 'This does not make any sense!'
 	end
 
 	--If paremeter is valid, Send teleport message and set the table.
-	if ( core.get_player_by_name(receiver) and chatnext.getopt( receiver, 'tpr' ) ~= 0 ) then
+	if core.get_player_by_name(receiver) and chatnext.getopt( receiver, 'tpr' ) ~= 0 then
 		core.chat_send_player(receiver, sender ..' is requesting that you teleport to them. /tpy to accept; /tpn to deny')
 		core.sound_play( 'chat_next_pm', { to_player = receiver, gain = 0.9 } )
 		core.chat_send_player(sender, 'Teleport request sent! It will time out in '.. timeout_delay ..' seconds.')
@@ -130,13 +132,3 @@ function chatnext.tpr_accept(name, param)
 	p = find_free_position_near(p)
 	target:setpos(p)
 end
-
---[[
-	core.register_privilege("tpr_admin", {
-		description chatnext.= 'Permission chatnext.to override teleport to other players. UNFINISHED',
-		give_to_singleplayer = true
-	})
-end
-]]--
-
-print ('[Teleport Request] Loaded.')
