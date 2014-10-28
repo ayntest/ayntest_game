@@ -252,7 +252,11 @@ core.register_chatcommand( 'rsthud', {
 	description = 'Reset HUD of player',
 	privs = { server=true },
 	func = function( name, param )
-		local player = core.get_player_by_name( name )
+		local player = core.get_player_by_name( param )
+		if player == nil then
+			return false, 'No player '..param
+		end
+		
 		for id = 0,30,1 do
 			player:hud_remove( id )
 		end
@@ -264,7 +268,7 @@ core.register_chatcommand( 'rsthud', {
 		if hud then
 			hud.init_hud( player )
 		end
-		core.log("action", name .. ' invoked /rsthud')
+		core.log("action", name .. ' invoked /rsthud, param='..param)
 		return true, 'HUD has been reseted!'
 	end
 })
