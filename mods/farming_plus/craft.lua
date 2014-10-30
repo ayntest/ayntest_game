@@ -85,64 +85,6 @@ minetest.register_craft({
 	}
 })
 
--- SUGAR
-
-minetest.register_craftitem('farming_plus:sugar', {
-	groups = { food_sugar=1 },
-	description = S('Sugar'),
-	inventory_image = 'sugar.png',
-	on_use = minetest.item_eat(1)
-})
-
-minetest.register_craft({
-	type = 'cooking',
-	cooktime = 3.0,
-	output = 'farming_plus:sugar 2',
-	recipe = 'default:papyrus',
-})
-
--- WHEAT
-
-minetest.register_craftitem('farming_plus:flour', {
-	description = 'Flour',
-	inventory_image = 'farming_flour.png',
-})
-minetest.register_alias('farming:flour', 'farming_plus:flour')
-
-minetest.register_craftitem('farming_plus:dough', {
-	description = 'Dough',
-	inventory_image = 'farming_dough.png',
-})
-
-minetest.register_craft({
-	type = 'shapeless',
-	output = 'farming_plus:dough 2',
-	recipe = {'farming_plus:flour', 'bucket:bucket_water'},
-	replacements = {
-		{'bucket:bucket_water', 'bucket:bucket_empty'}
-	}
-})
-
-minetest.register_craftitem('farming_plus:bread', {
-	description = 'Bread',
-	inventory_image = 'farming_bread.png',
-	on_use = minetest.item_eat(4),
-})
-minetest.register_alias('farming:bread', 'farming_plus:bread')
-
-minetest.register_craft({
-	type = 'shapeless',
-	output = 'farming_plus:flour',
-	recipe = {'farming:wheat', 'farming:wheat', 'farming:wheat', 'farming:wheat'}
-})
-
-minetest.register_craft({
-	type = 'cooking',
-	cooktime = 15,
-	output = 'farming:bread',
-	recipe = 'farming_plus:dough'
-})
-
 -- ========= FUEL =========
 minetest.register_craft({
 	type = "fuel",
@@ -184,4 +126,56 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "farming:scarecrow_light",
 	burntime = 5
+})
+
+-- DEPRECATED
+
+core.register_craftitem('farming_plus:sugar', {
+	groups = { food_sugar=1 },
+	description = 'Sugar (deprecated)',
+	inventory_image = 'sugar.png',
+	groups = { not_in_creative_inventory=1 },
+})
+
+core.register_craftitem('farming_plus:flour', {
+	description = 'Flour (deprecated)',
+	inventory_image = 'farming_flour.png',
+	groups = { not_in_creative_inventory=1 },
+})
+
+core.register_craftitem('farming_plus:bread', {
+	description = 'Bread',
+	inventory_image = 'farming_bread.png',
+	on_use = minetest.item_eat(4),
+	groups = { not_in_creative_inventory=1 },
+})
+
+core.register_craftitem('farming_plus:dough', {
+	description = 'Dough (deprecated)',
+	inventory_image = 'farming_dough.png',
+	groups = { not_in_creative_inventory=1 },
+})
+
+core.register_craft({
+	type = 'shapeless',
+	output = 'mtfoods:sugar',
+	recipe = { 'farming_plus:sugar' }
+})
+
+core.register_craft({
+	type = 'shapeless',
+	output = 'farming:flour',
+	recipe = { 'farming_plus:flour' }
+})
+
+core.register_craft({
+	type = 'shapeless',
+	output = 'farming:flour',
+	recipe = {'farming_plus:flour'}
+})
+
+core.register_craft({
+	type = 'shapeless',
+	output = 'farming:bread',
+	recipe = {'farming_plus:dough'}
 })
