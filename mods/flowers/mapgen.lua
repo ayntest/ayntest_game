@@ -35,7 +35,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 						minetest.registered_nodes[nn].buildable_to then
 						nn = minetest.get_node({x=x,y=ground_y,z=z}).name
 						if nn == "default:dirt_with_grass" then
-							local flower_choice = pr:next(1, 6)
+							local flower_choice = pr:next(1, 7)
 							local flower
 							if flower_choice == 1 then
 								flower = "flowers:tulip"
@@ -49,6 +49,8 @@ minetest.register_on_generated(function(minp, maxp, seed)
 								flower = "flowers:geranium"
 							elseif flower_choice == 6 then
 								flower = "flowers:viola"
+							elseif flower_choice == 7 then
+								flower = "flowers:moonflower_closed"
 							end
 							minetest.set_node(p, {name = flower,
 								param2 = math.random(0, 179)})
