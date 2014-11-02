@@ -461,7 +461,7 @@ function mobs:register_mob(name, def)
 					self.tamed = tmp.tamed
 				end
 			end
-			if ( self.lifetimer <= 0 or ( self.type == 'monster' and core.get_max_lag() > 3 ) ) and not self.tamed then
+			if ( self.lifetimer <= 0 or ( self.type == 'monster' and (core.get_max_lag and core.get_max_lag() > 3) ) ) and not self.tamed then
 				local pos = self.object:getpos()
 				local hp = self.object:get_hp()
 				minetest.log( 'action', 'mob with ' .. tostring(hp) .. ' HP despawned at ' .. minetest.pos_to_string(pos) )
@@ -536,7 +536,7 @@ function mobs:register_spawn( name, description, nodes, max_light, min_light, ch
 			
 			if is_hostile then
 				-- don't spawn when there is too much lag
-				if core.get_max_lag() > 0.4 then return end
+				if core.get_max_lag and core.get_max_lag() > 0.4 then return end
 				
 				-- or it's an owned areas
 				local chunk = landrush.get_chunk( pos )
