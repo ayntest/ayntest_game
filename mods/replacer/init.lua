@@ -15,14 +15,15 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --]]
-
+local load_time_start = os.clock()
 replacer = {}
 
+--dofile( core.get_modpath('replacer')..'/inspect.lua' )
 
 core.register_tool( "replacer:replacer",
 {
 	description = "Node replacement tool",
-	groups = {}, 
+	groups = { norepair=1 }, 
 	inventory_image = "replacer_replacer.png",
 	wield_image = "",
 	wield_scale = {x=1,y=1,z=1},
@@ -43,15 +44,14 @@ core.register_tool( "replacer:replacer",
 	metadata = "default:wood", -- default replacement: common dirt
 
 	on_place = function(itemstack, placer, pointed_thing)
+		if( placer == nil or pointed_thing == nil) then
+			return itemstack -- nothing consumed
+		end
+		local name = placer:get_player_name()
+		--core.chat_send_player( name, "You PLACED this on "..core.serialize( pointed_thing )..".")
 
-	   if( placer == nil or pointed_thing == nil) then
-		  return itemstack; -- nothing consumed
-	   end
-	   local name = placer:get_player_name()
-	   --core.chat_send_player( name, "You PLACED this on "..core.serialize( pointed_thing )..".")
+		local keys=placer:get_player_control()
 
-	   local keys=placer:get_player_control()
-	
 		-- just place the stored node if now new one is to be selected
 		if( not( keys["sneak"] )) then
 			return replacer.replace( itemstack, placer, pointed_thing, 0  )
@@ -113,8 +113,8 @@ replacer.replace = function( itemstack, user, pointed_thing, mode )
 	local item = itemstack:to_table()
 
 	-- make sure it is defined
-	if( not( item[ "metadata"] ) or item["metadata"]=="" ) then
-	  item["metadata"] = "default:dirt 0 0"
+	if not( item[ "metadata"] ) or item["metadata"]=="" then
+		item["metadata"] = "default:dirt 0 0"
 	end
 
 	-- regain information about nodename, param1 and param2
@@ -130,62 +130,61 @@ replacer.replace = function( itemstack, user, pointed_thing, mode )
 		return nil
 	end
 
+	-- ignored nodes
+	if daten[1] == 'itemframes:frame' then
+		core.chat_send_player( name, 'Unable to place '..( daten[1] or "?" ))
+		return nil
+	end
+
 	-- do not replace if there is nothing to be done
-	if( node.name == daten[1] ) then
+	if node.name == daten[1] then
 		-- the node itshelf remains the same, but the orientation was changed
-		if( node.param1 ~= daten[2] or node.param2 ~= daten[3] ) then
-		 core.add_node( pos, { name = node.name, param1 = daten[2], param2 = daten[3] } )
+		if node.param1 ~= daten[2] or node.param2 ~= daten[3] then
+			core.add_node( pos, { name = node.name, param1 = daten[2], param2 = daten[3] } )
 		end
 		return nil
 	end
 
 
 	-- in survival mode, the player has to provide the node he wants to be placed
-	if( not(core.setting_getbool("creative_mode") )) then
+	if core.setting_getbool("creative_mode") == false then
+		-- players usually don't carry dirt_with_grass around; it's safe to assume normal dirt here
+		-- fortunately, dirt and dirt_with_grass does not make use of rotation
+		if( daten[1] == "default:dirt_with_grass" ) then
+			daten[1] = "default:dirt"
+			item["metadata"] = "default:dirt 0 0"
+		end
 
-	  -- players usually don't carry dirt_with_grass around; it's safe to assume normal dirt here
-	  -- fortionately, dirt and dirt_with_grass does not make use of rotation
-	  if( daten[1] == "default:dirt_with_grass" ) then
-		 daten[1] = "default:dirt"
-		 item["metadata"] = "default:dirt 0 0"
-	  end
-
-	  -- does the player carry at least one of the desired nodes with him?
-	  if( not( user:get_inventory():contains_item("main", daten[1]))) then
-
-
-		 core.chat_send_player( name, 'You have no further '..( daten[1] or "?" ))
-		 return nil
-	  end
-
-
-
-	  -- give the player the item by simulating digging if possible
-	if node.name == 'default:obsidian' then
-		core.chat_send_player( name, 'Unable to replace '..( node.name or "?" ))
-		return nil
-	elseif(   node.name ~= "air" 
-		and node.name ~= "ignore"
-		and node.name ~= "default:lava_source" 
-		and node.name ~= "default:lava_flowing"
-		and node.name ~= "default:water_source"
-		and node.name ~= "default:water_flowing" ) then
-
-		 core.node_dig( pos, node, user )
-
-		 local digged_node = core.get_node_or_nil( pos )
-		 if( not( digged_node ) 
-			or digged_node.name == node.name ) then
-
-			core.chat_send_player( name, "Replacing '"..( node.name or "air" ).."' with '"..( item[ "metadata"] or "?" ).."' failed. Unable to remove old node.")
+		-- does the player carry at least one of the desired nodes with him?
+		if not user:get_inventory():contains_item("main", daten[1]) then
+			core.chat_send_player( name, 'You have no further '..( daten[1] or "?" ))
 			return nil
-		 end
-	end
+		end
 
-	  -- consume the item
-	  user:get_inventory():remove_item("main", daten[1].." 1")
+		-- give the player the item by simulating digging if possible
+		if node.name == 'default:obsidian' then
+			core.chat_send_player( name, 'Unable to replace '..( node.name or "?" ))
+			return nil
+		elseif node.name ~= "air" 
+			and node.name ~= "ignore"
+			and node.name ~= "default:lava_source" 
+			and node.name ~= "default:lava_flowing"
+			and node.name ~= "default:water_source"
+			and node.name ~= "default:water_flowing" then
 
-	  --user:get_inventory():add_item( "main", node.name.." 1")
+			 core.node_dig( pos, node, user )
+			 local digged_node = core.get_node_or_nil( pos )
+			 if( not( digged_node ) 
+				or digged_node.name == node.name ) then
+				core.chat_send_player( name, "Replacing '"..( node.name or "air" ).."' with '"..( item[ "metadata"] or "?" ).."' failed. Unable to remove old node.")
+				return nil
+			 end
+		end
+
+		-- consume the item
+		user:get_inventory():remove_item("main", daten[1].." 1")
+
+		--user:get_inventory():add_item( "main", node.name.." 1")
 	end
 
 	--core.chat_send_player( name, "Replacing node '"..( node.name or "air" ).."' with '"..( item[ "metadata"] or "?" ).."'.")
@@ -204,3 +203,4 @@ core.register_craft({
 			{ '', '', 'default:chest' },
 	}
 })
+print( string.format('[replacer] loaded after ca. %.3fs', os.clock() - load_time_start) )
