@@ -45,3 +45,8 @@ dofile(minetest.get_modpath("default").."/mapgen.lua")
 dofile(minetest.get_modpath("default").."/player.lua")
 dofile(minetest.get_modpath("default").."/trees.lua")
 dofile(minetest.get_modpath("default").."/aliases.lua")
+
+core.register_privilege("access", {
+	description = "Can bypass any locks",
+	give_to_singleplayer = false,
+})
