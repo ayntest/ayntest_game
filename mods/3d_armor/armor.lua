@@ -92,7 +92,7 @@ armor.set_player_armor = function(self, player)
 		minetest.log("error", "Failed to read player name")
 		return
 	elseif not player_inv then
-		minetest.log("error", "Failed to read player inventory")
+		minetest.log("error", "Failed to read player inventory ("..name..")")
 		return
 	end
 	local armor_texture = "3d_armor_trans.png"
