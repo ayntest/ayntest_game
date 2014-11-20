@@ -22,6 +22,11 @@ function explorertools_place(item, player, pointed)
 	local inv = player:get_inventory()
 	local stack = inv:get_stack('main', idx) --stack=stack to right of tool
 	if pointed ~= nil then
+		local pos = default.floor_pos(pointed.node.under)
+		local node = core.get_node_or_nil(pos)
+		if node then
+			print(node.name)
+		end
 		--attempt to place stack where tool was pointed
 		stack = minetest.item_place(stack, player, pointed)
 		inv:set_stack('main', idx, stack)
@@ -77,6 +82,7 @@ minetest.register_tool('explorertools:shovel_explorer', {
 
 --loop through all defined tools, and if it is a pick, axe, shovel, or spade,
 --change it's on_place function to be explorertools_place
+--[[
 for cou,def in pairs(minetest.registered_tools) do
 	if def.name:find('pick')
 		or def.name:find('axe')
@@ -86,3 +92,4 @@ for cou,def in pairs(minetest.registered_tools) do
 		core.override_item( def.name, {on_place = explorertools_place,} )
 	end
 end
+]]--
