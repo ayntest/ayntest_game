@@ -122,8 +122,8 @@ for _,plant in pairs(PLANTS) do
 			if not core.registered_nodes[above.name].buildable_to then
 				return
 			end
-			-- no more freaking seeds everywhere
-			if core.get_item_group(under.name, 'soil') < 2 then
+
+			if under.name == 'hydro:promix' then
 				return
 			end
 			

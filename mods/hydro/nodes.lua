@@ -75,8 +75,7 @@ core.register_node("hydro:promix", {
 	description = "Promix",
 	tiles = {"hydro_promix.png"},
 	groups = {
-		crumbly = 3,
-		soil = 2
+		crumbly = 3
 	},
 	sounds = default.node_sound_dirt_defaults(),
 })
