@@ -31,6 +31,11 @@ local function check_protection(pos, name, text)
 	return false
 end
 
+core.register_privilege("bucket", {
+       description = "Can use buckets everywhere",
+       give_to_singleplayer = true,
+})
+
 -- Register a new liquid
 --   source = name of the source node
 --   flowing = name of the flowing node
