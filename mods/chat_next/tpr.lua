@@ -125,10 +125,10 @@ function chatnext.tpr_accept(name, param)
 		return
 	end
 
-	core.chat_send_player(name2, "Request Accepted!")
 	core.chat_send_player(name, chatmsg)
 
 	p = source:getpos()
 	p = find_free_position_near(p)
 	target:setpos(p)
+	return true, "Request Accepted!"
 end
