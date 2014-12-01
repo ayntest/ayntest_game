@@ -123,7 +123,8 @@ for _,plant in pairs(PLANTS) do
 				return
 			end
 
-			if under.name ~= 'hydro:promix' then
+			if under.name ~= 'hydro:promix' and
+				under.name ~= 'farming:soil_wet' then
 				return
 			end
 			
