@@ -838,7 +838,6 @@ minetest.register_node("default:chest_locked", {
 		minetest.log("action", player:get_player_name()..
 				" takes stuff from locked chest at "..minetest.pos_to_string(pos))
 	end,
-	--[[
 	on_rightclick = function(pos, node, clicker)
 		local meta = minetest.get_meta(pos)
 		local name = clicker:get_player_name()
@@ -852,7 +851,6 @@ minetest.register_node("default:chest_locked", {
 			minetest.sound_play( 'default_chest_locked', { to_player = name, gain = 0.7 } )
 		end
 	end,
-	]]--
 })
 
 function default.furnace_active(pos, percent, item_percent)
