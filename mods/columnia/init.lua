@@ -645,7 +645,7 @@ columnia.register_column_ia("junglewood", "default:junglewood",
 		"Junglewood Column Linkdown",
 		default.node_sound_wood_defaults())
 
-if core.get_modpath( 'moretrees' ) then
+if core.get_modpath('moretrees') then
 	local morewood = {
 		{ name='beech',			description='Beech Tree' },
 		{ name='apple_tree',	description='Apple Tree' },
@@ -672,4 +672,20 @@ if core.get_modpath( 'moretrees' ) then
 			t.description .. ' Column Linkdown',
 			default.node_sound_wood_defaults())
 	end
+end
+
+if core.get_modpath('moreblocks') then
+	stairsplus:register_all(
+                'columnia', 
+                'rusty_block',
+                'columnia:rusty_block',
+                {
+                        description = 'Rusty Block',
+                        tiles = {
+				'columnia_rusty_block.png'
+			},
+                        groups = {cracky=3},
+                        sounds = default.node_sound_stone_defaults(),
+                }
+        )
 end
