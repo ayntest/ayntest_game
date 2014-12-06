@@ -283,6 +283,7 @@ minetest.register_node("default:jungleleaves", {
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
+	after_place_node = default.after_place_leaves,
 })
 
 minetest.register_node("default:junglesapling", {
@@ -347,6 +348,7 @@ minetest.register_node("default:leaves", {
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
+	after_place_node = default.after_place_leaves,
 })
 
 minetest.register_node("default:cactus", {
@@ -1500,6 +1502,7 @@ minetest.register_node("default:pine_needles",{
 		}
 	},
 	sounds = default.node_sound_leaves_defaults(),
+	after_place_node = default.after_place_leaves,
 })
 
 minetest.register_node("default:pine_sapling", {
