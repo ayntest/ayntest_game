@@ -2,7 +2,7 @@
 --	Bank node for the mod: currency (by Dan Duncombe)
 --License: WTFPL
 
-local file_path = minetest.get_worldpath() .. "/bitchange_bank_currency"
+local file_path = core.get_worldpath() .. "/bitchange_bank_currency"
 local exchange_worth = 8 -- default worth in "money" for 10 MineCoins, change if not okay
 local bank = {}
 local changes_made = false
@@ -28,7 +28,7 @@ local function save_exchange_rate()
 end
 
 local ttime = 0
-minetest.register_globalstep(function(t)
+core.register_globalstep(function(t)
         ttime = ttime + t
         if ttime < 240 then --every 4min'
                 return
@@ -40,7 +40,7 @@ minetest.register_globalstep(function(t)
 		ttime = 0
 end)
 
-minetest.register_on_shutdown(function() 
+core.register_on_shutdown(function() 
 	if(changes_made) then
 		save_exchange_rate()
 	end
@@ -70,7 +70,7 @@ local function get_bank_formspec(number, pos)
 	return formspec
 end
 
-minetest.register_on_player_receive_fields(function(sender, formname, fields)
+core.register_on_player_receive_fields(function(sender, formname, fields)
 	if(formname == "bitchange:bank_formspec") then
 		local player_name = sender:get_player_name()
 		if(fields.quit)  then
@@ -81,7 +81,7 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 			exchange_worth = 1
 		end
 		local pos = bank[player_name]
-		local bank_inv = minetest.get_meta(pos):get_inventory()
+		local bank_inv = core.get_meta(pos):get_inventory()
 		local player_inv = sender:get_inventory()
 		local coin_stack = "bitchange:minecoin 10"
 		local geld_stack = "currency:minegeld "
@@ -148,12 +148,12 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 			end
 		end
 		if(err_msg ~= "") then
-			minetest.chat_send_player(player_name, "Bank: "..err_msg)
+			core.chat_send_player(player_name, "Bank: "..err_msg)
 		end
 	end
 end)
 
-minetest.register_node("bitchange:bank", {
+core.register_node("bitchange:bank", {
 	description = "Bank",
 	tiles = {"bitchange_bank_side.png", "bitchange_bank_side.png",
 			 "bitchange_bank_side.png", "bitchange_bank_side.png",
@@ -162,13 +162,13 @@ minetest.register_node("bitchange:bank", {
 	groups = {cracky=1,level=1},
 	sounds = default.node_sound_stone_defaults(),
 	after_place_node = function(pos, placer)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name())
 		meta:set_string("infotext", "Bank (owned by "..
 				meta:get_string("owner")..")")
 	end,
 	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("infotext", "Bank (constructing)")
 		meta:set_string("formspec", "")
 		meta:set_string("owner", "")
@@ -176,7 +176,7 @@ minetest.register_node("bitchange:bank", {
 		inv:set_size("coins", 8*3)
 	end,
 	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if(meta:get_string("owner") == player:get_player_name()) then
 			return meta:get_inventory():is_empty("coins")
 		else
@@ -190,24 +190,24 @@ minetest.register_node("bitchange:bank", {
 		if(clicker:get_player_control().aux1) then
 			view = 2
 		end
-		minetest.show_formspec(player_name,"bitchange:bank_formspec",get_bank_formspec(view, pos))
+		core.show_formspec(player_name,"bitchange:bank_formspec",get_bank_formspec(view, pos))
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if(bitchange_has_access(meta:get_string("owner"), player:get_player_name())) then
 			return count
 		end
 		return 0
 	end,
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if (bitchange_has_access(meta:get_string("owner"), player:get_player_name())) then
 			return stack:get_count()
 		end
 		return 0
 	end,
     allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if (bitchange_has_access(meta:get_string("owner"), player:get_player_name())) then
 			return stack:get_count()
 		end
