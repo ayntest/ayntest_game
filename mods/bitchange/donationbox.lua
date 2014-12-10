@@ -1,7 +1,7 @@
 --Created by Krock for the BitChange mod
 --License: WTFPL
 
-minetest.register_node("bitchange:donationbox", {
+core.register_node("bitchange:donationbox", {
 	description = "Donation box",
 	tiles = {"default_wood.png"},
 	drawtype = "nodebox",
@@ -27,7 +27,7 @@ minetest.register_node("bitchange:donationbox", {
 		},
 	},
 	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("infotext", "Donation box (constructing)")
 		meta:set_string("owner", "")
 		local inv = meta:get_inventory()
@@ -35,7 +35,7 @@ minetest.register_node("bitchange:donationbox", {
 	end,
 	after_place_node = function(pos, placer, itemstack)
 		local owner = placer:get_player_name()
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("formspec", "size[8,8;]"..
 				"label[2,0;Donation box (owned by "..owner..")]"..
 				"list[current_name;main;2,1;4,2;]"..
@@ -44,7 +44,7 @@ minetest.register_node("bitchange:donationbox", {
 		meta:set_string("owner", owner)
 	end,
 	can_dig = function(pos, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local inv = meta:get_inventory()
 		if not inv:is_empty("main") then
 			return false
@@ -60,7 +60,7 @@ minetest.register_node("bitchange:donationbox", {
 		return stack:get_count()
 	end,
     allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if(not bitchange_has_access(meta:get_string("owner"), player:get_player_name())) then
 			return 0
 		end
@@ -68,7 +68,7 @@ minetest.register_node("bitchange:donationbox", {
 	end,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'bitchange:donationbox',
 	recipe = {
 		{'default:wood', '', 'default:wood'},
