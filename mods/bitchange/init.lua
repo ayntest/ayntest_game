@@ -2,10 +2,6 @@
 local mod_path = core.get_modpath("bitchange")
 local world_path = core.get_worldpath()
 
-if freeminer then
-	core.= freeminer
-end
-
 dofile(mod_path.."/config.default.txt")
 -- Copied from moretrees mod
 if io.open(world_path.."/bitchange_config.txt","r") == nil then
