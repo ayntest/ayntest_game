@@ -4,7 +4,7 @@
 
 -- Node definitions
 --[[
-minetest.register_node("bitchange:minecoin_in_ground", {
+core.register_node("bitchange:minecoin_in_ground", {
 	description = "MineCoin Ore",
 	tile_images = { "default_stone.png^bitchange_minecoin_in_ground.png" },
 	is_ground_content = true,
@@ -19,7 +19,7 @@ minetest.register_node("bitchange:minecoin_in_ground", {
 	},
 })
 
-minetest.register_node("bitchange:mineninth_in_ground", {
+core.register_node("bitchange:mineninth_in_ground", {
 	description = "MineNinth Ore",
 	tile_images = { "default_stone.png^bitchange_mineninth_in_ground.png" },
 	is_ground_content = true,
@@ -36,7 +36,7 @@ minetest.register_node("bitchange:mineninth_in_ground", {
 })
 ]]--
 
-minetest.register_node("bitchange:minecoinblock", {
+core.register_node("bitchange:minecoinblock", {
 	description = "MineCoin Block",
 	tile_images = { "bitchange_minecoinblock.png" },
 	is_ground_content = true,
@@ -45,25 +45,25 @@ minetest.register_node("bitchange:minecoinblock", {
     stack_max = 30000,
 })
 
-minetest.register_craftitem("bitchange:minecoin", {
+core.register_craftitem("bitchange:minecoin", {
 	description = "MineCoin",
 	inventory_image = "bitchange_minecoin.png",
     stack_max = 30000,
 })
 
-minetest.register_craftitem("bitchange:mineninth", {
+core.register_craftitem("bitchange:mineninth", {
 	description = "MineNinth",
 	inventory_image = "bitchange_mineninth.png",
     stack_max = 30000,
 })
 --[[
-minetest.register_craftitem("bitchange:coinbase", {
+core.register_craftitem("bitchange:coinbase", {
 	description = "Coin base",
 	inventory_image = "bitchange_coinbase.png",
 })
 ]]--
 -- Crafting
-minetest.register_craft({
+core.register_craft({
 	output = 'bitchange:minecoinblock',
 	recipe = {
 		{'bitchange:minecoin', 'bitchange:minecoin', 'bitchange:minecoin'},
@@ -72,14 +72,14 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'bitchange:minecoin 9',
 	recipe = {
 		{'bitchange:minecoinblock'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'bitchange:minecoin',
 	recipe = {
 		{'bitchange:mineninth', 'bitchange:mineninth', 'bitchange:mineninth'},
@@ -88,7 +88,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'bitchange:mineninth 9',
 	recipe = {
 		{'bitchange:minecoin'},
@@ -96,24 +96,24 @@ minetest.register_craft({
 })
 
 --[[ Cooking
-minetest.register_craft({
+core.register_craft({
 	type = 'cooking',
 	recipe = "bitchange:coinbase",
 	output = "bitchange:mineninth",
 })
 ]]--
 
-minetest.register_craft({
+core.register_craft({
 	type = 'cooking',
 	recipe = 'default:goldblock',
 	output = 'bitchange:minecoinblock 2',
 })
-minetest.register_craft({
+core.register_craft({
 	type = 'shapeless',
 	recipe = { 'bitchange:minecoinblock', 'bitchange:minecoinblock' },
 	output = 'default:goldblock',
 })
-minetest.register_craft({
+core.register_craft({
 	type = 'cooking',
 	recipe = "bitchange:minecoinblock",
 	output = "default:gold_ingot 4",
@@ -121,7 +121,7 @@ minetest.register_craft({
 
 -- Generation
 --[[
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "bitchange:minecoin_in_ground",
 	wherein        = "default:stone",
@@ -132,7 +132,7 @@ minetest.register_ore({
 	height_min     = -18000,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "bitchange:mineninth_in_ground",
 	wherein        = "default:stone",
@@ -143,7 +143,7 @@ minetest.register_ore({
 	height_min     = -511,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "bitchange:mineninth_in_ground",
 	wherein        = "default:stone",
