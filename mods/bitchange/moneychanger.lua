@@ -3,7 +3,7 @@
 
 moneychanger = {}
 moneychanger.constructing = function(pos)
-	local meta = minetest.get_meta(pos)
+	local meta = core.get_meta(pos)
 	meta:set_string("formspec",  "size[8,7]" ..
 				"list[current_name;source;0,1;1,1;]" ..
 				"label[0,0;Input money]" ..
@@ -14,7 +14,7 @@ moneychanger.constructing = function(pos)
 				"list[current_player;main;0,3;8,4;]")
 end
 moneychanger.update_fields = function(pos, listname, index, stack, take)
-	local meta = minetest.get_meta(pos)
+	local meta = core.get_meta(pos)
 	local inv = meta:get_inventory()
 	local stack_inv = inv:get_stack(listname, index)
 	local stack_rest = inv:get_stack("rest", 1)
@@ -124,7 +124,7 @@ moneychanger.update_fields = function(pos, listname, index, stack, take)
 	return 0
 end
 
-minetest.register_node("bitchange:moneychanger", {
+core.register_node("bitchange:moneychanger", {
 	description = "Moneychanger",
 	tiles = {"bitchange_moneychanger_top.png", "bitchange_moneychanger_top.png", "bitchange_moneychanger_side.png",
 		"bitchange_moneychanger_side.png", "bitchange_moneychanger_top.png", "bitchange_moneychanger_front.png"},
@@ -137,7 +137,7 @@ minetest.register_node("bitchange:moneychanger", {
 	end,
 	after_place_node = function(pos, placer, itemstack)
 		local owner = placer:get_player_name()
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("infotext", "Moneychanger (owned by "..owner..")")
 		meta:set_string("owner",owner)
 		local inv = meta:get_inventory()
@@ -149,7 +149,7 @@ minetest.register_node("bitchange:moneychanger", {
 		return 0
 	end,
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if(not bitchange_has_access(meta:get_string("owner"), player:get_player_name())) then
 			return 0
 		end
@@ -167,14 +167,14 @@ minetest.register_node("bitchange:moneychanger", {
 		return 0
 	end,
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if(bitchange_has_access(meta:get_string("owner"), player:get_player_name())) then
 			return moneychanger.update_fields(pos, listname, index, stack, true)
 		end
 		return 0
 	end,
 	can_dig = function(pos, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local inv = meta:get_inventory()
 		if(bitchange_has_access(meta:get_string("owner"), player:get_player_name())) then
 			return inv:is_empty("source") and inv:is_empty("output") and inv:is_empty("rest")
@@ -183,7 +183,7 @@ minetest.register_node("bitchange:moneychanger", {
 	end
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'bitchange:moneychanger',
 	recipe = {
 		{'default:stone', 'bitchange:mineninth', 'default:stone'},
