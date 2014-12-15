@@ -2,8 +2,8 @@
 --License: WTFPL
 
 if(bitchange_use_quartz) then
-if(minetest.get_modpath("quartz")) then
-	minetest.register_craft({
+if(core.get_modpath("quartz")) then
+	core.register_craft({
 		output = "bitchange:coinbase",
 		recipe = {
 			{"quartz:quartz_crystal", "default:pick_diamond"},
