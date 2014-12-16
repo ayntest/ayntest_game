@@ -33,7 +33,7 @@ local function set_infotext(meta, mode)
 	meta:set_string("formspec", formspec)
 end
 
-minetest.register_node("bitchange:toolrepair", {
+core.register_node("bitchange:toolrepair", {
 	description = "Tool Repair",
 	tiles = {"bitchange_toolrepair_top.png", "bitchange_toolrepair_bottom.png", 
 		"bitchange_toolrepair_side.png", "bitchange_toolrepair_side.png", 
@@ -41,13 +41,13 @@ minetest.register_node("bitchange:toolrepair", {
 	groups = {cracky=1},
 	sounds = default.node_sound_stone_defaults(),
 	after_place_node = function(pos, placer, itemstack)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name())
 		meta:set_int("state", 0)
 		set_infotext(meta, 1)
 	end,
 	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("owner", "")
 		set_infotext(meta, 0)
 		local inv = meta:get_inventory()
@@ -58,7 +58,7 @@ minetest.register_node("bitchange:toolrepair", {
 		return 0
 	end,
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if(player:get_player_name() ~= meta:get_string("owner")) then
 			return 0
 		end
@@ -80,14 +80,14 @@ minetest.register_node("bitchange:toolrepair", {
 		return 0
 	end,
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if(bitchange_has_access(meta:get_string("owner"), player:get_player_name())) then
 			return stack:get_count()
 		end
 		return 0
 	end,
 	can_dig = function(pos, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local inv = meta:get_inventory()
 		if(bitchange_has_access(meta:get_string("owner"), player:get_player_name())) then
 			return inv:is_empty("src") and inv:is_empty("fuel")
@@ -96,7 +96,7 @@ minetest.register_node("bitchange:toolrepair", {
 	end
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'bitchange:toolrepair',
 	recipe = {
 		{'default:steel_ingot', 'group:stick', 'default:steel_ingot'},
@@ -105,12 +105,12 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = {"bitchange:toolrepair"},
 	interval = 5,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local inv = meta:get_inventory()
 		local src = inv:get_stack("src", 1)
 		local wear = src:get_wear()
