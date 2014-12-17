@@ -9,7 +9,7 @@ function get_warehouse_tube_config(mode)
 		else
 			return {
 				insert_object = function(pos, node, stack, direction)
-					local meta = minetest.get_meta(pos)
+					local meta = core.get_meta(pos)
 					local inv = meta:get_inventory()
 					if(inv:room_for_item("main",stack)) then
 						return inv:add_item("main",stack)
@@ -18,7 +18,7 @@ function get_warehouse_tube_config(mode)
 					end
 				end,
 				can_insert = function(pos, node, stack, direction)
-					local meta = minetest.get_meta(pos)
+					local meta = core.get_meta(pos)
 					local inv = meta:get_inventory()
 					if(inv:room_for_item("main",stack)) then
 						return true
@@ -51,7 +51,7 @@ function get_warehouse_tube_config(mode)
 	end
 end
 
-minetest.register_node("bitchange:warehouse", {
+core.register_node("bitchange:warehouse", {
 	description = "Warehouse (Locked)",
 	tiles = {"bitchange_warehouse_top.png", 
 			"bitchange_warehouse_top.png", 
@@ -65,13 +65,13 @@ minetest.register_node("bitchange:warehouse", {
 	legacy_facedir_simple = true,
 	sounds = {name="default_hard_footstep", gain=1.0},
 	after_place_node = function(pos, placer)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name() or "")
 		meta:set_string("infotext", "Warehouse (owned by "..
 				meta:get_string("owner")..")")
 	end,
 	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("formspec", "size[12,10;]"..
 				'button_exit[-0.3,-0.5;1,1;exit;X]'..
 				"label[0,0;Warehouse]"..
@@ -89,33 +89,33 @@ minetest.register_node("bitchange:warehouse", {
 		inv:set_size("main2", 12*4)
 	end,
 	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
+		local meta = core.get_meta(pos);
 		local inv = meta:get_inventory()
 		return inv:is_empty("main") and inv:is_empty("main2") and inv:is_empty("worksp")
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if(not bitchange_has_access(meta:get_string("owner"), player:get_player_name())) then
 			return 0
 		end
 		return count
 	end,
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if(not bitchange_has_access(meta:get_string("owner"), player:get_player_name())) then
 			return 0
 		end
 		return stack:get_count()
 	end,
     allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if(not bitchange_has_access(meta:get_string("owner"), player:get_player_name())) then
 			return 0
 		end
 		return stack:get_count()
 	end,
 	on_receive_fields = function(pos, formname, fields, sender)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if(not bitchange_has_access(meta:get_string("owner"), sender:get_player_name())) then
 			return
 		end
@@ -144,7 +144,7 @@ minetest.register_node("bitchange:warehouse", {
 	end,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'bitchange:warehouse',
 	recipe = {
 		{'default:chest_locked', 'bitchange:minecoinblock', 'default:chest_locked'},
