@@ -40,7 +40,7 @@ core.register_globalstep(function ( dtime )
 end)
 
 core.register_on_joinplayer(function(player)
-	name = player:get_player_name()
+	local name = player:get_player_name()
 	if player_hud[name] ~= nil then
 		player:hud_remove(player_hud[name]);
 		player_hud[name] = nil
