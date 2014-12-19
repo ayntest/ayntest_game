@@ -15,7 +15,7 @@ function fences.register_fence(name, texture, desc, craftitem, craftoutput, grou
 		}
 	end
 	
-	minetest.register_node(":fences:" .. name, {
+	core.register_node(":fences:" .. name, {
 		description = desc,
 		drawtype = "fencelike",
 		tiles = {texture},
@@ -31,7 +31,7 @@ function fences.register_fence(name, texture, desc, craftitem, craftoutput, grou
 		sounds = sounds,
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = 'fences:' .. name .. ' ' .. craftoutput,
 		recipe = recipe
 	})
@@ -54,7 +54,7 @@ fences.register_fence("desert_stonebrick", "default_desert_stone_brick.png", "De
 		{cracky=2, stone=1}, default.node_sound_stone_defaults())
 
 
-minetest.register_craft({
+core.register_craft({
 	type = "fuel",
 	recipe = "fences:wood",
 	burntime = 15,
@@ -86,4 +86,4 @@ if core.get_modpath( 'moretrees' ) then
 	end
 end
 
-minetest.register_alias("default:fence_wood", "fences:wood")
+core.register_alias("default:fence_wood", "fences:wood")
