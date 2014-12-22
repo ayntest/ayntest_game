@@ -68,8 +68,8 @@ end
 -- Privs
 core.register_privilege("bitchange", "Can access to owned nodes of the bitchange mod")
 
-function bitchange_has_access(owner, player_name)
-	return (player_name == owner or owner == "" or core.check_player_privs( name, { access=true } ) == true)
+function bitchange_has_access(owner, name)
+	return name == owner or owner == "" or core.check_player_privs(name, { access=true } ) == true
 end
 
 print("[BitChange] Loaded.")
