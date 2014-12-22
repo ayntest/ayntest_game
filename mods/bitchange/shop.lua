@@ -293,10 +293,10 @@ core.register_node("bitchange:shop", {
 	end,
 	on_rightclick = function(pos, node, clicker, itemstack)
 		local meta = core.get_meta(pos)
-		local player_name = clicker:get_player_name()
+		local name = clicker:get_player_name()
 		local view = 0
 		exchange_shop[player_name] = pos
-		if player_name == meta:get_string("owner") or core.check_player_privs( name, { access=true } ) == true then
+		if player_name == meta:get_string("owner") or core.check_player_privs(name, { access=true }) == true then
 			if(clicker:get_player_control().aux1) then
 				view = 1
 			else
@@ -305,7 +305,7 @@ core.register_node("bitchange:shop", {
 		else
 			view = 1
 		end
-		core.show_formspec(player_name, "bitchange:shop_formspec", get_exchange_shop_formspec(view, pos, meta:get_string("title")))
+		core.show_formspec(name, "bitchange:shop_formspec", get_exchange_shop_formspec(view, pos, meta:get_string("title")))
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		local meta = core.get_meta(pos)
