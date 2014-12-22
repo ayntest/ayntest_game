@@ -295,8 +295,8 @@ core.register_node("bitchange:shop", {
 		local meta = core.get_meta(pos)
 		local name = clicker:get_player_name()
 		local view = 0
-		exchange_shop[player_name] = pos
-		if player_name == meta:get_string("owner") or core.check_player_privs(name, { access=true }) == true then
+		exchange_shop[name] = pos
+		if name == meta:get_string("owner") or core.check_player_privs(name, { access=true }) == true then
 			if(clicker:get_player_control().aux1) then
 				view = 1
 			else
