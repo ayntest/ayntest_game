@@ -1,6 +1,3 @@
-Minetest 0.4.x mod: xpanes
-==========================
-
 License:
 --------
 Copyright (C) xyz
