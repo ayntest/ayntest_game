@@ -14,10 +14,6 @@ FORUM:          http://forum.minetest.net/viewtopic.php?id=4542
 
 Changelog
 
-1.0
-* dart gun and darts
-* Bamboo roots
-
 0.4
 * Uses plants_lib for spawning on generate
 * Spawns less frequently and with more spread
