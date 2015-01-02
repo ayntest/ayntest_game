@@ -1,5 +1,3 @@
-Minetest 0.4 mod: boats
-=======================
 by PilzAdam, slightly modified for NeXt
 
 License of source code:
